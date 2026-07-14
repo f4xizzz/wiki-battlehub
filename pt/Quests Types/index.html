@@ -1,0 +1,1798 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Quests%20Config/">
+      
+      
+        <link rel="next" href="../Quests%20Custom%20Example/">
+      
+      
+        
+          <link rel="alternate" href="../../Quests%20Types/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="pt">
+        
+      
+      
+      <link rel="icon" href="../../assets/icon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Quests Types - Cobblemon BattleHUB Wiki</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+  <style>
+    /* 1. Faz o título aparecer e define o tamanho da fonte */
+    .md-header__title {
+        display: block !important; 
+        font-size: 28px !important; /* Ajuste o tamanho aqui */
+        font-weight: bold !important;
+        color: white !important; /* Garante a cor branca no fundo vermelho */
+        margin-left: 15px !important; /* Espaçamento entre a logo e o texto */
+    }
+    /* Força o tamanho da logo no cabeçalho */
+    .md-header .md-logo img {
+        height: 80px !important;
+        max-height: 70px !important;
+        width: auto !important;
+    }
+    /* Ajusta o container */
+    .md-header__button.md-logo {
+        height: 70px !important;
+        padding: 0 !important;
+    }
+    /* Ajusta a barra do cabeçalho */
+    .md-header {
+        height: 80px !important;
+    }
+/* 3. APLICAÇÃO DA COR (Aqui está o segredo: seletores mais específicos) */
+    [data-md-color-scheme="default"], 
+    [data-md-color-scheme="slate"] {
+        --md-primary-fg-color: #6d1327 !important; 
+        --md-primary-fg-color--light: #490a18 !important;
+        --md-accent-fg-color: #ffffff !important;
+    }
+    .md-nav__item--nested > .md-nav__link {
+    color: #ac1838 !important; /* Coloque o seu HEX aqui */
+    font-weight: bold !important; /* Opcional: para destacar ainda mais */
+}
+  </style>
+
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quests-types" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="Cobblemon BattleHUB Wiki" class="md-header__button md-logo" aria-label="Cobblemon BattleHUB Wiki" data-md-component="logo">
+      
+  <img src="../../assets/icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cobblemon BattleHUB Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quests Types
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Selecione o idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../Quests%20Types/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="pt" class="md-select__link">
+              Português
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cobblemon BattleHUB Wiki" class="md-nav__button md-logo" aria-label="Cobblemon BattleHUB Wiki" data-md-component="logo">
+      
+  <img src="../../assets/icon.png" alt="logo">
+
+    </a>
+    Cobblemon BattleHUB Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependencies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FAQs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Server%20Config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chat%20Config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Queue%20Config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Queue Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage (DataBase)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Battles
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Battles
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Battle%20Formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Battle Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ban%20Presets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ban Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ladder%20Config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ladder Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ladder%20Custom%20Example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ladder Custom Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spectate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spectate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ranks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ranks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Team%20Validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Prevention%20of%20Abandonment%20%26%20Safe%20Rescue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prevention of Abandonment & Safe Rescue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Quests%20Config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests Types
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-missoes-e-gatilhos-de-progresso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de Missões e Gatilhos de Progresso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-de-gatilhos-e-comportamentos-questtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela de Gatilhos e Comportamentos (QuestType)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-funcionamento-do-filtro-de-formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Funcionamento do Filtro de Formato
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Funcionamento do Filtro de Formato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-pratico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo Prático:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Quests%20Custom%20Example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests Custom Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shop
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Shop
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Products%20and%20Bundles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Products and Bundles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PokemonRotation%20Config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PokemonRotation Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tournament
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tournament
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20does%20it%20work/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How does it work?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Webhook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tournament%20Commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tournament Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tournament%20Example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tournament Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-missoes-e-gatilhos-de-progresso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de Missões e Gatilhos de Progresso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-de-gatilhos-e-comportamentos-questtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela de Gatilhos e Comportamentos (QuestType)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-funcionamento-do-filtro-de-formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Funcionamento do Filtro de Formato
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Funcionamento do Filtro de Formato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-pratico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo Prático:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="quests-types"><strong>Quests Types</strong></h1>
+<hr />
+<h2 id="tipos-de-missoes-e-gatilhos-de-progresso"><strong>Tipos de Missões e Gatilhos de Progresso</strong></h2>
+<p>O <strong>Cobblemon BattleHUB</strong> vem equipado com um leque variado de objetivos de combate. O comportamento de cada missão é determinado pelo seu type.</p>
+<p>Abaixo encontra-se a tabela detalhada de todos os tipos de missões suportados nativamente, como o progresso é calculado e como usar o parâmetro typeFilter em cada cenário.</p>
+<hr />
+<h2 id="tabela-de-gatilhos-e-comportamentos-questtype"><strong>Tabela de Gatilhos e Comportamentos (QuestType)</strong></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Chave Técnica (type)</th>
+<th style="text-align: left;">Filtro (typeFilter)</th>
+<th style="text-align: left;">Comportamento e Progresso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>PLAY_MATCHES</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso por cada partida completada (Ranqueada ou Casual) até ao fim.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>WIN_MATCHES</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso sempre que o jogador vencer uma partida em qualquer fila.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>WIN_RANKED</code></strong></td>
+<td style="text-align: left;">Formato (ex: singles, doubles)</td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso se o jogador vencer uma partida <strong>Competitiva</strong> que corresponda ao formato do filtro. Se o filtro for null, aceita qualquer formato ranqueado.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>PLAY_RANKED</code></strong></td>
+<td style="text-align: left;">Formato (ex: singles, doubles)</td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso se o jogador completar uma partida <strong>Competitiva</strong> no formato especificado.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>PLAY_CASUAL</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso ao completar partidas nas filas Casuais do servidor.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>WIN_STREAK</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Acumula vitórias consecutivas. Se o jogador vencer, ganha <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso. <strong>Atenção:</strong> Caso o jogador perca uma partida, o progresso desta missão volta a ser redefinido para <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAWCAYAAAASEbZeAAAA30lEQVR4XmNgGMRARkaGU15ePgqIZwFxl6KiojqKAiUlJX6gxG4gbhYVFeVRUFAwALKvAXEwXJGcnFw5UOA0kBaEiQH50UB8HWiiOEiBIEgBUPdCuC4gkJWVNQWKfwHSfiAdmkD8Fl0RULMxUPwrELfCObgUgcWBHF8g5z9eRUCGJ0FFxFqnBOQ8x6UIiKsYQIEHZBwA4q1AhRxIilyAYr9ANEwgBogfAQUVoWoYgexmID4Big2wiLGxMStQ0XSg4H6gaQFQBVdB0QPVBAeMQF1qQMUhwKiwA2lEVzCYAAC0J0evUZaWqQAAAABJRU5ErkJggg==" />!</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>USE_TYPE</code></strong></td>
+<td style="text-align: left;">Tipo Elemental (ex: fire, ghost)</td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso se o jogador completar uma batalha utilizando pelo menos <strong>um</strong> Pokémon do tipo correspondente na sua equipa principal.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>WIN_WITH_ALIVE</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso sempre que o jogador vencer uma partida (focado em estratégias de sobrevivência).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>WIN_FAST</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso se o jogador vencer a partida num total de <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAWCAYAAAAmaHdCAAABMklEQVR4XmNgGAV4gby8vCMQvwbi/yAsJye3Q0ZGhhMmr6KiwqegoLALJg/F65DNgAFGoMQsIP4FxD+B2BJdAVAsCIjXIFuAAoC2CwJtWwik86E2TQEKMyKrAYoVAXE0shgKUFRU1Aca0A9UJAnE14H4CRArIilhAfJng9QhiaECkA1Al6SD2EC6AeqaHJi8lJSUCNSlgghdaACooQ+owBjElpWV1QHy3wPxCSUlJX6QGFDOBsifjKoLCcDCA2QbVAjk9OVA/A8o7gESALkSb3ggewUGQC4AuQTqIidCXgFF7WSgF0zRJYCaYqBhcw1oSCe6PBxg8QocAGNCXB4SUyCD8HrFCYjXAQ3hQpcDAWhMvQViTXQ5kAtcgBJfoLaAMCiVeqOrA8UUKBvgC49RMBgBAJmsUaA7kqF0AAAAAElFTkSuQmCC" /> turnos ou menos (onde <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAWCAYAAAAmaHdCAAABMklEQVR4XmNgGAV4gby8vCMQvwbi/yAsJye3Q0ZGhhMmr6KiwqegoLALJg/F65DNgAFGoMQsIP4FxD+B2BJdAVAsCIjXIFuAAoC2CwJtWwik86E2TQEKMyKrAYoVAXE0shgKUFRU1Aca0A9UJAnE14H4CRArIilhAfJng9QhiaECkA1Al6SD2EC6AeqaHJi8lJSUCNSlgghdaACooQ+owBjElpWV1QHy3wPxCSUlJX6QGFDOBsifjKoLCcDCA2QbVAjk9OVA/A8o7gESALkSb3ggewUGQC4AuQTqIidCXgFF7WSgF0zRJYCaYqBhcw1oSCe6PBxg8QocAGNCXB4SUyCD8HrFCYjXAQ3hQpcDAWhMvQViTXQ5kAtcgBJfoLaAMCiVeqOrA8UUKBvgC49RMBgBAJmsUaA7kqF0AAAAAElFTkSuQmCC" /> é o valor definido em targetAmount).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>PLAY_LONG</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso se a partida demorar <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAWCAYAAAAmaHdCAAABMklEQVR4XmNgGAV4gby8vCMQvwbi/yAsJye3Q0ZGhhMmr6KiwqegoLALJg/F65DNgAFGoMQsIP4FxD+B2BJdAVAsCIjXIFuAAoC2CwJtWwik86E2TQEKMyKrAYoVAXE0shgKUFRU1Aca0A9UJAnE14H4CRArIilhAfJng9QhiaECkA1Al6SD2EC6AeqaHJi8lJSUCNSlgghdaACooQ+owBjElpWV1QHy3wPxCSUlJX6QGFDOBsifjKoLCcDCA2QbVAjk9OVA/A8o7gESALkSb3ggewUGQC4AuQTqIidCXgFF7WSgF0zRJYCaYqBhcw1oSCe6PBxg8QocAGNCXB4SUyCD8HrFCYjXAQ3hQpcDAWhMvQViTXQ5kAtcgBJfoLaAMCiVeqOrA8UUKBvgC49RMBgBAJmsUaA7kqF0AAAAAElFTkSuQmCC" /> turnos ou mais para ser concluída (ou ultrapassar o limite geral de 20 turnos).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>WIN_BY_FORFEIT</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso se o oponente desistir da partida (render-se/Alt+F4), atribuindo a vitória ao jogador.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>PLAY_NO_FORFEIT</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso ao completar uma partida inteira sem que ocorram desistências de nenhum dos lados.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>PLAY_MONOTYPE</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Incrementa <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> de progresso se o jogador participar de uma batalha com uma equipa que cumpre as regras do Monotype (todos partilham um tipo comum).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>KNOCKOUT_TOTAL</code></strong></td>
+<td style="text-align: left;"><em>Não Utilizado</em></td>
+<td style="text-align: left;">Auxilia no progresso de nocautes de forma equilibrada. Soma <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAYAAAArdgcFAAABgUlEQVR4Xu2TP0vDUBTFU1QQVBQkBtukadNAR5V8AXEQFxfRqaObq5siCPopRJAOTg5OOouOQp2KiyKC6KabuNT6u22SpheR+GcReuDQ++4997x330sNo4d/Cdd1J+EW3IPr2WzW0ZofIZ/PL2J4WiwWp3zfN4l34Btc0toYiC05iWVZQ7oWoVAoDKI5gS9wRnJs5hE/wbrWx5BRaa6apjmsaxFC82PYIJ6VXC6Xs1k/wFsl7yCNuUA2wHCcMBOuF+h9h/tK2kFa8yTk1PSc03spsa7H+I55qVSaQH8RXkdNHtcIJ5FRxsQsSRHwe2Tbtq9rX21IfQ6+4rltyNfAYtNtf6NJHsI7Xv/gk9qqNo1QLpdH3PYUDV2L4aa4Fs/zRuWEaCtGdA1G6yaq5JoJaTfSmId/oCa8F73kRE989hfmAbpnuBsEwYDkwjd6hNdaHyONOcigW4N1uAEr8Are0DutxTFSmrcgd+84zjyTLMs0pPq0pgtiinCFsF/XevgVPgBM+mcIEeMAbgAAAABJRU5ErkJggg==" /> pontos se o jogador vencer a partida, ou <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> ponto em caso de derrota, refletindo a agressividade média de combates.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>MASTER_MONOTYPE</code></strong></td>
+<td style="text-align: left;">Tipo Elemental (ex: water, steel)</td>
+<td style="text-align: left;"><strong>Sincronização Direta com o Perfil:</strong> Este tipo monitoriza as vitórias totais acumuladas com equipas Monotype no banco de dados. O mod sincroniza automaticamente o progresso do jogador com o total de vitórias Monotype registadas no seu perfil estatístico global (StatsManager).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="o-funcionamento-do-filtro-de-formato"><strong>O Funcionamento do Filtro de Formato</strong></h2>
+<p>O parâmetro typeFilter possui um sistema inteligente de validação parcial (formatMatches). Ele verifica se o ID técnico da Ladder jogada contém a palavra especificada no filtro.</p>
+<h3 id="exemplo-pratico"><strong>Exemplo Prático:</strong></h3>
+<p>Se você criar uma missão com:</p>
+<ul>
+<li><code>type: "WIN_RANKED"</code>  </li>
+<li><code>typeFilter: "doubles"</code></li>
+</ul>
+<p>O sistema validará o progresso se o jogador vencer na Ladder <code>doubles_ranked</code> ou <code>doubles_50_ranked</code>, pois ambas as palavras-chave contêm o termo "doubles". Se o filtro for configurado como null ou "", o mod ignora a validação e aceita qualquer formato ranqueado.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Rodapé" >
+        
+          
+          <a href="../Quests%20Config/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Quests Config">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Quests Config
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Quests%20Custom%20Example/" class="md-footer__link md-footer__link--next" aria-label="Próximo: Quests Custom Example">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Próximo
+              </span>
+              <div class="md-ellipsis">
+                Quests Custom Example
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
