@@ -1,0 +1,90 @@
+#py -m mkdocs build --clean
+#py -m mkdocs serve
+site_name: Cobblemon BattleHUB Wiki 
+theme:
+  name: material
+  language: en
+  favicon: assets/icon.png
+  logo: assets/icon.png
+  custom_dir: overrides
+  palette: 
+    - scheme: slate
+      primary: red
+      accent: red 
+      toggle:     
+        icon: material/brightness-7
+        name: Switch to light mode
+    - scheme: default      
+      primary: red 
+      accent: red
+      toggle:
+        icon: material/brightness-4 
+        name: Switch to dark mode 
+       
+  features:
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+    - navigation.footer
+
+plugins:
+  - search
+  - i18n:
+      languages:
+        - locale: en 
+          name: English
+          default: true
+        - locale: pt
+          name: Português
+          docs_path: pt
+      fallback_to_default: true
+
+nav:
+  - Getting Started:   
+      - Introduction: Introduction.md
+      - Dependencies: Dependencies.md
+      - Installation: Installation.md
+      - Commands: Commands.md
+      - FAQs: FAQs.md
+
+  - Configs:
+      - Server Config: Server Config.md
+      - Chat Config: Chat Config.md
+      - Queue Config: Queue Config.md
+      - Announcements: Announcements.md
+      - Storage (DataBase): Storage.md
+
+  - Battles: 
+      - Battle Formats: Battle Formats.md
+      - Ban Presets: Ban Presets.md
+      - Ladder Config: Ladder Config.md
+      - Ladder Custom Example: Ladder Custom Example.md
+      - Spectate: Spectate.md
+      - Ranks: Ranks.md
+      - Team Validation: Team Validation.md
+      - Prevention of Abandonment & Safe Rescue: Prevention of Abandonment & Safe Rescue.md
+
+  - Quests: 
+      - Quests Config: Quests Config.md
+      - Quests Types: Quests Types.md
+      - Quests Custom Example: Quests Custom Example.md
+
+  - Shop: 
+      - Products and Bundles: Products and Bundles.md
+      - PokemonRotation Config: PokemonRotation Config.md
+      
+  - Tournament: 
+      - How does it work?: How does it work.md
+      - Webhook: Webhook.md
+      - Tournament Commands: Tournament Commands.md
+      - Tournament Example: Tournament Example.md
+
+markdown_extensions:
+  - attr_list: {}            # <-- ADICIONE ISSO (Permite aplicar classes CSS no markdown)
+  - md_in_html: {}
+  - admonition: {}           # Habilita o uso de !!! note, !!! warning, etc [cite: 378]
+  - pymdownx.details: {}     # Permite blocos de expansão (detalhes) [cite: 391]
+  - pymdownx.superfences: {} # Melhor suporte para blocos de código [cite: 391]
+  - pymdownx.emoji:          # Opcional: para usar emojis no texto
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg

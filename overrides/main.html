@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block styles %}
+  {{ super() }}
+  <style>
+    /* 1. Faz o título aparecer e define o tamanho da fonte */
+    .md-header__title {
+        display: block !important; 
+        font-size: 28px !important; /* Ajuste o tamanho aqui */
+        font-weight: bold !important;
+        color: white !important; /* Garante a cor branca no fundo vermelho */
+        margin-left: 15px !important; /* Espaçamento entre a logo e o texto */
+    }
+    /* Força o tamanho da logo no cabeçalho */
+    .md-header .md-logo img {
+        height: 80px !important;
+        max-height: 70px !important;
+        width: auto !important;
+    }
+    /* Ajusta o container */
+    .md-header__button.md-logo {
+        height: 70px !important;
+        padding: 0 !important;
+    }
+    /* Ajusta a barra do cabeçalho */
+    .md-header {
+        height: 80px !important;
+    }
+/* 3. APLICAÇÃO DA COR (Aqui está o segredo: seletores mais específicos) */
+    [data-md-color-scheme="default"], 
+    [data-md-color-scheme="slate"] {
+        --md-primary-fg-color: #6d1327 !important; 
+        --md-primary-fg-color--light: #490a18 !important;
+        --md-accent-fg-color: #ffffff !important;
+    }
+    .md-nav__item--nested > .md-nav__link {
+    color: #ac1838 !important; /* Coloque o seu HEX aqui */
+    font-weight: bold !important; /* Opcional: para destacar ainda mais */
+}
+  </style>
+{% endblock %} 
+

@@ -1,0 +1,1487 @@
+# -*- coding: utf-8 -*-
+import discord
+from discord.ext import commands, tasks
+from discord import app_commands
+import os
+from dotenv import load_dotenv
+import asyncio
+from datetime import datetime, timedelta, timezone
+import logging
+import traceback
+from collections import defaultdict
+import json
+from urllib.parse import quote
+from enum import Enum
+from functools import partial
+import copy
+import sys
+import stripe
+from aiohttp import web
+
+load_dotenv()
+
+# Stripe Configuration
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
+WEBHOOK_PORT = int(os.getenv("PORT", 8080))
+
+# --- SINGLE SERVER LOCK ---
+ALLOWED_GUILD_ID = os.getenv("GUILD_ID") 
+if ALLOWED_GUILD_ID:
+    ALLOWED_GUILD_ID = int(ALLOWED_GUILD_ID)
+
+# Time Variables
+TIME_ORDER_TIMEOUT = 24     # Hours to cancel order without payment
+TIME_THREAD_CLOSE = 48      # Hours to close thread after confirmation
+AUTO_SAVE_INTERVAL = 60     # Seconds for automatic DB backup
+
+# Admin ID (Hardcoded for emergencies, optional)
+HARDCODED_ADMIN_ROLE_ID = 0 
+  
+class OrderStatus(Enum):
+    PENDING = "Pending_Payment"
+    CONFIRMED = "Confirmed"
+    CANCELLED = "Cancelled"
+
+class StockStatus(Enum):
+    AVAILABLE = "available"
+    RESERVED = "reserved"
+    SOLD = "sold"
+    INFINITE = "infinite"
+    ARCHIVED = "archived"
+
+# Logger configuration
+handler = logging.StreamHandler()
+handler.setFormatter(logging.Formatter('%(asctime)s - [%(levelname)s] - %(message)s'))
+logger = logging.getLogger('discord_bot')
+logger.setLevel(logging.INFO)
+if not logger.handlers:
+    logger.addHandler(handler)
+
+# --- IN-MEMORY DATABASE MANAGER (SINGLE TENANT) ---
+DATA_FILE = "data_single.json"
+
+class InMemoryDatabase:
+    def __init__(self, filename):
+        self.filename = filename
+        self._lock = asyncio.Lock()
+        self._db_cache = {
+            "config": {
+                "cargo_adm_id": None, "cargo_cliente_id": None,
+                "canal_feedback_id": None
+            },
+            "products": [], 
+            "orders": [], 
+            "active_catalogs": [],
+            "carts": {} # Stores {user_id: [product_ids]}
+        }
+        self._dirty = False
+        self._initialized = False
+
+    def load_from_disk(self):
+        if not os.path.exists(self.filename):
+            try:
+                with open(self.filename, 'w', encoding='utf-8') as f:
+                    json.dump(self._db_cache, f, indent=4, ensure_ascii=False)
+            except Exception as e:
+                logger.critical(f"Error creating data file: {e}")
+        else:
+            try:
+                with open(self.filename, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if "guilds" in data:
+                        logger.warning("Old format detected. Starting clean.")
+                    else:
+                        self._db_cache = data
+                        if "carts" not in self._db_cache:
+                            self._db_cache["carts"] = {}
+            except Exception as e:
+                logger.error(f"Corrupted file: {e}")
+        
+        self._initialized = True
+        logger.info(f"Database Loaded. Products: {len(self._db_cache['products'])}")
+
+    async def save_to_disk(self):
+        if not self._dirty: return
+        async with self._lock:
+            data_to_save = copy.deepcopy(self._db_cache)
+            self._dirty = False
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, partial(self._write_json_sync, data_to_save))
+
+    def _write_json_sync(self, data):
+        temp_file = f"{self.filename}.tmp"
+        try:
+            with open(temp_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=4, ensure_ascii=False)
+            os.replace(temp_file, self.filename)
+        except Exception as e:
+            logger.error(f"SAVE FAILURE: {e}")
+
+    async def force_save(self):
+        self._dirty = True 
+        await self.save_to_disk()
+    
+    # --- Config ---
+    async def get_config(self):
+        async with self._lock:
+            return copy.deepcopy(self._db_cache["config"])
+
+    async def update_config(self, new_config):
+        async with self._lock:
+            self._db_cache["config"].update(new_config)
+            self._dirty = True
+        await self.force_save()
+
+    # --- Products ---
+    async def get_products(self, status_filter=None, exclude_status=None, category=None):
+        async with self._lock:
+            products = self._db_cache["products"]
+            modified = False
+            for p in products:
+                if 'deliverables' not in p:
+                    p['deliverables'] = [p['entregavel']] if p.get('entregavel') else []
+                    modified = True
+                if 'categoria' not in p:
+                    p['categoria'] = "General"
+                    modified = True
+            if modified: self._dirty = True
+
+            filtered = products
+            if status_filter:
+                filtered = [p for p in filtered if p['status'] == status_filter] if not isinstance(status_filter, list) else [p for p in filtered if p['status'] in status_filter]
+            if exclude_status:
+                filtered = [p for p in filtered if p['status'] not in exclude_status]
+            if category:
+                filtered = [p for p in filtered if p.get('categoria') == category]
+            return sorted(copy.deepcopy(filtered), key=lambda x: x['id'])
+
+    async def get_product_by_id(self, product_id):
+        async with self._lock:
+            for p in self._db_cache["products"]:
+                if str(p['id']) == str(product_id):
+                    return copy.deepcopy(p)
+        return None
+
+    async def add_product(self, product_data):
+        async with self._lock:
+            cat = product_data.get("categoria", "General")
+            current_count = sum(1 for p in self._db_cache["products"] if p.get("categoria", "General") == cat and p.get("status") != StockStatus.ARCHIVED.value)
+            if current_count >= 25:
+                raise ValueError(f"Category '{cat}' reached the limit of 25 products.")
+
+            existing_ids = [p['id'] for p in self._db_cache['products']]
+            new_id = max(existing_ids) + 1 if existing_ids else 1
+            product_data['id'] = new_id
+            if 'deliverables' not in product_data: product_data['deliverables'] = []
+            if 'status' not in product_data: product_data['status'] = StockStatus.AVAILABLE.value
+            if 'categoria' not in product_data: product_data['categoria'] = "General"
+            self._db_cache['products'].append(product_data)
+            self._dirty = True
+        await self.force_save()
+        return copy.deepcopy(product_data)
+
+    async def delete_product(self, product_id):
+        async with self._lock:
+            self._db_cache['products'] = [p for p in self._db_cache['products'] if str(p['id']) != str(product_id)]
+            self._dirty = True
+        await self.force_save()
+
+    async def update_product(self, product_id, update_data):
+        async with self._lock:
+            updated_prod = None
+            for i, p in enumerate(self._db_cache['products']):
+                if str(p['id']) == str(product_id):
+                    if "categoria" in update_data and p.get("categoria") != update_data["categoria"]:
+                        new_cat = update_data["categoria"]
+                        current_count = sum(1 for pr in self._db_cache['products'] if pr.get("categoria", "General") == new_cat and pr.get("status") != StockStatus.ARCHIVED.value)
+                        if current_count >= 25:
+                            raise ValueError(f"Category '{new_cat}' is full.")
+                    
+                    self._db_cache['products'][i].update(update_data)
+                    updated_prod = copy.deepcopy(self._db_cache['products'][i])
+                    self._dirty = True
+                    break
+        if updated_prod: await self.force_save()
+        return updated_prod
+
+    # --- Cart ---
+    async def get_cart(self, user_id):
+        async with self._lock:
+            cart_ids = self._db_cache["carts"].get(str(user_id), [])
+            full_products = []
+            for p_id in cart_ids:
+                for prod in self._db_cache["products"]:
+                    if str(prod['id']) == str(p_id):
+                        full_products.append(copy.deepcopy(prod))
+                        break
+            return full_products
+
+    async def add_to_cart(self, user_id, product_id):
+        async with self._lock:
+            if str(user_id) not in self._db_cache["carts"]:
+                self._db_cache["carts"][str(user_id)] = []
+            self._db_cache["carts"][str(user_id)].append(str(product_id))
+            self._db_cache["carts"][str(user_id)] = self._db_cache["carts"][str(user_id)][:10]
+            self._dirty = True
+        await self.force_save()
+
+    async def clear_cart(self, user_id):
+        async with self._lock:
+            if str(user_id) in self._db_cache["carts"]:
+                del self._db_cache["carts"][str(user_id)]
+                self._dirty = True
+        await self.force_save()
+    
+    async def clear_orders_history(self):
+        async with self._lock:
+            pending_only = [o for o in self._db_cache["orders"] if o['status'] == OrderStatus.PENDING.value]
+            self._db_cache["orders"] = pending_only
+            self._dirty = True
+        await self.force_save()
+
+    # --- Orders ---
+    async def get_orders(self, status_filter=None, user_id=None):
+        async with self._lock:
+            orders = self._db_cache["orders"]
+            if status_filter:
+                 orders = [o for o in orders if o['status'] == status_filter]
+            if user_id:
+                 orders = [o for o in orders if str(o['user_id']) == str(user_id)]
+            return sorted(copy.deepcopy(orders), key=lambda x: x['id'], reverse=True)
+
+    async def get_order_by_id(self, order_id):
+        async with self._lock:
+            for o in self._db_cache["orders"]:
+                if str(o['id']) == str(order_id):
+                    return copy.deepcopy(o)
+        return None
+
+    async def add_order(self, order_data):
+        async with self._lock:
+            existing_ids = [o['id'] for o in self._db_cache['orders']]
+            new_id = max(existing_ids) + 1 if existing_ids else 1
+            order_data['id'] = new_id
+            order_data['created_at'] = datetime.now(timezone.utc).isoformat()
+            self._db_cache['orders'].append(order_data)
+            self._dirty = True
+        await self.force_save()
+        return order_data
+
+    async def update_order(self, order_id, update_data):
+        async with self._lock:
+            should_force = False
+            for i, o in enumerate(self._db_cache['orders']):
+                if str(o['id']) == str(order_id):
+                    self._db_cache['orders'][i].update(update_data)
+                    self._dirty = True
+                    should_force = "status" in update_data
+        if should_force: await self.force_save()
+        return None
+    
+    # --- Catalogs ---
+    async def add_active_catalog(self, message_id, channel_id, categories):
+        async with self._lock:
+            self._db_cache["active_catalogs"].append({
+                "message_id": message_id, "channel_id": channel_id, "categories": categories
+            })
+            self._dirty = True
+        await self.force_save()
+
+    async def get_active_catalogs(self):
+        async with self._lock:
+            return copy.deepcopy(self._db_cache["active_catalogs"])
+
+    async def remove_active_catalog(self, message_id):
+        async with self._lock:
+            self._db_cache["active_catalogs"] = [c for c in self._db_cache["active_catalogs"] if str(c["message_id"]) != str(message_id)]
+            self._dirty = True
+        await self.force_save()
+
+# Instantiate in-memory DB
+db = InMemoryDatabase(DATA_FILE)
+db.load_from_disk()
+
+# --- PIX UTILITY FUNCTIONS (DEAD CODE, CAN BE REMOVED LATER) ---
+def crc16_ccitt_false(data: str) -> str:
+    poly = 0x1021
+    crc = 0xFFFF
+    data_bytes = data.encode('utf-8')
+    for byte in data_bytes:
+        crc ^= (byte << 8)
+        for _ in range(8):
+            if crc & 0x8000:
+                crc = (crc << 1) ^ poly
+            else:
+                crc <<= 1
+            crc &= 0xFFFF
+    return f"{crc:04X}"
+
+def generate_pix_key_dynamic(valor: float, user_name: str, identifier: str, pix_config: dict) -> str:
+    chave = pix_config.get('chave') or pix_config.get('pix_chave')
+    nome = pix_config.get('nome') or pix_config.get('pix_nome') or 'NOME'
+    cidade = pix_config.get('cidade') or pix_config.get('pix_cidade') or 'CIDADE'
+    if not chave: return "PIX_KEY_NOT_CONFIGURED"
+    txid = f"{identifier}"[:25]
+    def format_field(id_str, value):
+        value_str = str(value)
+        return f"{id_str}{len(value_str):02d}{value_str}"
+    payload = "".join([
+        format_field("00", "01"),
+        format_field("26", format_field("00", "br.gov.bcb.pix") + format_field("01", chave)),
+        format_field("52", "0000"),
+        format_field("53", "986"),
+        format_field("54", f"{valor:.2f}"),
+        format_field("58", "BR"),
+        format_field("59", nome),
+        format_field("60", cidade),
+        format_field("62", format_field("05", txid))
+    ]) + "6304"
+    return payload + crc16_ccitt_false(payload)
+
+def create_success_embed(title, description):
+    return discord.Embed(title=f"✅ {title}", description=description, color=discord.Color.green())
+
+def create_error_embed(title, description):
+    return discord.Embed(title=f"❌ {title}", description=description, color=discord.Color.red())
+
+async def get_admin_role_id(bot):
+    config = await db.get_config()
+    return config.get('cargo_adm_id')
+
+async def check_admin_permission(interaction: discord.Interaction, bot) -> bool:
+    if ALLOWED_GUILD_ID and interaction.guild_id != ALLOWED_GUILD_ID:
+        return False
+    if interaction.user.guild_permissions.administrator: return True 
+    if interaction.user.id == interaction.guild.owner_id: return True
+    adm_role_id = await get_admin_role_id(bot)
+    if adm_role_id and any(r.id == adm_role_id for r in interaction.user.roles): return True
+    if HARDCODED_ADMIN_ROLE_ID != 0 and any(r.id == HARDCODED_ADMIN_ROLE_ID for r in interaction.user.roles): return True
+    return False
+
+# --- MODALS ---
+
+class GenericFieldModal(discord.ui.Modal):
+    def __init__(self, field_name, current_value, save_callback, is_long=False, max_len=None):
+        super().__init__(title=f"Edit {field_name}")
+        self.save_callback = save_callback
+        style = discord.TextStyle.long if is_long else discord.TextStyle.short
+        self.input = discord.ui.TextInput(label=field_name, default=str(current_value) if current_value else "", style=style, max_length=max_len, required=False if field_name == "Image" else True)
+        self.add_item(self.input)
+    async def on_submit(self, interaction: discord.Interaction):
+        await self.save_callback(interaction, self.input.value)
+
+class AddDeliverableModal(discord.ui.Modal, title="Add Item/Link"):
+    def __init__(self, bot, parent_view):
+        super().__init__()
+        self.bot = bot
+        self.parent_view = parent_view
+        self.content = discord.ui.TextInput(
+            label="Content or Link", 
+            style=discord.TextStyle.paragraph, 
+            placeholder="Ex: https://product-link.com or Access Key", 
+            required=True, 
+            max_length=1024
+        )
+        self.add_item(self.content)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        await self.parent_view.add_deliverable_callback(interaction, self.content.value)
+
+# --- NO PERMISSION VIEW ---
+class NoPermissionView(discord.ui.LayoutView):
+    def __init__(self):
+        super().__init__(timeout=None)
+        container = discord.ui.Container(
+            discord.ui.Section(
+                discord.ui.TextDisplay(content="This BOT only works on the buyer's server!"),
+                discord.ui.TextDisplay(content="How about buying one too? And start your own shop"),
+                discord.ui.TextDisplay(content="It's cheap, trust me 🤗 It's totally worth it"),
+                accessory=discord.ui.Thumbnail(media="https://www.shutterstock.com/shutterstock/photos/127352426/display_1500/stock-vector-emoticon-saying-no-with-his-finger-127352426.jpg"),
+            ),
+            discord.ui.TextDisplay(content="Join the server below and take a look"),
+        )
+        action_row = discord.ui.ActionRow(discord.ui.Button(url="https://discord.gg/aMDzWmH", style=discord.ButtonStyle.link, label="Join Server", emoji="😉"))
+        self.add_item(container)
+        self.add_item(action_row)
+
+# --- INVENTORY SYSTEM V2 ---
+class StockManagerLayout(discord.ui.View):
+    def __init__(self, bot, products_data):
+        super().__init__(timeout=300)
+        self.bot = bot
+        self.products = products_data 
+        self.categories = sorted(list(set(p.get("categoria", "General") for p in self.products)))
+        if not self.categories: self.categories = ["General"]
+        self.current_category = self.categories[0]
+        self.filtered_products = [p for p in self.products if p.get("categoria", "General") == self.current_category]
+        self.current_product_id = str(self.filtered_products[0]['id']) if self.filtered_products else None
+        self.selected_deliverable_index = None
+        self.update_components()
+
+    async def reload_data(self):
+        self.products = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
+        self.categories = sorted(list(set(p.get("categoria", "General") for p in self.products)))
+        if not self.categories: self.categories = ["General"]
+
+    def get_current_product(self):
+        if not self.current_product_id: return None
+        for p in self.products:
+            if str(p['id']) == str(self.current_product_id): return p
+        return None
+
+    def create_embed(self):
+        p = self.get_current_product()
+        if not p:
+            return discord.Embed(title=f"📂 {self.current_category}", description="No products in this category.\nCreate a new one below.", color=discord.Color.light_grey())
+        
+        embed = discord.Embed(title=f"📦 Editing: {p['nome']}", color=discord.Color.blue())
+        embed.add_field(name="🏷️ Category", value=p.get('categoria', 'General'), inline=True)
+        embed.add_field(name="💰 Price", value=f"${p.get('valor', 0.0):.2f} USD", inline=True)
+        
+        desc = p.get('descricao', 'No description')
+        embed.add_field(name="📝 Description", value=desc[:100] + ("..." if len(desc) > 100 else ""), inline=False)
+        
+        estoque_status = "♾️ Infinite" if p.get('infinito') else "📉 Finite (Consumable)"
+        embed.add_field(name="📊 Stock Type", value=estoque_status, inline=True)
+        
+        deliverables = p.get('deliverables', [])
+        if self.selected_deliverable_index is not None and 0 <= self.selected_deliverable_index < len(deliverables):
+            item_text = f"**Item #{self.selected_deliverable_index+1}:**\n`{deliverables[self.selected_deliverable_index]}`"
+        else:
+            item_text = f"Total items: **{len(deliverables)}**\n(Select below to view/remove)"
+        
+        embed.add_field(name="📦 Content (Links/Files)", value=item_text, inline=False)
+        if p.get('imagem_url'): embed.set_thumbnail(url=p['imagem_url'])
+        return embed
+
+    def update_components(self):
+        self.clear_items()
+        
+        # Row 0: Filter Category
+        cat_options = [discord.SelectOption(label=cat[:100], value=cat, default=(cat==self.current_category)) for cat in self.categories[:25]]
+        self.add_item(discord.ui.Select(custom_id="filter_category", options=cat_options, placeholder="📂 Filter Category", row=0))
+
+        # Row 1: Product Selection
+        if self.filtered_products:
+            nav_opts = [discord.SelectOption(label=f"#{pr['id']} {pr['nome']}"[:100], value=str(pr['id']), default=(str(pr['id'])==self.current_product_id)) for pr in self.filtered_products[:25]]
+            self.add_item(discord.ui.Select(custom_id="select_nav_product", options=nav_opts, placeholder="🔍 Select Product", row=1))
+
+        p = self.get_current_product()
+        if p:
+            # Row 2: Edit Buttons
+            self.add_item(discord.ui.Button(label="Name", style=discord.ButtonStyle.secondary, custom_id="edit_name", emoji="✏️", row=2))
+            self.add_item(discord.ui.Button(label="Price", style=discord.ButtonStyle.success, custom_id="edit_price", emoji="💲", row=2))
+            self.add_item(discord.ui.Button(label="Cat.", style=discord.ButtonStyle.secondary, custom_id="edit_category", emoji="🏷️", row=2))
+            self.add_item(discord.ui.Button(label="Desc.", style=discord.ButtonStyle.secondary, custom_id="edit_desc", emoji="📝", row=2))
+            self.add_item(discord.ui.Button(label="Image", style=discord.ButtonStyle.secondary, custom_id="edit_img", emoji="🖼️", row=2))
+
+            # Row 3: Stock Items
+            delivs = p.get('deliverables', [])
+            deliv_opts = [discord.SelectOption(label=f"Item #{i+1}", value=str(i), description=d[:30], default=(i==self.selected_deliverable_index)) for i, d in enumerate(delivs[:25])]
+            if not deliv_opts: deliv_opts.append(discord.SelectOption(label="No items", value="-1"))
+            self.add_item(discord.ui.Select(custom_id="select_deliverable", options=deliv_opts, placeholder="📦 View Items/Links", disabled=(not delivs), row=3))
+            
+            # Row 4: System Actions
+            self.add_item(discord.ui.Button(label="Add", style=discord.ButtonStyle.success, custom_id="btn_add_deliv", emoji="➕", row=4))
+            self.add_item(discord.ui.Button(label="Remove", style=discord.ButtonStyle.danger, custom_id="btn_rem_deliv", emoji="🗑️", disabled=(self.selected_deliverable_index is None), row=4))
+            
+            is_inf = p.get('infinito', False)
+            self.add_item(discord.ui.Button(label="Infinite" if is_inf else "Finite", style=discord.ButtonStyle.primary if is_inf else discord.ButtonStyle.secondary, custom_id="toggle_infinite", emoji="♾️", row=4))
+            
+            self.add_item(discord.ui.Button(label="Delete", style=discord.ButtonStyle.danger, custom_id="btn_del", emoji="❌", row=4))
+
+        # --- "NEW" BUTTON OUTSIDE THE LOCK ---
+        btn_new = discord.ui.Button(label="New Product", style=discord.ButtonStyle.primary, custom_id="btn_new", emoji="✨", row=4)
+        self.add_item(btn_new)
+
+    # Callback required for Add Item Modal
+    async def add_deliverable_callback(self, interaction, content):
+        await interaction.response.defer()
+        p = self.get_current_product()
+        if p:
+            if 'deliverables' not in p: p['deliverables'] = []
+            p['deliverables'].append(content)
+            await db.update_product(self.current_product_id, {'deliverables': p['deliverables']})
+            
+            await self.reload_data()
+            self.filtered_products = [prod for prod in self.products if prod.get("categoria", "General") == self.current_category]
+            self.selected_deliverable_index = len(p['deliverables']) - 1
+            self.update_components()
+            await interaction.edit_original_response(embed=self.create_embed(), view=self)
+            self.bot.needs_catalog_sync = True
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        cid = interaction.data.get('custom_id', '')
+
+        # --- 1. MODAL OPENING BUTTONS (Do not defer) ---
+        if cid == "btn_add_deliv":
+            await interaction.response.send_modal(AddDeliverableModal(self.bot, self))
+            return False
+
+        if cid.startswith("edit_"):
+            p = self.get_current_product()
+            if not p: return False
+            
+            # Modal configuration
+            field_map = {
+                "edit_name": ("Edit Name", p['nome'], False, 100),
+                "edit_desc": ("Edit Description", p.get('descricao', ''), True, 1000),
+                "edit_price": ("Edit Price (Ex: 10.50)", str(p.get('valor', 0.0)), False, 20),
+                "edit_img": ("Image URL", p.get('imagem_url', ''), False, None),
+                "edit_category": ("Edit Category", p.get('categoria', 'General'), False, 50)
+            }
+            
+            conf = field_map.get(cid)
+            if conf:
+                async def save_handler(itx, value):
+                    # Save Modal data
+                    await itx.response.defer()
+                    updates = {}
+                    try:
+                        if cid == "edit_name": updates["nome"] = value
+                        elif cid == "edit_desc": updates["descricao"] = value
+                        elif cid == "edit_img": updates["imagem_url"] = value
+                        elif cid == "edit_price": updates["valor"] = float(value.replace(',', '.'))
+                        elif cid == "edit_category": 
+                            updates["categoria"] = value.strip()
+                            self.current_category = value.strip()
+                        
+                        await db.update_product(self.current_product_id, updates)
+                        
+                        await self.reload_data()
+                        self.filtered_products = [prod for prod in self.products if prod.get("categoria", "General") == self.current_category]
+                        self.update_components()
+                        await itx.edit_original_response(embed=self.create_embed(), view=self)
+                        self.bot.needs_catalog_sync = True
+                    except ValueError as e:
+                        await itx.followup.send(f"❌ Error: {e}", ephemeral=True)
+
+                await interaction.response.send_modal(GenericFieldModal(conf[0], conf[1], save_handler, conf[2], conf[3]))
+            return False
+
+        # --- 2. COMMON BUTTONS (Use defer) ---
+        await interaction.response.defer()
+        
+        if cid == "filter_category":
+            self.current_category = interaction.data['values'][0]
+            await self.reload_data()
+            self.filtered_products = [p for p in self.products if p.get("categoria", "General") == self.current_category]
+            self.current_product_id = str(self.filtered_products[0]['id']) if self.filtered_products else None
+            self.selected_deliverable_index = None
+        elif cid == "select_nav_product":
+            self.current_product_id = interaction.data['values'][0]
+            self.selected_deliverable_index = None
+        elif cid == "select_deliverable":
+            val = interaction.data['values'][0]
+            self.selected_deliverable_index = int(val) if val != "-1" else None
+        elif cid == "toggle_infinite":
+            p = self.get_current_product()
+            if p: await db.update_product(self.current_product_id, {"infinito": not p.get('infinito', False)})
+        elif cid == "btn_rem_deliv":
+             p = self.get_current_product()
+             if p and self.selected_deliverable_index is not None:
+                 p['deliverables'].pop(self.selected_deliverable_index)
+                 await db.update_product(self.current_product_id, {'deliverables': p['deliverables']})
+                 self.selected_deliverable_index = None
+        elif cid == "btn_new":
+            new = {"nome": "New Product", "valor": 0.0, "categoria": self.current_category, "deliverables": []}
+            created = await db.add_product(new)
+            self.current_product_id = str(created['id'])
+        elif cid == "btn_del":
+            if self.current_product_id:
+                await db.delete_product(self.current_product_id)
+                self.current_product_id = None
+                await self.reload_data()
+                self.filtered_products = [p for p in self.products if p.get("categoria", "General") == self.current_category]
+                self.current_product_id = str(self.filtered_products[0]['id']) if self.filtered_products else None
+
+        # Final Screen Update
+        await self.reload_data()
+        self.update_components()
+        await interaction.edit_original_response(embed=self.create_embed(), view=self)
+        self.bot.needs_catalog_sync = True
+        return False
+
+async def confirm_order_logic(order_id: int, bot):
+    try:
+        order = await db.get_order_by_id(order_id)
+        if not order: return False, "Order not found."
+        if order['status'] != OrderStatus.PENDING.value: return False, "Order already processed."
+
+        # Prepare items/texts/links for delivery
+        items = order.get("items", [])
+        if not items and order.get("entregavel"):
+             items = [{"entregavel": order["entregavel"]}]
+
+        conteudo_entregavel = ""
+        for item in items:
+            raw_data = item.get("entregavel", "")
+            if isinstance(raw_data, list): 
+                conteudo_entregavel += "\n".join(str(linha) for linha in raw_data) + "\n"
+            else: 
+                conteudo_entregavel += str(raw_data) + "\n"
+
+        # Update order status to confirmed
+        await db.update_order(order_id, {"status": OrderStatus.CONFIRMED.value, "confirmed_at": datetime.now(timezone.utc).isoformat()})
+
+        # Prepare a nice delivery message
+        embed_entrega = discord.Embed(
+            title="✅ Your Order has been Delivered!", 
+            description=f"Thank you very much for your purchase! Here are your products/links:\n\n{conteudo_entregavel}", 
+            color=discord.Color.brand_green()
+        )
+
+        # 1. Envia o produto na DM do Player
+        try:
+            user = await bot.fetch_user(int(order['user_id']))
+            if user: await user.send(embed=embed_entrega)
+        except: pass
+
+        # 2. Manda apenas o aviso no Ticket
+        thread = bot.get_channel(order.get('thread_id'))
+        if thread:
+            aviso_embed = discord.Embed(
+                title="✅ Payment Approved!", 
+                description="Your products/links have been sent to your **Direct Messages (DM)**. Please check your inbox!\n\n⚠️ *This channel will be automatically deleted in 48 hours.*", 
+                color=discord.Color.green()
+            )
+            await thread.send(content=f"<@{order['user_id']}>", embed=aviso_embed)
+        
+        # Add Client Role
+        guild = None
+        if ALLOWED_GUILD_ID: guild = bot.get_guild(ALLOWED_GUILD_ID)
+        if not guild and bot.guilds: guild = bot.guilds[0]
+        if guild:
+            try:
+                member = await guild.fetch_member(order['user_id'])
+                role_id = (await db.get_config()).get('cargo_cliente_id')
+                if member and role_id:
+                    role = guild.get_role(role_id)
+                    if role: await member.add_roles(role)
+            except: pass
+
+        return True, "Links/Texts successfully sent!"
+
+    except Exception as e:
+        logger.error(f"Error in confirm_order: {e}")
+        return False, str(e)
+
+async def cancel_order_logic(order_id: int, reason: str, bot):
+    order = await db.get_order_by_id(order_id)
+    if not order or order['status'] != OrderStatus.PENDING.value: return
+    await db.update_order(order_id, {"status": OrderStatus.CANCELLED.value})
+    
+    # Restore stock (Only if not Infinite)
+    items = order.get("items", [])
+    if not items and order.get("entregavel"): items = [{"id": order["produto_id"], "entregavel": order["entregavel"]}]
+    
+    for item in items:
+        prod_id = item.get("id")
+        content = item.get("entregavel")
+        if prod_id and content:
+            product = await db.get_product_by_id(prod_id)
+            # If infinite, don't return. If finite (unique string), return it.
+            if product and not product.get('infinito'):
+                if isinstance(content, str):
+                    product['deliverables'].insert(0, content)
+                    await db.update_product(product['id'], {'deliverables': product['deliverables']})
+    
+    # Compatibility with new catalog update method
+    if hasattr(bot, 'update_catalog_display_real'):
+        await bot.update_catalog_display_real()
+
+    thread = None
+    catalog_url = None
+    if order.get("thread_id"):
+        try:
+            thread = await bot.fetch_channel(order['thread_id'])
+            if thread and thread.parent: catalog_url = thread.parent.jump_url
+        except: pass
+    try:
+        user = await bot.fetch_user(order['user_id'])
+        if user:
+            embed = discord.Embed(title="😥 Order Cancelled", description=f"Your order has been cancelled.\nBut don't worry, you can return to our shop by clicking below", color=discord.Color.orange())
+            view = None
+            if catalog_url:
+                view = discord.ui.View()
+                view.add_item(discord.ui.Button(label="Return to Shop", style=discord.ButtonStyle.link, url=catalog_url))
+            await user.send(embed=embed, view=view)
+    except: pass
+    if thread:
+        try: await thread.delete()
+        except: pass
+
+class AdminActionsView(discord.ui.View):
+    def __init__(self, bot, order_id):
+        super().__init__(timeout=None)
+        self.bot = bot
+        self.order_id = order_id
+
+    # BUTTON 1: APPROVE
+    @discord.ui.button(label="Approve & Deliver", style=discord.ButtonStyle.success, emoji="✅")
+    async def confirm_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        # 1. Notify that processing is starting (visible only to admin)
+        await interaction.response.send_message("⏳ **Processing delivery...**", ephemeral=True)
+        
+        # 2. Run logic and GET RETURN
+        sucesso, log_console = await confirm_order_logic(self.order_id, self.bot)
+        
+        if sucesso:
+            # Show log ONLY TO ADMIN
+            log_formatado = f"✅ **Delivery Completed!**\n\n**Server Log:**\n```\n{log_console[:1900]}\n```"
+            
+            # Remove buttons from original message so it can't be clicked again
+            try: await interaction.message.edit(content="✅ **Order Finalized by Admin.**", view=None)
+            except: pass
+            
+            await interaction.followup.send(log_formatado, ephemeral=True)
+        else:
+            await interaction.followup.send(f"❌ **Delivery Error:** {log_console}", ephemeral=True)
+
+    # BUTTON 2: CANCEL
+    @discord.ui.button(label="Cancel Order", style=discord.ButtonStyle.danger, emoji="✖️")
+    async def cancel_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(content="⏳ **Cancelling...**", view=None)
+        await cancel_order_logic(self.order_id, "Cancelled by Admin", self.bot)
+        await interaction.followup.send("✅ Order cancelled and stock replenished.", ephemeral=True)
+
+    # BUTTON 3: DELETE
+    @discord.ui.button(label="Delete Thread", style=discord.ButtonStyle.secondary, emoji="🗑️", row=1)
+    async def delete_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("💥 **Deleting thread in 5 seconds...**", ephemeral=True)
+        await db.update_order(self.order_id, {"thread_closed": True})
+        await asyncio.sleep(5)
+        if interaction.channel:
+            await interaction.channel.delete()
+
+class AdminOrderManagerView(discord.ui.View):
+    def __init__(self, bot, pending_orders):
+        super().__init__(timeout=60)
+        self.bot = bot
+        self.pending_orders = pending_orders
+        self.setup_components()
+
+    def setup_components(self):
+        self.clear_items()
+        
+        # Select Menu for specific order
+        options = []
+        for o in self.pending_orders[:25]: # Limit 25
+            label = f"#{o['id']} - {o['user_name']}"[:100]
+            desc = f"${o['valor']:.2f} USD | {o['created_at'][:10]}"
+            options.append(discord.SelectOption(label=label, value=str(o['id']), description=desc, emoji="📄"))
+        
+        if options:
+            select = discord.ui.Select(placeholder="Select an order to CLOSE (Cancel)", options=options, custom_id="manage_sel_order")
+            select.callback = self.select_callback
+            self.add_item(select)
+        else:
+            self.add_item(discord.ui.Button(label="No open orders", disabled=True))
+
+        # Button Cancel All
+        btn_all = discord.ui.Button(label="Close ALL (Pending)", style=discord.ButtonStyle.danger, emoji="🗑️", custom_id="btn_cancel_all", disabled=(not options))
+        btn_all.callback = self.cancel_all_callback
+        self.add_item(btn_all)
+
+        # Button Refresh
+        btn_refresh = discord.ui.Button(label="Refresh List", style=discord.ButtonStyle.secondary, emoji="🔄", custom_id="btn_refresh")
+        btn_refresh.callback = self.refresh_callback
+        self.add_item(btn_refresh)
+
+    async def select_callback(self, interaction: discord.Interaction):
+        order_id = interaction.data['values'][0]
+        await interaction.response.defer(ephemeral=True)
+        await cancel_order_logic(int(order_id), "Cancelled by Admin via Panel", self.bot)
+        await interaction.followup.send(f"✅ Order #{order_id} cancelled!", ephemeral=True)
+        # Refresh
+        await self.refresh_view(interaction)
+
+    async def cancel_all_callback(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True)
+        count = 0
+        for o in self.pending_orders:
+            await cancel_order_logic(o['id'], "General Cleanup by Admin", self.bot)
+            count += 1
+        await interaction.followup.send(f"✅ {count} orders were closed/cancelled!", ephemeral=True)
+        await self.refresh_view(interaction)
+
+    async def refresh_callback(self, interaction: discord.Interaction):
+        await interaction.response.defer()
+        await self.refresh_view(interaction)
+
+    async def refresh_view(self, interaction):
+        new_orders = await db.get_orders(status_filter=OrderStatus.PENDING.value)
+        self.pending_orders = new_orders
+        self.setup_components()
+        await interaction.edit_original_response(view=self)
+
+
+class CartView(discord.ui.View):
+    def __init__(self, bot, user_id, cart_products):
+        super().__init__(timeout=180)
+        self.bot = bot
+        self.user_id = user_id
+        self.cart_products = cart_products
+        self.total = sum(p['valor'] for p in cart_products)
+
+    @discord.ui.button(label="Checkout", style=discord.ButtonStyle.success, emoji="✅")
+    async def checkout(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not self.cart_products:
+            return await interaction.response.send_message("Cart is empty!", ephemeral=True)
+        
+        # Pula o modal e cria o pedido direto usando o nome do Discord do usuário
+        await create_cart_order(interaction, self.cart_products, interaction.user.name, self.bot)
+
+    @discord.ui.button(label="View Cart", style=discord.ButtonStyle.primary, emoji="🛒")
+    async def view_cart(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not self.cart_products:
+            return await interaction.response.send_message("Cart is empty!", ephemeral=True)
+            
+        item_list = ""
+        for idx, item in enumerate(self.cart_products):
+            item_list += f"**{idx+1}.** {item['nome']} (${item['valor']:.2f} USD)\n"
+            
+        embed = discord.Embed(title="🛒 Your Complete Cart", description=item_list, color=discord.Color.gold())
+        embed.set_footer(text=f"Total: ${self.total:.2f} USD | {len(self.cart_products)} items")
+        
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    @discord.ui.button(label="Clear Cart", style=discord.ButtonStyle.danger, emoji="🗑️")
+    async def clear(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await db.clear_cart(interaction.user.id)
+        await interaction.response.edit_message(content="🗑️ Cart cleared.", view=None, embed=None)
+
+# --- CONFIRM RESET VIEW ---
+class ConfirmResetView(discord.ui.View):
+    def __init__(self, bot):
+        super().__init__(timeout=30)
+        self.bot = bot
+
+    @discord.ui.button(label="YES, DELETE EVERYTHING", style=discord.ButtonStyle.danger, emoji="💥")
+    async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.defer(ephemeral=True)
+        try:
+            await db.clear_orders_history()
+            await interaction.followup.send("✅ **Success!** Sales history has been deleted and the Dashboard was reset.", ephemeral=True)
+        except Exception as e:
+            await interaction.followup.send(f"❌ Error clearing: {e}", ephemeral=True)
+
+    @discord.ui.button(label="Cancel", style=discord.ButtonStyle.secondary)
+    async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(content="Operation cancelled.", view=None)
+
+# --- PAGINATED CATALOG SYSTEM (8 CATEGORIES) ---
+
+class MultiCategoryCatalogView(discord.ui.View):
+    def __init__(self, products, bot, categories, page=0):
+        super().__init__(timeout=None)
+        self.products = products
+        self.bot = bot
+        self.categories = categories
+        self.page = page
+        self.per_page = 4  # 4 categories per page
+        self.setup_components()
+
+    def setup_components(self):
+        self.clear_items()
+        
+        # Pagination
+        start = self.page * self.per_page
+        end = start + self.per_page
+        current_cats = self.categories[start:end]
+        
+        for cat_name in current_cats:
+            # Filter category products
+            cat_products = [p for p in self.products if p.get('categoria', 'General') == cat_name]
+            # Filter stock
+            valid_products = [p for p in cat_products if p.get('infinito') or p.get('deliverables')]
+            
+            if not valid_products: continue
+
+            # Create options
+            options = []
+            for product in valid_products[:25]:
+                label = f"{product['nome']} - ${product['valor']:.2f} USD"[:100]
+                desc = product.get('descricao', '')[:100]
+                options.append(discord.SelectOption(label=label, value=str(product['id']), description=desc, emoji="🛒"))
+
+            # Create specific menu for this category
+            select = discord.ui.Select(
+                placeholder=f"📂 {cat_name}",
+                min_values=1, max_values=1,
+                options=options,
+                custom_id=f"sel_cat_{cat_name[:15]}_{self.page}" 
+            )
+            
+            async def category_callback(interaction, menu=select):
+                val = menu.values[0]
+                prod = next((p for p in self.products if str(p['id']) == val), None)
+                if prod: await handle_purchase(interaction, prod, self.bot)
+
+            select.callback = category_callback
+            self.add_item(select)
+
+        # --- NAVIGATION ROW (Last) ---
+        
+        # Previous Button
+        if self.page > 0:
+            btn_prev = discord.ui.Button(label="⬅️", style=discord.ButtonStyle.secondary, row=4)
+            async def prev_callback(interaction: discord.Interaction):
+                self.page -= 1
+                self.setup_components()
+                await interaction.response.edit_message(view=self)
+            btn_prev.callback = prev_callback
+            self.add_item(btn_prev)
+
+        # Cart Button (Middle)
+        cart_btn = discord.ui.Button(label="View Cart", style=discord.ButtonStyle.primary, emoji="🛒", row=4)
+        async def cart_callback(interaction: discord.Interaction):
+            cart = await db.get_cart(interaction.user.id)
+            view = CartView(self.bot, interaction.user.id, cart)
+            await interaction.response.send_message(embed=discord.Embed(title="🛒 Your Cart", description=f"You have {len(cart)} items."), view=view, ephemeral=True)
+        cart_btn.callback = cart_callback
+        self.add_item(cart_btn)
+
+        # Next Button
+        if end < len(self.categories):
+            btn_next = discord.ui.Button(label="➡️", style=discord.ButtonStyle.secondary, row=4)
+            async def next_callback(interaction: discord.Interaction):
+                self.page += 1
+                self.setup_components()
+                await interaction.response.edit_message(view=self)
+            btn_next.callback = next_callback
+            self.add_item(btn_next)
+
+class CatalogDetailsModal(discord.ui.Modal, title="Catalog Details"):
+    def __init__(self, bot_instance, selected_categories):
+        super().__init__()
+        self.bot = bot_instance
+        self.selected_cats = selected_categories
+        self.add_item(discord.ui.TextInput(label="Embed Title", default="🛍️ Sales Catalog", required=True))
+        self.add_item(discord.ui.TextInput(label="Description", style=discord.TextStyle.long, default="Select the product you wish to purchase below.", required=True))
+        self.add_item(discord.ui.TextInput(label="Image URL (Optional)", placeholder="https://...", required=False))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True)
+        try:
+            channel = interaction.channel
+            all_prods = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
+            
+            # Validate if there are products in categories
+            valid_prods = []
+            for p in all_prods:
+                if p.get("categoria", "General") in self.selected_cats:
+                    if p.get('infinito') or (p.get('deliverables') and len(p['deliverables']) > 0):
+                        valid_prods.append(p)
+
+            if not valid_prods:
+                return await interaction.followup.send("❌ No products with stock in these categories.", ephemeral=True)
+
+            embed = discord.Embed(title=self.children[0].value, description=self.children[1].value, color=discord.Color.blue())
+            if self.children[2].value:
+                embed.set_image(url=self.children[2].value)
+
+            # Starts at page 0
+            view = MultiCategoryCatalogView(valid_prods, self.bot, self.selected_cats, page=0)
+            sent_msg = await channel.send(embed=embed, view=view)
+            await db.add_active_catalog(sent_msg.id, channel.id, self.selected_cats)
+            await interaction.followup.send("✅ Catalog created successfully!", ephemeral=True)
+            
+        except Exception as e:
+            logger.error(f"Error creating catalog: {e}")
+            await interaction.followup.send(f"❌ Error: {e}", ephemeral=True)
+
+class CatalogWizardView(discord.ui.View):
+    def __init__(self, bot, categories):
+        super().__init__(timeout=120)
+        self.bot = bot
+        self.categories = categories
+        self.selected_values = []
+        
+        options = []
+        seen = set()
+        
+        for c in categories:
+            clean_name = str(c).strip()
+            if not clean_name: clean_name = "Uncategorized"
+            final_val = clean_name[:100]
+            
+            if final_val in seen: continue
+            seen.add(final_val)
+            
+            options.append(discord.SelectOption(label=final_val, value=final_val))
+            if len(options) >= 25: break
+
+        if not options: options.append(discord.SelectOption(label="General", value="General"))
+
+        # MAX: 8 categories
+        max_choices = min(len(options), 8)
+
+        select = discord.ui.Select(
+            placeholder="Select Categories (Max 8)", 
+            min_values=1, 
+            max_values=max_choices, 
+            options=options
+        )
+        select.callback = self.select_callback
+        self.add_item(select)
+        
+        btn = discord.ui.Button(label="Generate Catalog", style=discord.ButtonStyle.success, emoji="✅")
+        btn.callback = self.confirm_btn
+        self.add_item(btn)
+
+    async def select_callback(self, interaction: discord.Interaction):
+        self.selected_values = interaction.data['values']
+        await interaction.response.defer()
+
+    async def confirm_btn(self, interaction: discord.Interaction):
+        if not self.selected_values:
+            return await interaction.response.send_message("❌ Select at least one category!", ephemeral=True)
+        await interaction.response.send_modal(CatalogDetailsModal(self.bot, self.selected_values))
+
+class GoToThreadView(discord.ui.View):
+    def __init__(self, thread_url: str):
+        super().__init__()
+        self.add_item(discord.ui.Button(label="Go to Order", style=discord.ButtonStyle.link, url=thread_url, emoji="🛒"))
+
+
+# --- BUSINESS LOGIC ---
+
+async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
+    # Adds to cart
+    await db.add_to_cart(interaction.user.id, product['id'])
+    
+    # Fetches updated cart to show summary
+    current_cart = await db.get_cart(interaction.user.id)
+    total = sum(p['valor'] for p in current_cart)
+    qtd = len(current_cart)
+    
+    embed = discord.Embed(title="🛒 Added to Cart!", color=discord.Color.gold())
+    embed.description = f"**Item:** {product['nome']}\n**Price:** ${product['valor']:.2f} USD\n\n**Total in Cart:** {qtd} items | ${total:.2f} USD"
+    
+    view = CartView(bot, interaction.user.id, current_cart)
+    
+    if not interaction.response.is_done():
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+    else:
+        await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+
+# --- View to Cancel Stuck Order ---
+class CancelStuckOrderView(discord.ui.View):
+    def __init__(self, bot, order_id):
+        super().__init__(timeout=60)
+        self.bot = bot
+        self.order_id = order_id
+
+    @discord.ui.button(label="Cancel Previous Order", style=discord.ButtonStyle.danger, emoji="🗑️")
+    async def cancel_old(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.defer(ephemeral=True)
+        await cancel_order_logic(self.order_id, "Cancelled by Client (Stuck Order)", self.bot)
+        await interaction.followup.send("✅ **Previous order cancelled!**\nYou can now click 'Checkout' again.", ephemeral=True)
+      
+class StripeCheckoutView(discord.ui.View):
+    def __init__(self, url, bot, order_id):
+        super().__init__(timeout=None)
+        self.bot = bot
+        self.order_id = order_id
+        self.add_item(discord.ui.Button(label="Pay with Card (Stripe)", style=discord.ButtonStyle.link, url=url, emoji="💳"))
+
+    @discord.ui.button(label="Admin Panel", style=discord.ButtonStyle.secondary, emoji="⚙️", row=1)
+    async def admin_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not await check_admin_permission(interaction, self.bot):
+            return await interaction.response.send_message("❌ You don't have permission to use this.", ephemeral=True)
+        await interaction.response.send_message("🛠️ **Admin Controls:**", view=AdminActionsView(self.bot, self.order_id), ephemeral=True)
+
+async def create_cart_order(interaction, products, nick, bot):
+    # Multiple orders lock
+    existing = await db.get_orders(status_filter=OrderStatus.PENDING.value, user_id=interaction.user.id)
+    if existing:
+        order = existing[0]
+        view = CancelStuckOrderView(bot, order['id'])
+        await interaction.response.send_message("⚠️ **You already have an open order!**\nClick below to cancel the previous one and try again.", view=view, ephemeral=True)
+        return
+
+    await interaction.response.defer(ephemeral=True)
+    
+    # Stripe setup
+    config = await db.get_config()
+
+    total_value = sum(p['valor'] for p in products)
+    final_items = []
+    description_lines = []
+    
+    # Process stock
+    for p in products:
+        real_prod = await db.get_product_by_id(p['id'])
+        item_data = {"id": real_prod['id'], "nome": real_prod['nome'], "entregavel": ""}
+        description_lines.append(f"• **{real_prod['nome']}** (${real_prod['valor']:.2f} USD)")
+        
+        if real_prod.get('infinito'):
+            item_data["entregavel"] = real_prod['deliverables'] or ["Error: No content configured."]
+        else:
+            if real_prod['deliverables']:
+                item_data["entregavel"] = real_prod['deliverables'].pop(0)
+                await db.update_product(real_prod['id'], {'deliverables': real_prod['deliverables']})
+            else:
+                return await interaction.followup.send(f"❌ The item {real_prod['nome']} is out of stock.", ephemeral=True)
+        final_items.append(item_data)
+
+    # Create order and thread
+    new_order = await db.add_order({
+        "user_name": interaction.user.name, "user_id": interaction.user.id, "valor": total_value,
+        "status": OrderStatus.PENDING.value, "minecraft_nick": nick, "items": final_items,
+        "produto_descricao": "\n".join(description_lines)
+    })
+    await db.clear_cart(interaction.user.id)
+
+    try:
+        thread = await interaction.channel.create_thread(name=f"Order #{new_order['id']} - {interaction.user.name}", type=discord.ChannelType.private_thread)
+        await thread.add_user(interaction.user)
+        await db.update_order(new_order['id'], {"thread_id": thread.id})
+        
+        # --- STRIPE INTEGRATION ---
+        # Stripe works in cents, so we multiply by 100
+        valor_em_centavos = int(total_value * 100)
+        
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd', # Currency set to USD
+                    'product_data': {
+                        'name': f"Order #{new_order['id']}",
+                        'description': "Digital Store Items",
+                    },
+                    'unit_amount': valor_em_centavos,
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=thread.jump_url, 
+            cancel_url=thread.jump_url,
+            metadata={
+                'order_id': new_order['id'] 
+            }
+        )
+
+        embed = discord.Embed(title=f"📦 Order #{new_order['id']}", description=f"Hello {interaction.user.mention}! Your order has been generated.", color=discord.Color.blue())
+        embed.add_field(name="🛒 Items", value="\n".join(description_lines), inline=False)
+        embed.add_field(name="💵 Total", value=f"${total_value:.2f} USD", inline=True)
+        embed.set_footer(text="As soon as the payment is approved, your links will be sent to your DM.\n⚠️ If not paid, this order and channel will be deleted in 24 hours.")
+
+        view_stripe = StripeCheckoutView(checkout_session.url, bot, new_order['id'])
+        
+        await thread.send(content=f"🔔 <@{interaction.user.id}>", embed=embed, view=view_stripe)
+        
+        await interaction.followup.send(f"✅ **Order #{new_order['id']} created!**", view=GoToThreadView(thread.jump_url), ephemeral=True)
+
+    except Exception as e:
+        await interaction.followup.send(f"❌ Error generating Stripe link: {e}", ephemeral=True)
+
+async def stripe_webhook(request):
+    try:
+        payload = await request.read()
+        sig_header = request.headers.get('Stripe-Signature')
+
+        try:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, STRIPE_WEBHOOK_SECRET
+            )
+        except ValueError as e:
+            return web.Response(status=400, text="Invalid payload")
+        except stripe.error.SignatureVerificationError as e:
+            return web.Response(status=400, text="Invalid signature")
+
+        # Verifica se o evento é de um pagamento concluído com sucesso
+        if event['type'] == 'checkout.session.completed':
+            session = event['data']['object']
+            
+            # Recuperamos o ID do pedido do jeito que a Stripe exige
+            order_id = None
+            if "metadata" in session and "order_id" in session["metadata"]:
+                order_id = session["metadata"]["order_id"]
+            
+            if order_id:
+                logger.info(f"Payment approved on Stripe for order {order_id}!")
+                bot = request.app['bot']
+                await confirm_order_logic(int(order_id), bot)
+
+        return web.Response(status=200, text="success")
+
+    except Exception as e:
+        # 💥 É AQUI QUE VAMOS PEGAR O CULPADO! 💥
+        logger.error(f"💥 CRASH NO WEBHOOK: {e}\n{traceback.format_exc()}")
+        return web.Response(status=500, text="Internal Server Error")
+
+async def start_web_server(bot):
+    app = web.Application()
+    app['bot'] = bot
+    app.router.add_post('/webhook', stripe_webhook)
+    
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', WEBHOOK_PORT)
+    await site.start()
+    logger.info(f"Stripe Webhook Server running on port {WEBHOOK_PORT}")
+
+# --- MAIN CLASS ---
+
+class MyBot(commands.Bot):
+    def __init__(self, config: dict):
+        intents = discord.Intents.default()
+        intents.members = True
+        intents.message_content = True
+        super().__init__(command_prefix="!", intents=intents)
+        self.config = config
+        self.db = db
+        # Flag to control catalog sync
+        self.needs_catalog_sync = False
+
+    async def setup_hook(self):
+        logger.info("Running setup_hook...")
+        self.tree.on_error = self.on_app_command_error
+        self.bg_save_task = self.loop.create_task(self.auto_save_loop())
+        self.loop.create_task(start_web_server(self))
+
+        try:
+            active_catalogs = await self.db.get_active_catalogs()
+            all_prods = await self.db.get_products()
+            for cat_info in active_catalogs:
+                categories = cat_info.get("categories", [])
+                if categories:
+                    valid_p = [p for p in all_prods if p.get("categoria", "General") in categories]
+                    if valid_p: self.add_view(MultiCategoryCatalogView(valid_p, self, categories, page=0))
+            logger.info("Persistent views restored (Single Server).")
+        except Exception as e:
+            logger.error(f"Error restoring views: {e}")
+        
+        if ALLOWED_GUILD_ID:
+            logger.info(f"Syncing commands for guild {ALLOWED_GUILD_ID}")
+            self.tree.copy_global_to(guild=discord.Object(id=ALLOWED_GUILD_ID))
+            await self.tree.sync(guild=discord.Object(id=ALLOWED_GUILD_ID))
+        else:
+            await self.tree.sync()
+
+    async def on_ready(self):
+        logger.info(f'Bot connected: {self.user}')
+        if ALLOWED_GUILD_ID:
+            guild = self.get_guild(ALLOWED_GUILD_ID)
+            if guild: logger.info(f"Operating in: {guild.name}")
+            else: logger.warning(f"WARNING: Guild {ALLOWED_GUILD_ID} not found! The bot may not respond.")
+        
+        if not self.manage_orders_lifecycle.is_running(): self.manage_orders_lifecycle.start()
+        
+        # --- START CATALOG SYNC LOOP ---
+        if not self.sync_catalogs_loop.is_running(): self.sync_catalogs_loop.start()
+        
+        # 🔥 A MÁGICA ACONTECE AQUI: Força o F5 nos catálogos antigos assim que o bot liga 🔥
+        await self.update_catalog_display_real()
+    
+    async def auto_save_loop(self):
+        await self.wait_until_ready()
+        while not self.is_closed():
+            await asyncio.sleep(AUTO_SAVE_INTERVAL)
+            try: await self.db.save_to_disk()
+            except Exception as e: logger.error(f"Auto-Save Error: {e}")
+
+    async def close(self):
+        logger.info("Shutting down bot... Saving data...")
+        await self.db.force_save()
+        await super().close()
+
+    @tasks.loop(minutes=1)
+    async def manage_orders_lifecycle(self):
+        try:
+            now_utc = datetime.now(timezone.utc)
+            orders = await self.db.get_orders()
+            for order in orders:
+                if order['status'] == OrderStatus.PENDING.value:
+                    created_at = datetime.fromisoformat(order['created_at'])
+                    elapsed_hours = (now_utc - created_at).total_seconds() / 3600
+                    if elapsed_hours >= TIME_ORDER_TIMEOUT:
+                        await cancel_order_logic(order['id'], "Timeout", self)
+                        continue
+                elif order['status'] == OrderStatus.CONFIRMED.value:
+                    if order.get("thread_closed"): continue
+                    confirmed_at_str = order.get("confirmed_at")
+                    if not confirmed_at_str: continue
+                    confirmed_at = datetime.fromisoformat(confirmed_at_str)
+                    hours_since_conf = (now_utc - confirmed_at).total_seconds() / 3600
+                    if hours_since_conf >= TIME_THREAD_CLOSE:
+                        thread_id = order.get("thread_id")
+                        thread = self.get_channel(thread_id)
+                        if thread:
+                            try:
+                                await thread.edit(locked=True, archived=True, reason="Automatic closure.")
+                                await db.update_order(order['id'], {"thread_closed": True})
+                            except: pass
+        except Exception as e: logger.error(f"Lifecycle error: {e}")
+
+    @tasks.loop(seconds=30)
+    async def sync_catalogs_loop(self):
+        if self.needs_catalog_sync:
+            await self.update_catalog_display_real()
+            self.needs_catalog_sync = False
+
+    async def update_catalog_display_real(self):
+        active_catalogs = await db.get_active_catalogs()
+        for cat_data in active_catalogs:
+            try:
+                channel_id = cat_data.get("channel_id")
+                message_id = cat_data.get("message_id")
+                categories = cat_data.get("categories", [])
+                channel = self.get_channel(channel_id)
+                if not channel: channel = await self.fetch_channel(channel_id)
+                try:
+                    message = await channel.fetch_message(message_id)
+                except discord.NotFound:
+                    await db.remove_active_catalog(message_id)
+                    continue
+                products = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
+                valid_products = []
+                for p in products:
+                    prod_cat = p.get("categoria", "General")
+                    if prod_cat in categories:
+                        if p.get('infinito') or (p.get('deliverables') and len(p['deliverables']) > 0):
+                            valid_products.append(p)
+                
+                view = MultiCategoryCatalogView(valid_products, self, categories, page=0)
+                await message.edit(view=view)
+            except Exception as e:
+                logger.error(f"Catalog sync error msg {message_id}: {e}")
+
+    @manage_orders_lifecycle.before_loop
+    async def before_check(self): await self.wait_until_ready()
+    
+    @sync_catalogs_loop.before_loop
+    async def before_sync_check(self): await self.wait_until_ready()
+
+    async def on_app_command_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if isinstance(error, discord.app_commands.CommandInvokeError):
+             if isinstance(error.original, discord.NotFound) and error.original.code == 10062: return
+        actual = getattr(error, 'original', error)
+        if isinstance(actual, app_commands.errors.MissingRole):
+            if not interaction.response.is_done(): await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            else: await interaction.followup.send(view=NoPermissionView(), ephemeral=True)
+        else:
+            logger.error(f"AppCommand Error: {error}")
+            try: 
+                if not interaction.response.is_done(): await interaction.response.send_message("Internal error.", ephemeral=True)
+            except: pass
+            
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandNotFound): return
+        logger.error(f"PrefixCommand Error: {error}")
+
+def load_config():
+    required_env_vars = ["DISCORD_TOKEN"]
+    env_config = {var.lower(): os.getenv(var) for var in required_env_vars}
+    if not all(env_config.values()): raise ValueError("Missing .env variables (DISCORD_TOKEN).")
+    return env_config
+
+if __name__ == "__main__":
+    try:
+        bot_config = load_config()
+        bot = MyBot(config=bot_config)
+
+        @bot.tree.command(name="config", description="Configuration menu.")
+        async def config(interaction: discord.Interaction):
+            if not await check_admin_permission(interaction, bot): return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            await interaction.response.send_message("Configuration menu not implemented in this single file.", ephemeral=True)
+
+        @bot.tree.command(name="manage_orders", description="Panel to close/cancel open orders.")
+        async def manage_orders(interaction: discord.Interaction):
+            if not await check_admin_permission(interaction, bot): 
+                return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            
+            await interaction.response.defer(ephemeral=True)
+            pending = await db.get_orders(status_filter=OrderStatus.PENDING.value)
+            
+            embed = discord.Embed(title="🔧 Open Orders Management", description="Select an order to cancel or clear all pending.", color=discord.Color.orange())
+            embed.add_field(name="Pending Orders", value=f"{len(pending)} orders", inline=False)
+            
+            view = AdminOrderManagerView(bot, pending)
+            await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+
+        @bot.tree.command(name="catalog", description="Creates a sales panel in the current channel.")
+        async def catalog(interaction: discord.Interaction):
+            if await check_admin_permission(interaction, bot):
+                await interaction.response.defer(ephemeral=True)
+                try:
+                    all_prods = await db.get_products()
+                    cats = sorted(list(set(p.get("categoria", "General") for p in all_prods)))
+                    
+                    if not cats:
+                        return await interaction.followup.send("❌ You have no registered products yet.", ephemeral=True)
+                    
+                    view = CatalogWizardView(bot, cats)
+                    await interaction.followup.send("### 🧙 Create New Catalog\nSelect the categories that should appear:", view=view, ephemeral=True)
+                except Exception as e:
+                    await interaction.followup.send(f"Error: {e}", ephemeral=True)
+            else:
+                await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+
+        @bot.tree.command(name="stock", description="Manages products and categories.")
+        async def stock(interaction: discord.Interaction):
+            if await check_admin_permission(interaction, bot):
+                await interaction.response.defer(ephemeral=True)
+                products = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
+                
+                view = StockManagerLayout(bot, products)
+                embed = view.create_embed() 
+                
+                await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+            else: 
+                await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+        
+        @bot.tree.command(name="dashboard", description="Detailed sales and revenue.")
+        async def dashboard(interaction: discord.Interaction):
+            if await check_admin_permission(interaction, bot):
+                await interaction.response.defer(ephemeral=True)
+                try:
+                    orders = await db.get_orders()
+                    confirmed = [o for o in orders if o['status'] == OrderStatus.CONFIRMED.value]
+                    cancelled = [o for o in orders if o['status'] == OrderStatus.CANCELLED.value]
+                    active = [o for o in orders if o['status'] == OrderStatus.PENDING.value]
+                    total_sales = sum(o['valor'] for o in confirmed)
+                    sales_by_cat = defaultdict(float)
+                    for o in confirmed:
+                        items = o.get("items", [])
+                        if not items and o.get("produto_id"): items = [{"id": o["produto_id"]}]
+                        
+                        for i in items:
+                            pid = i.get("id")
+                            if pid:
+                                p = await db.get_product_by_id(pid)
+                                cat_name = p.get('categoria', 'Unknown') if p else 'Deleted'
+                                sales_by_cat[cat_name] += o['valor']
+                                break 
+
+                    embed = discord.Embed(title="📊 Financial Dashboard", color=discord.Color.dark_purple())
+                    embed.add_field(name="💰 Total Revenue", value=f"${total_sales:.2f} USD", inline=False)
+                    stats = f"✅ Confirmed: {len(confirmed)}\n❌ Cancelled: {len(cancelled)}\n⏳ Active: {len(active)}"
+                    embed.add_field(name="📦 Orders", value=stats, inline=True)
+                    cat_text = ""
+                    for cat, val in sales_by_cat.items(): cat_text += f"**{cat}**: ${val:.2f} USD\n"
+                    if not cat_text: cat_text = "No sales."
+                    embed.add_field(name="🏷️ By Category", value=cat_text, inline=True)
+                    await interaction.followup.send(embed=embed, ephemeral=True)
+                except Exception as e: logger.error(f"Dash error: {e}"); await interaction.followup.send("❌ Error generating dashboard.", ephemeral=True)
+            else: await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+
+        @bot.tree.command(name="reset_dashboard", description="⚠️ Resets sales statistics (Deletes history).")
+        async def reset_dashboard(interaction: discord.Interaction):
+            if not await check_admin_permission(interaction, bot):
+                return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            
+            embed = discord.Embed(
+                title="⚠️ DANGER: Reset Dashboard",
+                description="You are about to **DELETE ALL SALES HISTORY** (Confirmed and Cancelled).\n\nThis will cause the `/dashboard` command to show **$0.00 USD** again.\nPending orders (awaiting payment) will **not** be deleted.\n\nAre you sure?",
+                color=discord.Color.red()
+            )
+            await interaction.response.send_message(embed=embed, view=ConfirmResetView(bot), ephemeral=True)
+
+        bot.run(bot_config['discord_token'])
+    except Exception as e:
+        logger.critical(f"Fatal error: {e}\n{traceback.format_exc()}")
