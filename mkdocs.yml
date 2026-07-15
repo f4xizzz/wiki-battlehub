@@ -1,6 +1,7 @@
 #py -m mkdocs build --clean
 #py -m mkdocs serve
 site_name: Cobblemon BattleHUB Wiki 
+site_url: https://f4xizzz.github.io/wiki-battlehub/
 theme:
   name: material
   language: en
@@ -40,6 +41,7 @@ plugins:
       fallback_to_default: true
 
 nav:
+- Home: index.md
   - Getting Started:   
       - Introduction: Introduction.md
       - Dependencies: Dependencies.md
@@ -88,3 +90,5 @@ markdown_extensions:
   - pymdownx.emoji:          # Opcional: para usar emojis no texto
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+use_directory_urls: false
