@@ -1784,6 +1784,7 @@
 <h2 id="modelo-padrao-de-configuracao"><strong>Modelo Padrão de Configuração</strong></h2>
 <p>Abaixo está o modelo com a estrutura oficial gerada pela classe ServerConfig para você usar como referência rápida:</p>
 <pre><code>    {  
+      "guiTheme": "ULTRA",
       "activeRankedLadders": [  
         "singles_ranked",  
        "doubles_ranked",  
@@ -1791,13 +1792,22 @@
       ],  
      "activeCasualLadders": [  
       "singles_50_casual",  
-       "doubles_50_casual"  
+      "doubles_50_casual",
+      "monotype_50_casual",
+      "singles_100_casual",
+      "doubles_100_casual",
+      "triples_100_casual",
+      "monotype_100_casual"
     ],  
      "actionTimerSeconds": 30,  
      "afkStrikeLimit": 3,  
      "afkExtensionSeconds": 15,  
      "maxAfkAutopilotRounds": 3,  
-     "autopilotActionSeconds": 5,  
+     "autopilotActionSeconds": 5, 
+     "dailyLimitRankedEnabled": true,
+     "dailyLimitRanked": 10,
+     "dailyLimitCasualEnabled": false,
+     "dailyLimitCasual": 10, 
      "currentSeasonNumber": 1,  
      "currentSeasonId": "season_1",  
       "currentSeasonName": "Season 1",  
@@ -1925,6 +1935,18 @@
 <li><strong><code>participationReward</code></strong>: Prêmio de consolação por participação.  </li>
 <li><code>minimumGames</code>: Mínimo de partidas que o jogador precisa ter completado para ser elegível a este prêmio de participação.  </li>
 <li><code>commands</code>: Comandos enviados ao console para premiar os participantes válidos.</li>
+</ul>
+<p>### <strong>5. Interface e Limites Diários</strong></p>
+<ul>
+<li>
+<p><code>guiTheme:</code> Define o tema visual da interface gráfica (GUI) do mod. Os presets disponíveis são: <code>DEFAULT, POKE, GREAT, ULTRA, QUICK, DUSK e MASTER.</code></p>
+</li>
+<li>
+<p><strong><code>dailyLimitRankedEnabled</code></strong> (true/false): Habilita ou desabilita o limite de partidas competitivas que um jogador pode jogar por dia.</p>
+</li>
+<li><strong><code>dailyLimitRanked</code></strong>: Quantidade máxima de partidas Ranked permitidas por jogador diariamente.</li>
+<li><strong><code>dailyLimitCasualEnabled</code></strong> (true/false): Habilita ou desabilita o limite de partidas casuais por dia.</li>
+<li><strong><code>dailyLimitCasual</code></strong>: Quantidade máxima de partidas Casuais permitidas por jogador diariamente.</li>
 </ul>
 <hr />
 

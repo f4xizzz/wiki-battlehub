@@ -1458,7 +1458,19 @@
 <p><strong>Ladders</strong> (Battle Categories) define the competitive and casual matchmaking formats in <strong>Cobblemon BattleHUB</strong>. They control everything: team size, ban rules, level adjustments, and which battle mechanics (gimmicks) are allowed in the arena.</p>
 <hr />
 <h3 id="directory-path"><strong>Directory Path</strong></h3>
-<p><code>config/cobblemon_battlehub/ladders/</code></p>
+<p>The mod automatically organizes ladders into two distinct directories to keep default and custom configurations separated:</p>
+<ul>
+<li><strong>Root Directory (Default Ladders):</strong> <code>config/cobblemon\_battlehub/ladders/</code></li>
+<li><strong>Custom Directory (Player/Admin Creations):</strong> <code>config/cobblemon\_battlehub/ladders/custom\_ladders/</code></li>
+</ul>
+<hr />
+<h2 id="auto-generated-ladders"><strong>Auto-Generated Ladders</strong></h2>
+<p>If the root folder is empty, the server will automatically generate a complete set of standard formats:</p>
+<ul>
+<li><strong>Singles, Doubles, &amp; Triples:</strong> Generates Casual (Lv. 50 &amp; Lv. 100) and Ranked (Lv. 50, OU bans) versions for each type.  </li>
+<li><strong>Monotype:</strong> Generates Casual Lv. 50 and Lv. 100 formats using the "Same Type Clause".  </li>
+<li><strong>Tournaments:</strong> Generates specific tournament queues (tourney_solo, tourney_duplas, tourney_trios, tourney_monotype).</li>
+</ul>
 <hr />
 <h2 id="default-configuration-template"><strong>Default Configuration Template</strong></h2>
 <p>Below is the default JSON template to create or edit a Ladder. It is based directly on the fields in the <code>Ladder.java</code> class:</p>
@@ -1480,15 +1492,18 @@
       "bannedItemKeys": [],  
       "bannedAbilityKeys": [],  
       "bannedMoveKeys": [],  
-      "bannedTierKeys": [],  
-      "showdownRules": [],  
-      "allowRestrictedPokemon": false,  
+      "allowRestrictedLegendary": false,  
       "allowMythical": false,  
       "allowParadox": false,  
       "allowMega": true,  
       "allowZMove": true,  
       "allowDynamax": false,  
       "allowTera": true  
+      "maxSubLegendary": 1,
+      "maxRestricted": 1,
+      "maxMythical": 1,
+      "maxParadox": 1,
+      "maxCombinedSpecial": 1
     }
 </code></pre>
 <hr />
@@ -1517,9 +1532,13 @@
 </ul>
 <h3 id="4-meta-filters-restricted-mythical-and-paradox-pokemon"><strong>4. Meta Filters (Restricted, Mythical, and Paradox Pokémon)</strong></h3>
 <ul>
-<li><strong><code>allowRestrictedPokemon</code></strong> (true/false): If disabled, bans restricted-tier legendary Pokémon (according to official VGC rules).  </li>
+<li><strong><code>allowRestrictedLegendary</code></strong> (true/false): If disabled, bans restricted-tier legendary Pokémon (according to official VGC rules).  </li>
 <li><strong><code>allowMythical</code></strong> (true/false): Enables or disables the use of Mythical Pokémon (e.g. Mew, Celebi, Jirachi).  </li>
 <li><strong><code>allowParadox</code></strong> (true/false): Enables or disables the use of Paradox Pokémon (e.g. Great Tusk, Iron Valiant).</li>
+<li><strong><code>maxRestricted</code></strong>: Maximum quantity of restricted legendary Pokémon allowed in the team party.</li>
+<li><strong><code>maxMythical</code></strong>: Maximum quantity of mythical Pokémon allowed in the team party.</li>
+<li><strong><code>maxParadox</code></strong>: Maximum quantity of paradox Pokémon allowed in the team party.</li>
+<li><strong><code>maxCombinedSpecial</code></strong>: Maximum combined total limit of special category Pokémon allowed on the team.</li>
 </ul>
 <h3 id="5-arena-mechanics-gimmicks"><strong>5. Arena Mechanics (Gimmicks)</strong></h3>
 <ul>
@@ -1535,7 +1554,6 @@
 <li><strong><code>bannedItemKeys</code></strong>: Manual list to ban specific items.  </li>
 <li><strong><code>bannedAbilityKeys</code></strong>: Manual list to ban specific abilities.  </li>
 <li><strong><code>bannedMoveKeys</code></strong>: Manual list to ban specific moves.  </li>
-<li><strong><code>showdownRules</code></strong>: Allows injecting additional rules interpreted directly by Showdown into Cobblemon's engine (e.g. ["Same Type Clause"] for Monotype).</li>
 </ul>
 <hr />
 <h2 id="dynamic-suffix-logic-custom-duels"><strong>Dynamic Suffix Logic (Custom Duels)</strong></h2>
