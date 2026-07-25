@@ -24,7 +24,7 @@ Vá até a pasta `custom_ladders/`, crie um ficheiro chamado `little_cup_event.j
           "id": "little_cup_event",  
           "queueLabel": "Event Queue",  
           "displayName": "Little Cup Event",  
-          "description": "Apenas Pokémon nível 5! Sem Megas, Z-Moves, Dynamax ou Terastal.",  
+          "description": "Only Level 5 Pokémon! No Megas, Z-Moves, Dynamax, or Terastal.",  
           "ranked": false,  
           "battleTypeId": "singles",  
           "requiredTeamSize": 6,  
@@ -34,12 +34,13 @@ Vá até a pasta `custom_ladders/`, crie um ficheiro chamado `little_cup_event.j
           "banPresets": [  
             "lc"  
           ],  
-          "bannedSpeciesKeys": [],  
-          "bannedItemKeys": [],  
-          "bannedAbilityKeys": [],  
-          "bannedMoveKeys": [],  
-          "bannedTierKeys": [],  
-          "showdownRules": [],  
+          "bannedSpeciesKeys": [
+            "ditto",
+            "arceus"
+          ],  
+          "bannedItemKeys": ["cobblemon:choice_band"],  
+          "bannedAbilityKeys": ["cobblemon:overgrow", "sturdy"],  
+          "bannedMoveKeys": ["tackle", "swordsdance", "swords_dance"],  
           "allowRestrictedPokemon": false,  
           "allowMythical": false,  
           "allowParadox": false,  

@@ -10,7 +10,20 @@
 
 ### **Directory Path**
 
-`config/cobblemon_battlehub/ladders/`
+The mod automatically organizes ladders into two distinct directories to keep default and custom configurations separated:
+
+* **Root Directory (Default Ladders):** `config/cobblemon\_battlehub/ladders/`
+* **Custom Directory (Player/Admin Creations):** `config/cobblemon\_battlehub/ladders/custom\_ladders/`
+
+---
+
+## **Auto-Generated Ladders**
+
+If the root folder is empty, the server will automatically generate a complete set of standard formats:
+
+* **Singles, Doubles, & Triples:** Generates Casual (Lv. 50 & Lv. 100\) and Ranked (Lv. 50, OU bans) versions for each type.  
+* **Monotype:** Generates Casual Lv. 50 and Lv. 100 formats using the "Same Type Clause".  
+* **Tournaments:** Generates specific tournament queues (tourney\_solo, tourney\_duplas, tourney\_trios, tourney\_monotype).
 
 ---
 
@@ -36,15 +49,18 @@ Below is the default JSON template to create or edit a Ladder. It is based direc
           "bannedItemKeys": [],  
           "bannedAbilityKeys": [],  
           "bannedMoveKeys": [],  
-          "bannedTierKeys": [],  
-          "showdownRules": [],  
-          "allowRestrictedPokemon": false,  
+          "allowRestrictedLegendary": false,  
           "allowMythical": false,  
           "allowParadox": false,  
           "allowMega": true,  
           "allowZMove": true,  
           "allowDynamax": false,  
           "allowTera": true  
+          "maxSubLegendary": 1,
+          "maxRestricted": 1,
+          "maxMythical": 1,
+          "maxParadox": 1,
+          "maxCombinedSpecial": 1
         }
 
 ---
@@ -76,9 +92,13 @@ Below is the default JSON template to create or edit a Ladder. It is based direc
 ### **4. Meta Filters (Restricted, Mythical, and Paradox Pokémon)**
 
 
-* **`allowRestrictedPokemon`** (true/false): If disabled, bans restricted-tier legendary Pokémon (according to official VGC rules).  
+* **`allowRestrictedLegendary`** (true/false): If disabled, bans restricted-tier legendary Pokémon (according to official VGC rules).  
 * **`allowMythical`** (true/false): Enables or disables the use of Mythical Pokémon (e.g. Mew, Celebi, Jirachi).  
 * **`allowParadox`** (true/false): Enables or disables the use of Paradox Pokémon (e.g. Great Tusk, Iron Valiant).
+* **`maxRestricted`**: Maximum quantity of restricted legendary Pokémon allowed in the team party.
+* **`maxMythical`**: Maximum quantity of mythical Pokémon allowed in the team party.
+* **`maxParadox`**: Maximum quantity of paradox Pokémon allowed in the team party.
+* **`maxCombinedSpecial`**: Maximum combined total limit of special category Pokémon allowed on the team.
 
 ### **5. Arena Mechanics (Gimmicks)**
 
@@ -94,8 +114,6 @@ Below is the default JSON template to create or edit a Ladder. It is based direc
 * **`bannedItemKeys`**: Manual list to ban specific items.  
 * **`bannedAbilityKeys`**: Manual list to ban specific abilities.  
 * **`bannedMoveKeys`**: Manual list to ban specific moves.  
-* **`showdownRules`**: Allows injecting additional rules interpreted directly by Showdown into Cobblemon's engine (e.g. ["Same Type Clause"] for Monotype).
-
 ---
 
 ## **Dynamic Suffix Logic (Custom Duels)**

@@ -41,9 +41,8 @@ plugins:
       fallback_to_default: true
 
 nav:
-- Home: index.md
   - Getting Started:   
-      - Introduction: Introduction.md
+      - Introduction: index.md
       - Dependencies: Dependencies.md
       - Installation: Installation.md
       - Commands: Commands.md

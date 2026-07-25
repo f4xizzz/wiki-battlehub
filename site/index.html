@@ -8,15 +8,17 @@
       
       
       
+        <link rel="canonical" href="https://f4xizzz.github.io/wiki-battlehub/index.html">
       
       
-        <link rel="next" href="installation/">
+      
+        <link rel="next" href="Dependencies.html">
       
       
         
-          <link rel="alternate" href="/" hreflang="en">
+          <link rel="alternate" href="index.html" hreflang="en">
         
-          <link rel="alternate" href="/pt/" hreflang="pt">
+          <link rel="alternate" href="pt/index.html" hreflang="pt">
         
       
       
@@ -67,9 +69,13 @@
     [data-md-color-scheme="default"], 
     [data-md-color-scheme="slate"] {
         --md-primary-fg-color: #6d1327 !important; 
-        --md-primary-fg-color--light: #6d1327 !important;
-        --md-accent-fg-color: #6d1327 !important;
+        --md-primary-fg-color--light: #490a18 !important;
+        --md-accent-fg-color: #ffffff !important;
     }
+    .md-nav__item--nested > .md-nav__link {
+    color: #ac1838 !important; /* Coloque o seu HEX aqui */
+    font-weight: bold !important; /* Opcional: para destacar ainda mais */
+}
   </style>
 
     
@@ -110,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-mkdocs" class="md-skip">
+        <a href="#introduction" class="md-skip">
           Skip to content
         </a>
       
@@ -126,7 +132,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Cobblemon BattleHUB Wiki" class="md-header__button md-logo" aria-label="Cobblemon BattleHUB Wiki" data-md-component="logo">
+    <a href="index.html" title="Cobblemon BattleHUB Wiki" class="md-header__button md-logo" aria-label="Cobblemon BattleHUB Wiki" data-md-component="logo">
       
   <img src="assets/icon.png" alt="logo">
 
@@ -192,13 +198,13 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="/" hreflang="en" class="md-select__link">
+            <a href="index.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="/pt/" hreflang="pt" class="md-select__link">
+            <a href="pt/index.html" hreflang="pt" class="md-select__link">
               Português
             </a>
           </li>
@@ -277,7 +283,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Cobblemon BattleHUB Wiki" class="md-nav__button md-logo" aria-label="Cobblemon BattleHUB Wiki" data-md-component="logo">
+    <a href="index.html" title="Cobblemon BattleHUB Wiki" class="md-nav__button md-logo" aria-label="Cobblemon BattleHUB Wiki" data-md-component="logo">
       
   <img src="assets/icon.png" alt="logo">
 
@@ -375,7 +381,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="index.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -408,10 +414,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#welcome-to-cobblemon-battlehub" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands
+        Welcome to Cobblemon BattleHUB
       
     </span>
   </a>
@@ -419,10 +425,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
+  <a href="#main-features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project layout
+        Main Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-and-authorship" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development and Authorship
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-and-community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support and Community
       
     </span>
   </a>
@@ -445,7 +473,35 @@
   
   
     <li class="md-nav__item">
-      <a href="installation/" class="md-nav__link">
+      <a href="Dependencies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependencies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Installation.html" class="md-nav__link">
         
   
   
@@ -473,7 +529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="commands/" class="md-nav__link">
+      <a href="Commands.html" class="md-nav__link">
         
   
   
@@ -501,63 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="economies/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Supported Economies
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="placeholders/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Placeholders
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="faqs/" class="md-nav__link">
+      <a href="FAQs.html" class="md-nav__link">
         
   
   
@@ -644,14 +644,126 @@
   
   
     <li class="md-nav__item">
-      <a href="main-config/" class="md-nav__link">
+      <a href="Server%20Config.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    ServerConfig
+    Server Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Chat%20Config.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Queue%20Config.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Queue Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Announcements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage (DataBase)
   
 
     
@@ -702,7 +814,7 @@
   <span class="md-ellipsis">
     
   
-    GUIs
+    Battles
   
 
     
@@ -718,7 +830,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    GUIs
+    Battles
   
 
           </label>
@@ -731,14 +843,14 @@
   
   
     <li class="md-nav__item">
-      <a href="base-config/" class="md-nav__link">
+      <a href="Battle%20Formats.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Base Configuration
+    Battle Formats
   
 
     
@@ -759,14 +871,14 @@
   
   
     <li class="md-nav__item">
-      <a href="base-config/" class="md-nav__link">
+      <a href="Ban%20Presets.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Base Configuration
+    Ban Presets
   
 
     
@@ -787,14 +899,14 @@
   
   
     <li class="md-nav__item">
-      <a href="base-config/" class="md-nav__link">
+      <a href="Ladder%20Config.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Base Configuration
+    Ladder Config
   
 
     
@@ -815,14 +927,14 @@
   
   
     <li class="md-nav__item">
-      <a href="base-config/" class="md-nav__link">
+      <a href="Ladder%20Custom%20Example.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Base Configuration
+    Ladder Custom Example
   
 
     
@@ -843,14 +955,14 @@
   
   
     <li class="md-nav__item">
-      <a href="base-config/" class="md-nav__link">
+      <a href="Spectate.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Base Configuration
+    Spectate
   
 
     
@@ -871,14 +983,499 @@
   
   
     <li class="md-nav__item">
-      <a href="base-config/" class="md-nav__link">
+      <a href="Ranks.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Base Configuration
+    Ranks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Team%20Validation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Prevention%20of%20Abandonment%20%26%20Safe%20Rescue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prevention of Abandonment & Safe Rescue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Quests%20Config.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Quests%20Types.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Quests%20Custom%20Example.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quests Custom Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shop
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Shop
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Products%20and%20Bundles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Products and Bundles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PokemonRotation%20Config.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PokemonRotation Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tournament
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tournament
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="How%20does%20it%20work.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How does it work?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Webhook.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Tournament%20Commands.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tournament Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Tournament%20Example.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tournament Example
   
 
     
@@ -926,10 +1523,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#welcome-to-cobblemon-battlehub" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands
+        Welcome to Cobblemon BattleHUB
       
     </span>
   </a>
@@ -937,10 +1534,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
+  <a href="#main-features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project layout
+        Main Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-and-authorship" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development and Authorship
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-and-community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support and Community
       
     </span>
   </a>
@@ -964,21 +1583,33 @@
 
 
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+<h1 id="introduction"><strong>Introduction</strong></h1>
+<hr />
+<h2 id="welcome-to-cobblemon-battlehub"><strong>Welcome to Cobblemon BattleHUB</strong></h2>
+<p><strong>Cobblemon BattleHUB</strong> is the ultimate infrastructure for servers looking to elevate competitive play and organize Pokémon battles within Minecraft. Built to run natively on the <strong>Fabric</strong> platform, the mod integrates a complete ecosystem of matchmaking, automated tournament management, and a robust economy, turning your server into a true Pokémon eSports arena.</p>
+<hr />
+<h2 id="main-features"><strong>Main Features</strong></h2>
+<p>Cobblemon BattleHUB goes beyond a simple duel system, providing a full management framework for administrators and an immersive experience for players.</p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li><strong>Advanced Duel System:</strong> Intelligent matchmaking with support for arenas instantiated in separate dimensions, avoiding overload or interference with the server's main world.  </li>
+<li><strong>Automated Tournament Management:</strong> Automatic bracket organization and registration control, simplifying competitive event execution.  </li>
+<li><strong>Integrated Economy and Shop:</strong> Dedicated in-game shop to reward player activity and sell strategic battle items.  </li>
+<li><strong>Statistics and History:</strong> Detailed performance tracking so players can follow their battle history and ranking evolution.  </li>
+<li><strong>License Security:</strong> Exclusive protection with IP-based license authentication directly on the backend, ensuring mod integrity and exclusivity.  </li>
+<li><strong>Native Network Integration:</strong> Fully compatible with the Fabric ecosystem, offering formatted chat support (via Carbon) and performance telemetry.</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre>
+<hr />
+<h2 id="development-and-authorship"><strong>Development and Authorship</strong></h2>
+<p>This project was fully conceived, designed, and programmed by <strong>F4xizzz</strong>. The entire mod development (in Java/Fabric), backend architecture in Node.js with MongoDB, and license security and validation systems were independently built to ensure high performance, optimization, and stability.</p>
+<hr />
+<h2 id="support-and-community"><strong>Support and Community</strong></h2>
+<p>If you want to ask configuration questions, report bugs, suggest new mechanics, or follow upcoming updates closely, join our official channel.</p>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">Official Community</p>
+<p>Contact us directly through our official server on <a href="https://discord.gg/aDCgBbvRe5"><strong>Discord</strong></a>.<br />
+<em>This documentation is constantly updated to ensure the best configuration and usage experience for Cobblemon BattleHUB on your server.</em></p>
+</div>
 
 
 
@@ -1002,6 +1633,30 @@ docs/
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="Dependencies.html" class="md-footer__link md-footer__link--next" aria-label="Next: Dependencies">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Dependencies
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1028,7 +1683,7 @@ docs/
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.79ae519e.min.js"></script>

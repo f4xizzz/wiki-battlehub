@@ -1,1 +1,4 @@
 py -m mkdocs gh-deploy
+
+
+py -m mkdocs serve

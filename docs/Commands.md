@@ -66,7 +66,7 @@
 
 ---
 
-  <a href="../Tournament%20Commands/" style="text-decoration: none; color: inherit; display: block;">
+  <a href="../wiki-battlehub/Tournament%20Commands.html" style="text-decoration: none; color: inherit; display: block;">
     <div style="border: 1px solid var(--md-default-fg-color--lightest); border-radius: 8px; padding: 20px; background-color: var(--md-code-bg-color); transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; height: 100%; display: flex; flex-direction: column; justify-content: space-between;" 
          onmouseover="this.style.borderColor='var(--md-accent-fg-color)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'; this.style.transform='translateY(-4px)';" 
          onmouseout="this.style.borderColor='var(--md-default-fg-color--lightest)'; this.style.boxShadow='none'; this.style.transform='none';">

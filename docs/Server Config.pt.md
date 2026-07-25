@@ -15,6 +15,7 @@ O arquivo `server_config.json` é o núcleo de configuração do **Cobblemon Bat
 Abaixo está o modelo com a estrutura oficial gerada pela classe ServerConfig para você usar como referência rápida:
 
         {  
+          "guiTheme": "ULTRA",
           "activeRankedLadders": [  
             "singles_ranked",  
            "doubles_ranked",  
@@ -22,13 +23,22 @@ Abaixo está o modelo com a estrutura oficial gerada pela classe ServerConfig pa
           ],  
          "activeCasualLadders": [  
           "singles_50_casual",  
-           "doubles_50_casual"  
+          "doubles_50_casual",
+          "monotype_50_casual",
+          "singles_100_casual",
+          "doubles_100_casual",
+          "triples_100_casual",
+          "monotype_100_casual"
         ],  
          "actionTimerSeconds": 30,  
          "afkStrikeLimit": 3,  
          "afkExtensionSeconds": 15,  
          "maxAfkAutopilotRounds": 3,  
-         "autopilotActionSeconds": 5,  
+         "autopilotActionSeconds": 5, 
+         "dailyLimitRankedEnabled": true,
+         "dailyLimitRanked": 10,
+         "dailyLimitCasualEnabled": false,
+         "dailyLimitCasual": 10, 
          "currentSeasonNumber": 1,  
          "currentSeasonId": "season_1",  
           "currentSeasonName": "Season 1",  
@@ -135,7 +145,6 @@ Abaixo está o modelo com a estrutura oficial gerada pela classe ServerConfig pa
 
 Permite automatizar o envio de itens, moedas ou permissões via console quando metas forem alcançadas.
 
-
 #### **Configurações Globais**
 
 * **`milestoneRewardsEnabled`**: (true/false) Habilita ou desabilita as recompensas por marcos de progresso do jogador.  
@@ -165,5 +174,14 @@ Array onde você cadastra metas específicas de jogo:
 * **`participationReward`**: Prêmio de consolação por participação.  
   * `minimumGames`: Mínimo de partidas que o jogador precisa ter completado para ser elegível a este prêmio de participação.  
   * `commands`: Comandos enviados ao console para premiar os participantes válidos.
+
+  ### **5. Interface e Limites Diários**
+
+* `guiTheme:` Define o tema visual da interface gráfica (GUI) do mod. Os presets disponíveis são: `DEFAULT, POKE, GREAT, ULTRA, QUICK, DUSK e MASTER.`
+
+* **`dailyLimitRankedEnabled`** (true/false): Habilita ou desabilita o limite de partidas competitivas que um jogador pode jogar por dia.
+* **`dailyLimitRanked`**: Quantidade máxima de partidas Ranked permitidas por jogador diariamente.
+* **`dailyLimitCasualEnabled`** (true/false): Habilita ou desabilita o limite de partidas casuais por dia.
+* **`dailyLimitCasual`**: Quantidade máxima de partidas Casuais permitidas por jogador diariamente.
 
   ---

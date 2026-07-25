@@ -4,7 +4,73 @@
 
 ## **Funcionamento do Sistema de Torneios**
 
-O sistema de torneios do **Cobblemon BattleHUB** é totalmente automatizado e integrado ao ecossistema de combates do servidor. Ele gerencia o ciclo de vida completo de uma competição — desde a abertura das inscrições até a coroação do grande campeão — sem que os administradores precisem controlar chaves externas de forma manual.
+O sistema de torneios do **Cobblemon BattleHUB** é integrado ao ecossistema de combates do servidor. Ele gerencia o ciclo de vida completo de uma competição — desde a abertura das inscrições até a coroação do grande campeão — sem que os administradores precisem controlar chaves externas de forma manual.
+
+---
+## **Como Configurar e Executar um Torneio na Prática**
+
+### **1. Ativação e Preparação do Arquivo**
+Para liberar um torneio, abra o arquivo JSON correspondente ao seu torneio na pasta do mod e ajuste as seguintes propriedades para `true`:
+
+* **`tournamentActive`**: Define se o torneio está ativo no servidor.
+* **`manualRegistrationOpen`**: Abre as inscrições para que os jogadores possam participar.
+
+> 💡 **Dica de Testes:** Se você estiver apenas testando a mecânica de torneios sozinho ou com poucas pessoas, ative a opção `"testModeNoMinLimit": true` para ignorar a exigência do número mínimo de participantes.
+
+### **2. Inscrição de Jogadores**
+
+1. Os jogadores devem abrir a interface do mod pelo comando `/bh`, navegar até a **aba de Torneios** e clicar em se inscrever.
+2. **Métodos para Testes de Inscrição:**
+   * **Adicionar Bots:** Você pode preencher as vagas do torneio automaticamente usando o comando `/bht <Id do Torneio> playerlist fill` *(Nota: os bots preenchem as vagas na chave, mas não jogam as partidas)*.
+   * **Testes Reduzidos:** Você pode definir um limite mínimo no arquivo do torneio para realizar testes com um amigo ou conta secundária:
+       ```
+       "maxParticipants": 2,
+       "minParticipants": 2
+        ```
+
+### **3. Sortear o Chaveamento (Seeding)**
+Com as inscrições encerradas, execute o comando de sorteio para gerar as chaves:
+
+`/bht <block id> roll`
+*(Exemplo: `/bht default roll`)*
+
+> 📢 **Recomendação:** Certifique-se de estar com o **Webhook do Discord** configurado para receber o painel visual do chaveamento gerado diretamente no seu servidor.
+
+### **4. Gerenciamento e Convocação de Partidas**
+
+#### **Opção A: Iniciar a Partida Oficialmente para os Jogadores**
+Para convocar os dois competidores de um bloco para a batalha, use o comando:
+
+`/bht prep <blockid> <timelimit>`
+
+
+* **Exemplo com segundos:** `/bht prep default_phase_1_1 15s`
+* **Exemplo com minutos:** `/bht prep default_phase_1_1 15m`
+
+**O que acontece a seguir:**
+
+1. Um **overlay** aparecerá na tela dos dois jogadores alertando sobre o início da partida e o tempo restante para a preparação.
+2. Os jogadores devem abrir o menu com `/bh`, ir até a aba de **Torneios** e clicar em **Ready (Pronto)**.
+3. Se a equipe (party) do jogador estiver dentro de todas as regras e restrições configuradas para o torneio, a confirmação será aceita.
+4. Assim que ambos confirmarem prontidão, a batalha é iniciada automaticamente.
+5. Ao término do combate, o mod detecta o vencedor de forma autônoma, atualiza a chave e envia o resultado no Discord.
+
+#### **Opção B: Definir um Vencedor Manualmente (Set Win)**
+Caso ocorra algum imprevisto ou você precise avançar um jogador manualmente, utilize o comando:
+
+`/bht setwinner <blockid> <winner>`
+*(Exemplo: `/bht setwinner default_phase_1_1 1`)*
+
+### 🔍 **Onde encontrar o ID dos Blocos?**
+Os IDs de cada partida/bloco são gerados e salvos no arquivo `tournaments_state.json`, localizado no diretório:
+
+`config/cobblemon_battlehub/tournaments_state.json`
+
+**Padronização comum dos IDs dos blocos:**
+
+* `default_phase_1_1` *(Fase 1 - Bloco 1)*
+* `default_phase_2_1` *(Fase 2 - Bloco 1)*
+* `default_final_1` *(Final)*
 
 ---
 

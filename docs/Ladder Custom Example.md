@@ -34,12 +34,13 @@ Go to the `custom_ladders/` folder, create a file named `little_cup_event.json`,
           "banPresets": [  
             "lc"  
           ],  
-          "bannedSpeciesKeys": [],  
-          "bannedItemKeys": [],  
-          "bannedAbilityKeys": [],  
-          "bannedMoveKeys": [],  
-          "bannedTierKeys": [],  
-          "showdownRules": [],  
+          "bannedSpeciesKeys": [
+            "ditto",
+            "arceus"
+          ],  
+          "bannedItemKeys": ["cobblemon:choice_band"],  
+          "bannedAbilityKeys": ["cobblemon:overgrow", "sturdy"],  
+          "bannedMoveKeys": ["tackle", "swordsdance", "swords_dance"],  
           "allowRestrictedPokemon": false,  
           "allowMythical": false,  
           "allowParadox": false,  
@@ -47,6 +48,11 @@ Go to the `custom_ladders/` folder, create a file named `little_cup_event.json`,
           "allowZMove": false,  
           "allowDynamax": false,  
           "allowTera": false  
+          "maxSubLegendary": 1,
+          "maxRestricted": 1,
+          "maxMythical": 1,
+          "maxParadox": 1,
+          "maxCombinedSpecial": 1
         }
 
 ### **What are we configuring here?**
