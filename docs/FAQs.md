@@ -40,6 +40,8 @@ The acquisition process is secure, fast, and 100% automated! To get your copy of
 5. Once the payment is approved, the system will instantly send you the mod `.jar` file and your exclusive **License Key**.  
 6. Just place the mod in the server, run `/bh activation [YOUR_KEY]`, and enjoy!
 
+See [Licensing & Activation](Licensing.md) for how the key binds to your server IP, what works while unlicensed, and troubleshooting.
+
 ---
 
 !!! tip "Still have questions?"

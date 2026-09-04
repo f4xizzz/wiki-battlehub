@@ -4,7 +4,7 @@
 
 ## **Tournament Commands**
 
-The **Cobblemon BattleHUB** tournament system is managed by a high-precision administrative command tree based on the class. These commands allow you to create, reset, monitor brackets, and even manually intervene in ongoing matches.
+The **Cobblemon BattleHUB** tournament system is driven by an admin command tree (`TournamentCommand`). These commands let you close registration, draw and reset brackets, run test bots, and step into individual matches. Tournaments themselves are defined by profile files — see [How does it work?](How does it work.md) and [Tournament Example](Tournament Example.md).
 
 ---
 
@@ -44,7 +44,7 @@ These commands depend on the **Tournament ID** (set in the profile .json file) a
 
 ### **1. Clear Registrations (clear)**
 
-* **Syntax:** `/bhubtournament <Tournament_ID>` clear  
+* **Syntax:** `/bhubtournament <Tournament_ID> clear`  
 * **Permission:** `battlehub.tournament.clear`  
 * **Functionality:** Instantly removes all players registered in the selected competition (available only if the tournament is in the UPCOMING or REGISTRATION states).
 
@@ -109,8 +109,8 @@ These commands act directly on matches identified by a **Block ID** (e.g., `defa
 
 ### **4. Set Manual Winner (setwinner)**
 
-* **Syntax:** `/bhubtournament setwinner <Block_ID> <_1 or _2>`  
+* **Syntax:** `/bhubtournament setwinner <Block_ID> <1|2>`  
 * **Permission:** `battlehub.tournament.setwinner`  
-* **Functionality:** Intervenes in the bracket and declares the winner arbitrarily. Use 1 to award victory to Player 1 of the block or 2 to award victory to Player 2. The mod will update the bracket, promote the winner, and trigger announcements automatically.
+* **Functionality:** Intervenes in the bracket and declares the winner. Pass `1` to award the win to Player 1 of the block, or `2` for Player 2 (any other value is treated as Player 2). The mod updates the bracket, promotes the winner, and fires the announcements automatically.
 
 ---

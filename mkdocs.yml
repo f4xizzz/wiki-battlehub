@@ -41,10 +41,11 @@ plugins:
       fallback_to_default: true
 
 nav:
-  - Getting Started:   
+  - Getting Started:
       - Introduction: index.md
       - Dependencies: Dependencies.md
       - Installation: Installation.md
+      - Licensing & Activation: Licensing.md
       - Commands: Commands.md
       - FAQs: FAQs.md
 

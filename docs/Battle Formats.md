@@ -1,4 +1,4 @@
-# **Server Config**
+# **Battle Formats**
 
 ---
 
@@ -60,9 +60,9 @@ Below is the specification for each preset available in the mod:
 
 * **Battle Structure:** Singles (1v1) by default.  
 * **Level Cap:** 50 by default.  
-* **Species Clause:** Disabled by default.  
-* **Item Clause:** Disabled by default.  
-* **Description:** Allows administrators to create fully custom rules in Ladder files, ignoring the mod's standard competitive restrictions.
+* **Species Clause / Item Clause:** Both **enabled** by default, exactly like the locked presets — but with `custom` you are free to turn them off (`enforceSpeciesClause: false` / `enforceItemClause: false`) in the Ladder file.  
+* **Showdown Rules:** none forced.  
+* **Description:** Lets administrators build fully custom rules in the Ladder JSON — ban lists, gimmick toggles, caps — without the fixed Smogon `Standard` ruleset the other presets apply.
 
 ---
 

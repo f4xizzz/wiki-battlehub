@@ -1,4 +1,4 @@
-# **Server Config**
+# **Battle Formats**
 
 ---
 
@@ -56,13 +56,13 @@ Abaixo encontras a especificação de cada Preset disponível no mod:
 * **Cláusula de Item:** Ativa  
 * **Regras Showdown:** `Standard` e `Same Type Clause` (Obriga a que todos os Pokémon da equipa partilhem pelo menos um tipo elemental comum).
 
-### **5\. Custom (`custom`)**
+### **5. Custom (`custom`)**
 
 * **Estrutura de Combate:** Singles (1v1) por padrão.  
 * **Nível Ajustado:** 50 por padrão.  
-* **Cláusula de Espécie:** Desativada por padrão.  
-* **Cláusula de Item:** Desativada por padrão.  
-* **Descrição:** Permite aos administradores criar regras totalmente personalizadas nos ficheiros das Ladders, ignorando as restrições competitivas padrão do mod.
+* **Cláusula de Espécie / Cláusula de Item:** As duas vêm **ativadas** por padrão, igual aos presets travados — mas com o `custom` você pode desligá-las (`enforceSpeciesClause: false` / `enforceItemClause: false`) no arquivo da Ladder.  
+* **Regras Showdown:** nenhuma forçada.  
+* **Descrição:** Permite ao administrador montar regras totalmente personalizadas no JSON da Ladder — listas de ban, toggles de gimmick, limites — sem o ruleset fixo `Standard` da Smogon que os outros presets aplicam.
 
 ---
 

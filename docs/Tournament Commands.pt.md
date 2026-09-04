@@ -4,7 +4,7 @@
 
 ## **Comandos de Torneio**
 
-O sistema de torneios do **Cobblemon BattleHUB** é gerenciado por uma árvore de comandos administrativos de alta precisão baseados na classe. Esses comandos permitem criar, resetar, monitorar chaves e até intervir manualmente nas lutas em andamento.
+O sistema de torneios do **Cobblemon BattleHUB** é comandado por uma árvore de comandos de admin (`TournamentCommand`). Com eles você fecha inscrições, sorteia e reseta chaveamentos, roda bots de teste e intervém em partidas específicas. Os torneios em si são definidos por arquivos de perfil — veja [Como funciona?](How does it work.md) e [Tournament Example](Tournament Example.md).
 
 ---
 
@@ -44,7 +44,7 @@ Esses comandos dependem do **ID do Torneio** (definido no arquivo .json do perfi
 
 ### **1\. Limpar Inscrições (clear)**
 
-* **Sintaxe:** `/bhubtournament <ID_do_Torneio>` clear  
+* **Sintaxe:** `/bhubtournament <ID_do_Torneio> clear`  
 * **Permissão:** `battlehub.tournament.clear`  
 * **Funcionamento:** Remove instantaneamente todos os jogadores inscritos na competição selecionada (disponível apenas se o torneio estiver nos estados UPCOMING ou REGISTRATION).
 
@@ -94,7 +94,7 @@ Esses comandos atuam diretamente sobre as partidas identificadas por um **ID de 
 ### **2\. Forçar Tempo de Preparação (prep)**
 
 * **Sintaxe:** `/bhubtournament prep <ID_do_Bloco> <Tempo>`  
-* **Permissão:** battlehub.tournament.prep  
+* **Permissão:** `battlehub.tournament.prep`  
 * **Funcionamento:** Altera o status do bloco de volta para a fase de preparação (PREPARING) e redefine o cronômetro com base no tempo especificado.  
   * **Formatos de Tempo Aceitos:** O comando analisa sufixos como m (minutos), h (horas), d (dias).  
   * *Exemplo:* `/bhubtournament prep bloco_1 5m (Define 5 minutos de tolerância).`
@@ -109,8 +109,8 @@ Esses comandos atuam diretamente sobre as partidas identificadas por um **ID de 
 
 ### **4\. Definir Ganhador Manual (setwinner)**
 
-* **Sintaxe:** `/bhubtournament setwinner <ID_do_Bloco> <_1 ou _2>`  
+* **Sintaxe:** `/bhubtournament setwinner <ID_do_Bloco> <1|2>`  
 * **Permissão:** `battlehub.tournament.setwinner`  
-* **Funcionamento:** Intervém na chave e declara o vencedor de forma arbitrária. Use 1 para dar a vitória ao Player 1 do bloco ou 2 para o Player 2. O mod atualizará a chave, promoverá o vencedor e acionará os anúncios automaticamente.
+* **Funcionamento:** Intervém na chave e declara o vencedor. Passe `1` para dar a vitória ao Player 1 do bloco, ou `2` para o Player 2 (qualquer outro valor é tratado como Player 2). O mod atualiza a chave, promove o vencedor e dispara os anúncios automaticamente.
 
 ---

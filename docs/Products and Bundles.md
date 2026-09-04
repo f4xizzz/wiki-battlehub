@@ -16,66 +16,57 @@ The **Cobblemon BattleHUB** shop is divided into two parts: the static storefron
 
 ## **JSON Structure**
 
-Below is an example of the structure generated automatically by the mod, containing a `"Bundle"` (a package with multiple commands/Pokémon) and a regular `"Item"`:
+Below is an example of the structure the mod generates, with a `bundle` (a package that runs several commands) and a plain `item`:
 
-        {  
-          "shop": [  
-            {  
-              "id": "example_bundle",  
-              "name": "Tinkaton Bundle",  
-              "type": "bundle",  
-              "description": "Purchase this amazing pink bundle with the full evolution line!",  
-              "price": 1500.0,  
-              "discount": 15,  
-              "currency": "Dollars",  
-              "currencyName": "<green><bold>%price%$</bold></green>",  
-              "featured": true,  
-              "scale": 1.3,  
-              "offsetX": 0,  
-              "offsetY": 0,  
-              "width": 120,  
-              "height": 160,  
-              "maxPurchases": 1,  
-              "imageUrls": [  
-                "https://i.imgur.com/ZGNJEw7.png"  
-              ],  
-              "includedItems": [  
-                "Shiny Tinkaton with Perfect IVs",  
-                "5x Diamonds"  
-              ],  
-              "commands": [  
-                "pokegiveother %player% tinkaton s min_perfect_ivs=6",  
-                "give %player% diamond 5"  
-              ]  
-            },  
-            {  
-              "id": "abilitypatch",  
-              "name": "AbilityPatch",  
-              "type": "item",  
-              "description": "Changes your Pokémon's ability to its Hidden Ability.",  
-              "price": 1000.0,  
-              "discount": 0,  
-              "currency": "Dollars",  
-              "currencyName": "<green><bold>%price%$</bold></green>",  
-              "featured": false,  
-              "scale": 1.0,  
-              "offsetX": 0,  
-              "offsetY": 0,  
-              "width": 60,  
-              "height": 60,  
-              "maxPurchases": 0,  
-              "imageUrls": [  
-                "https://i.imgur.com/T9VPbyx.png"  
-              ],  
-              "includedItems": [  
-                "1x Ability Patch"  
-              ],  
-              "commands": [  
-                "give %player% cobblemon:ability_patch"  
-              ]  
-            }  
-          ]  
-        }
+```json
+{
+  "shop": [
+    {
+      "id": "example_bundle",
+      "name": "Tinkaton Bundle",
+      "type": "bundle",
+      "description": "Purchase this amazing pink bundle with the full evolution line!",
+      "price": 1500.0,
+      "discount": 15,
+      "currency": "Dollars",
+      "currencyName": "<green><bold>%price%$</bold></green>",
+      "featured": true,
+      "scale": 1.3,
+      "offsetX": 0,
+      "offsetY": 0,
+      "width": 120,
+      "height": 160,
+      "maxPurchases": 1,
+      "imageUrls": ["https://i.imgur.com/ZGNJEw7.png"],
+      "includedItems": ["Shiny Tinkaton with Perfect IVs", "5x Diamonds"],
+      "commands": [
+        "pokegiveother %player% tinkaton s min_perfect_ivs=6",
+        "give %player% diamond 5"
+      ]
+    },
+    {
+      "id": "abilitypatch",
+      "name": "AbilityPatch",
+      "type": "item",
+      "description": "Changes your Pokémon's ability to its Hidden Ability.",
+      "price": 1000.0,
+      "discount": 0,
+      "currency": "Dollars",
+      "currencyName": "<green><bold>%price%$</bold></green>",
+      "featured": false,
+      "scale": 1.0,
+      "offsetX": 0,
+      "offsetY": 0,
+      "width": 60,
+      "height": 60,
+      "maxPurchases": 0,
+      "imageUrls": ["https://i.imgur.com/T9VPbyx.png"],
+      "includedItems": ["1x Ability Patch"],
+      "commands": ["give %player% cobblemon:ability_patch"]
+    }
+  ]
+}
+```
 
 ---
 
@@ -87,7 +78,7 @@ Below is an example of the structure generated automatically by the mod, contain
 !!! warning "**Warning:**"
     Never change a product’s ID after players have purchased it, or they will lose purchase history and may bypass purchase limits.  
 * **`name`**: The product name (supports MiniMessage and legacy colors).  
-* **`type`**: Defines how the product is displayed. Common values are `"item"` or `"bundle"`.  
+* **`type`**: Only affects the small badge on *featured* cards — `"bundle"` shows a "Bundle" tag, anything else shows an "Item" tag. It does not change behaviour; a card with many `commands` works whatever the `type` says.  
 * **`description`**: The description text shown in the item tooltip.  
 * **`featured`**: (true/false) If true, the product appears highlighted in the top shelf of the store at a larger size.
 

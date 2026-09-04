@@ -40,15 +40,17 @@ You do not need to do anything! Just start your server and the mod will create t
 
 Below is the structure automatically generated on the mod’s first startup:
 
-        {  
-         "storageType": "sqlite",  
-         "host": "localhost",  
-         "port": 3306,  
-         "database": "cobblemon_battlehub",  
-         "username": "admin",  
-         "password": "password",  
-         "tablePrefix": "bhub_"  
-        }
+```json
+{
+  "storageType": "sqlite",
+  "host": "localhost",
+  "port": 3306,
+  "database": "cobblemon_battlehub",
+  "username": "admin",
+  "password": "password",
+  "tablePrefix": "bhub_"
+}
+```
 
 ---
 

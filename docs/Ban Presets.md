@@ -18,21 +18,19 @@ The mod automatically generates lists based on Smogon's official competitive div
 
 That means lower tiers automatically inherit all bans from the tiers above them. Here is the direct inheritance flow:
 
-        [Ubers (Base bans)]  
-             ↓  
-        [OU (Ubers + OU bans)]  
-             ↓  
-        [UU (OU + UU bans)]  
-             ↓  
-        [RU (UU + RU bans)]  
-             ↓  
-        [NU (RU + NU bans)]  
-             ↓  
-        [PU (NU + PU bans)]
+```text
+ubers   (base list)
+  └─ ou    = ubers + OU bans
+       └─ uu    = ou + UU bans
+            └─ ru    = uu + RU bans
+                 └─ nu    = ru + NU bans
+                      └─ pu    = nu + PU bans
+```
 
-* If you use the `ou` preset, it will ban Pokémon banned in OU **plus** all Ubers.  
-* If you use the `pu` preset, it will ban Pokémon banned in PU **plus** all of NU, RU, UU, OU, and Ubers at once.  
-* **Note:** Specific formats like `lc` (Little Cup), `doubles_ou`, and `monotype` have their own inheritance or separate ban lists adapted to their particular rules.
+* If you use the `ou` preset, it bans everything banned in OU **plus** all of Ubers.
+* If you use the `pu` preset, it bans PU's list **plus** all of NU, RU, UU, OU, and Ubers at once.
+* `monotype` builds on top of `ou` (OU bans + a few Pokémon that are broken specifically in Monotype).
+* `doubles_ou`, `lc`, `legendaries`, `ultra_beasts`, and `paradoxes` are **standalone** lists — they don't inherit from anything.
 
 ---
 
@@ -44,9 +42,9 @@ On the first mod startup, the following JSON files are automatically generated i
 
 | Preset Name | Description |
 | :---- | :---- |
-| `legendaries` | Contains all Legendary and Mythical Pokémon (e.g. Mewtwo, Lugia, Zacian, Koraidon). |
-| `ultra_beasts` | Contains all Ultra Beasts in the Pokémon ecosystem (e.g. Nihilego, Buzzwole, Kartana). |
-| `paradoxes` | Contains all Paradox Pokémon from the past and future (e.g. Great Tusk, Iron Valiant). |
+| `legendaries` | Legendary and sub-legendary Pokémon (Mewtwo, Lugia, Zacian, Koraidon, the genies, the Treasures of Ruin…). It does **not** include Mythicals like Mew or Celebi — ban those by hand if you need to. |
+| `ultra_beasts` | The 11 Ultra Beasts (Nihilego, Buzzwole, Kartana, Naganadel…). |
+| `paradoxes` | All 20 Paradox Pokémon, past and future (Great Tusk, Iron Valiant, Roaring Moon, Walking Wake…). |
 
 ---
 
@@ -78,26 +76,28 @@ Go to the `ban_presets/` folder and create a file with the name you want. The fi
 
 ### **Step 2: Add the Pokémon List**
 
-Add the desired Pokémon as a JSON array. The system is smart and automatically converts names to lowercase, and ignores the `cobblemon:` prefix if added by mistake:
+Add the Pokémon as a plain JSON array of species IDs. Names are lowercased automatically and a stray `cobblemon:` prefix is stripped. Use the **form-merged** style with no separators for regional/special forms, matching the bundled lists (`vulpixalola`, `calyrexshadow`, `sneaselhisui`):
 
-        [  
-          "charizard",  
-          "blastoise",  
-          "venusaur",  
-          "cobblemon:meowscarada"  
-        ]
+```json
+[
+  "charizard",
+  "blastoise",
+  "venusaur",
+  "cobblemon:meowscarada"
+]
+```
 
 ### **Step 3: Use the Preset in a Ladder**
 
-Open the configuration of your desired Ladder (in the `ladders/` folder) and add your preset ID to the `"banPresets"` list:
+Open your Ladder file (in the `ladders/` folder) and add the preset ID to `"banPresets"` — you can list several, and they stack with each other and with the ladder's own `bannedSpeciesKeys`:
 
-        {  
-          "id": "event_singles",  
-          "displayName": "Event Battle",  
-          "banPresets": [  
-            "no_starters_event"  
-          ]  
-        }
+```json
+{
+  "id": "event_singles",
+  "displayName": "Event Battle",
+  "banPresets": ["no_starters_event", "legendaries"]
+}
+```
 
 ### **Step 4: Reload**
 

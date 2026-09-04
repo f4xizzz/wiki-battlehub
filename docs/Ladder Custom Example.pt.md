@@ -2,84 +2,95 @@
 
 ---
 
-# **Guia Prático: Criando uma Ladder de Evento (Little Cup)**
+## **Guia Prático: Criando uma Ladder de Evento (Little Cup)**
 
-O **Cobblemon BattleHUB** permite que você crie formatos de batalhas totalmente exclusivos para eventos temporários, torneios especiais ou novas filas permanentes.
+O **Cobblemon BattleHUB** permite que você crie formatos de batalha totalmente exclusivos para eventos temporários, torneios especiais ou novas filas permanentes.
 
-Para este guia, vamos criar uma categoria baseada no clássico formato **`Little Cup (LC)`** da Smogon: apenas Pokémon bebês ou em seu estágio inicial de evolução, ajustados ao **Nível 5**, e com todas as mecânicas apelativas `(Mega, Z-Move, Dynamax e Tera)` completamente desativadas.
+Neste guia vamos criar uma categoria baseada no clássico **Little Cup (LC)** da Smogon: apenas Pokémon não evoluídos, tudo ajustado para o **Nível 5**, e com todas as mecânicas de poder (Mega, Z-Move, Dynamax, Tera) desativadas.
 
 ---
 
 ### **Caminho do Diretório Customizado**
 
-Todas as suas categorias personalizadas devem ser criadas dentro da subpasta de customização para evitar misturar com as filas padrões do mod:
+Crie as categorias personalizadas dentro da subpasta de customização para não misturar com as filas padrão do mod:
 
 `config/cobblemon_battlehub/ladders/custom_ladders/`
 
-## **Passo 1: Criando o Ficheiro JSON da Ladder**
+## **Passo 1: Criar o Arquivo JSON da Ladder**
 
-Vá até a pasta `custom_ladders/`, crie um ficheiro chamado `little_cup_event.json` e adicione a seguinte estrutura:
+Na pasta `custom_ladders/`, crie o arquivo `little_cup_event.json`:
 
-        {  
-          "id": "little_cup_event",  
-          "queueLabel": "Event Queue",  
-          "displayName": "Little Cup Event",  
-          "description": "Only Level 5 Pokémon! No Megas, Z-Moves, Dynamax, or Terastal.",  
-          "ranked": false,  
-          "battleTypeId": "singles",  
-          "requiredTeamSize": 6,  
-          "adjustLevel": 5,  
-          "enforceSpeciesClause": true,  
-          "enforceItemClause": true,  
-          "banPresets": [  
-            "lc"  
-          ],  
-          "bannedSpeciesKeys": [
-            "ditto",
-            "arceus"
-          ],  
-          "bannedItemKeys": ["cobblemon:choice_band"],  
-          "bannedAbilityKeys": ["cobblemon:overgrow", "sturdy"],  
-          "bannedMoveKeys": ["tackle", "swordsdance", "swords_dance"],  
-          "allowRestrictedPokemon": false,  
-          "allowMythical": false,  
-          "allowParadox": false,  
-          "allowMega": false,  
-          "allowZMove": false,  
-          "allowDynamax": false,  
-          "allowTera": false  
-        }
+```json
+{
+  "id": "little_cup_event",
+  "queueLabel": "Event Queue",
+  "displayName": "Little Cup Event",
+  "description": "Only Level 5 Pokémon! No Megas, Z-Moves, Dynamax, or Terastal.",
+  "ranked": false,
+
+  "battleTypeId": "singles",
+  "requiredTeamSize": 6,
+  "adjustLevel": 5,
+
+  "enforceSpeciesClause": true,
+  "enforceItemClause": true,
+
+  "banPresets": ["lc"],
+  "bannedSpeciesKeys": ["ditto", "arceus"],
+  "bannedItemKeys": ["choice_band"],
+  "bannedAbilityKeys": ["sturdy"],
+  "bannedMoveKeys": ["swords_dance"],
+
+  "allowRestrictedLegendary": false,
+  "allowMythical": false,
+  "allowParadox": false,
+  "allowMega": false,
+  "allowZMove": false,
+  "allowDynamax": false,
+  "allowTera": false,
+
+  "maxSubLegendary": 0,
+  "maxRestricted": 0,
+  "maxMythical": 0,
+  "maxParadox": 0,
+  "maxCombinedSpecial": 0
+}
+```
+
+!!! warning "Tem que ser JSON válido"
+    Toda entrada precisa de vírgula no final **menos a última antes de um `}`**, e não tem vírgula depois do `}` final. Uma vírgula faltando e o arquivo inteiro deixa de carregar. Repare que o campo é **`allowRestrictedLegendary`** — `allowRestrictedPokemon` (o nome interno do preset) é ignorado aqui.
 
 ### **O que configuramos aqui?**
 
-1. **id**: Definido como little\_cup\_event (deve ser exatamente igual ao nome do arquivo .json).  
-2. **adjustLevel**: Definido como 5\. Todos os Pokémon terão seus níveis rebaixados ou elevados temporariamente para o nível 5 na arena.  
-3. **banPresets**: Carregamos o preset "lc" que já vem gerado por padrão no mod. Isso banirá automaticamente Pokémons estágio 1 que são fortes demais para o formato (como Scyther, Gligar, etc.).  
-4. **Mecânicas Desativadas**: Definimos todas as propriedades de Gimmicks (allowMega, allowTera, etc.) como false para garantir um combate puramente estratégico de início de geração.
+1. **`id`** — `little_cup_event`, tem que ser idêntico ao nome do arquivo.
+2. **`adjustLevel`** — `5`; todo Pokémon é ajustado temporariamente para o nível 5 na batalha.
+3. **`banPresets`** — carrega o preset `lc` que já vem no mod, que bane pra você os Pokémon "inviáveis no LC" (veja [Ban Presets](Ban Presets.md)). As listas diretas `bannedSpeciesKeys` / `bannedItemKeys` / `bannedAbilityKeys` / `bannedMoveKeys` são somadas por cima; use IDs em minúsculo com underscore (`swords_dance`), o prefixo `cobblemon:` é opcional.
+4. **Mecânicas desativadas** — todos os `allow*` de gimmick em `false`, e os limites `max*` em `0`, então nenhum lendário / mítico / paradoxo entra.
 
-## **Passo 2: Registrando a Fila no Servidor**
+## **Passo 2: Registrar a Fila no Server Config**
 
-Criar o arquivo JSON na pasta de customização faz o mod carregar o arquivo na memória, mas ele **ainda não aparecerá no menu de matchmaking**. Para liberar a fila para os jogadores, precisamos ativá-la no arquivo principal de configuração.
+Colocar o JSON na pasta custom carrega ele na memória, mas ele **não aparece no menu de matchmaking** até você listar no server config.
 
-1. Abra o arquivo principal de configuração em:  
-   `config/cobblemon_battlehub/server_config.json` 
-2. Adicione o ID da sua nova Ladder (`little_cup_event`) na lista correspondente. Como definimos "ranked": false em nosso JSON, vamos adicioná-la na lista de casuais:
+1. Abra `config/cobblemon_battlehub/server_config.json`.
+2. Adicione o ID da Ladder na lista certa. Definimos `"ranked": false`, então vai na lista de casuais:
 
-          "activeCasualLadders": [  
-            "singles_50_casual",  
-            "doubles_50_casual",  
-            "little_cup_event"  
-          ],
+```json
+"activeCasualLadders": [
+  "singles_50_casual",
+  "doubles_50_casual",
+  "little_cup_event"
+]
+```
 
-!!! tip "Dica de Organização"
-    Se você quiser que essa fila valha pontos e ranking no servidor, basta alterar `"ranked": true` dentro do seu arquivo JSON e registrá-la no campo `"activeRankedLadders"` do seu `server_config.json`.
+!!! tip "Deixar ranqueada"
+    Para essa fila valer rating e aparecer no leaderboard, coloque `"ranked": true` no arquivo da Ladder e liste o ID em `"activeRankedLadders"`.
 
-## **Passo 3: Sincronizando as Alterações**
+## **Passo 3: Sincronizar as Alterações**
 
-Com os arquivos salvos, você não precisa reiniciar o servidor físico. Acesse o console do servidor ou execute dentro do jogo (como administrador) o comando:
+Não precisa reiniciar o servidor. No console ou dentro do jogo como admin:
 
 `/bh reload`
 
-Pronto\! A fila **Little Cup Event** aparecerá instantaneamente nos menus dos jogadores com as regras, ajustes de nível e restrições de Pokémon que você acabou de definir.
+A fila **Little Cup Event** aparece na hora nos menus dos jogadores com as regras, o ajuste de nível e as restrições que você definiu.
 
 ---

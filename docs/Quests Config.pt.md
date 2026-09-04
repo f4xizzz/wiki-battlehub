@@ -10,7 +10,7 @@ O sistema de missões do **Cobblemon BattleHUB** recompensa a atividade e a fide
 
 ### **Caminho do Arquivo**
 
-`config/cobblemon\_battlehub/quests.json`
+`config/cobblemon_battlehub/quests.json`
 
 ---
 
@@ -20,7 +20,7 @@ O comportamento do sistema é orquestrado de forma dinâmica pela classe QuestMa
 
 1. **Geração Automática:** Na primeira inicialização, se o arquivo quests.json não for encontrado, o mod cria o arquivo automaticamente, populando-o com mais de **90 missões pré-definidas**.  
 2. **Seleção Randômica Inteligente:** Para as missões diárias e semanais, o mod não entrega o catálogo inteiro para o jogador. Ele seleciona aleatoriamente um subconjunto de IDs com base em uma *seed* gerada pela data atual combinada com a UUID do jogador. Isso garante que cada jogador receba missões diferentes a cada ciclo\!  
-3. **Persistência Seguro:** O progresso atual do jogador (quantas etapas concluiu, o que já foi reivindicado e os horários de reset) é salvo de forma assíncrona no banco de dados.
+3. **Persistência Segura:** O progresso atual do jogador (quantas etapas concluiu, o que já foi resgatado e os horários de reset) é salvo de forma assíncrona no banco de dados.
 
 ---
 
@@ -28,52 +28,48 @@ O comportamento do sistema é orquestrado de forma dinâmica pela classe QuestMa
 
 Abaixo está a estrutura simplificada do arquivo `quests.json` que demonstra como as missões e parâmetros globais são definidos:
 
-        {  
-          "daily_quests_per_player": 2,  
-          "weekly_quests_per_player": 5,  
-          "daily_quests": [  
-            {  
-              "id": "daily_01",  
-              "type": "PLAY_MATCHES",  
-              "title": "Primeiro Passo",  
-              "description": "Participe de 1 partida em qualquer fila.",  
-              "targetAmount": 1,  
-              "typeFilter": null,  
-              "rewardDescription": "50 Dinheiros",  
-              "rewardCommands": [  
-                "eco deposit 50 dollar %player%"  
-              ]  
-            }  
-          ],  
-          "weekly_quests": [  
-            {  
-              "id": "weekly_01",  
-              "type": "WIN_RANKED",  
-              "title": "Veterano da Arena",  
-              "description": "Vença 15 partidas Ranqueadas.",  
-              "targetAmount": 15,  
-              "typeFilter": null,  
-              "rewardDescription": "1000 Pontos de Batalha",  
-              "rewardCommands": [  
-                "eco deposit 1000 battlepoint %player%"  
-              ]  
-            }  
-          ],  
-          "permanent_quests": [  
-            {  
-              "id": "perm_mono_fire",  
-              "type": "MASTER_MONOTYPE",  
-              "title": "Mestre das Chamas",  
-              "description": "Alcance 100 vitórias usando Monotype Fogo.",  
-              "targetAmount": 100,  
-              "typeFilter": "fire",  
-              "rewardDescription": "Tag Mestre Fogo",  
-              "rewardCommands": [  
-                "lp user %player% parent add master_fire"  
-              ]  
-            }  
-          ]  
-        }
+```json
+{
+  "daily_quests_per_player": 2,
+  "weekly_quests_per_player": 5,
+  "daily_quests": [
+    {
+      "id": "daily_01",
+      "type": "PLAY_MATCHES",
+      "title": "Primeiro Passo",
+      "description": "Participe de 1 partida em qualquer fila.",
+      "targetAmount": 1,
+      "typeFilter": null,
+      "rewardDescription": "50 Dinheiros",
+      "rewardCommands": ["eco deposit 50 dollar %player%"]
+    }
+  ],
+  "weekly_quests": [
+    {
+      "id": "weekly_01",
+      "type": "WIN_RANKED",
+      "title": "Veterano da Arena",
+      "description": "Vença 15 partidas Ranqueadas.",
+      "targetAmount": 15,
+      "typeFilter": null,
+      "rewardDescription": "1000 Pontos de Batalha",
+      "rewardCommands": ["eco deposit 1000 battlepoint %player%"]
+    }
+  ],
+  "permanent_quests": [
+    {
+      "id": "perm_mono_fire",
+      "type": "MASTER_MONOTYPE",
+      "title": "Mestre das Chamas",
+      "description": "Alcance 100 vitórias usando Monotype Fogo.",
+      "targetAmount": 100,
+      "typeFilter": "fire",
+      "rewardDescription": "Tag Mestre Fogo",
+      "rewardCommands": ["lp user %player% parent add master_fire"]
+    }
+  ]
+}
+```
 
 ---
 

@@ -40,6 +40,8 @@ O processo de aquisição é seguro, rápido e 100% automatizado\! Para obter a 
 5. Assim que o pagamento for aprovado, o sistema enviará instantaneamente para você o arquivo `.jar` do mod e a sua **License Key** exclusiva.  
 6. Basta colocar o mod no servidor, rodar `/bh activation [SUA_CHAVE]` e aproveitar\!
 
+Veja [Licença & Ativação](Licensing.md) para entender como a chave se prende ao IP do servidor, o que funciona sem licença e como resolver problemas.
+
 ---
 
 !!! tip "Ainda com Dúvidas?"

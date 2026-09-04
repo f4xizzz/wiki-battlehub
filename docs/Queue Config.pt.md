@@ -4,22 +4,24 @@
 
 ## **Configuração da Fila de Matchmaking**
 
-O ficheiro queue\_config.json controla as regras de emparelhamento (matchmaking) do **Cobblemon BattleHUB**, focando principalmente na prevenção de manipulação de resultados (Win Trading) através de tempos de espera (cooldown) configuráveis entre os mesmos jogadores.
+O arquivo `queue_config.json` controla as regras de emparelhamento (matchmaking) do **Cobblemon BattleHUB**, focando principalmente na prevenção de manipulação de resultados (Win Trading) através de tempos de espera (cooldown) configuráveis entre os mesmos jogadores.
 
 ---
 
-### **Caminho do Ficheiro**
+### **Caminho do Arquivo**
 
-`config/cobblemon\_battlehub/queue\_config.json`
+`config/cobblemon_battlehub/queue_config.json`
 
 ## **Modelo Padrão de Configuração**
 
 Abaixo está o modelo JSON padrão gerado de forma automática pelo mod:
 
-        {  
-         "QueueAntiTradingCasual": 30,  
-         "QueueAntiTradingRanked": 60  
-        }
+```json
+{
+  "QueueAntiTradingCasual": 30,
+  "QueueAntiTradingRanked": 60
+}
+```
 
 ---
 
@@ -63,7 +65,7 @@ A fila só efetuará o emparelhamento se houver pelo menos **uma arena física v
 
 ## **Como Recarregar as Alterações**
 
-Se modificar os valores de minutos de anti-trading no ficheiro queue\_config.json, aplique as alterações ao servidor em tempo real utilizando o comando:
+Se modificar os valores de minutos de anti-trading no arquivo `queue_config.json`, aplique as alterações ao servidor em tempo real utilizando o comando:
 
 `/bh reload`
 

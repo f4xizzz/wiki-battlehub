@@ -16,66 +16,57 @@ A loja do **Cobblemon BattleHUB** é dividida em duas partes: a vitrine estátic
 
 ## **Estrutura do JSON**
 
-Abaixo está um exemplo da estrutura gerada automaticamente pelo mod, contendo um `"Bundle"` (pacote com múltiplos comandos/Pokémon) e um `"Item"` comum:
+Abaixo, um exemplo da estrutura que o mod gera, com um `bundle` (pacote que roda vários comandos) e um `item` comum:
 
-        {  
-          "shop": [  
-            {  
-              "id": "example_bundle",  
-              "name": "Tinkaton Bundle",  
-              "type": "bundle",  
-              "description": "Adquira este incrível pacote rosa com a linha evolutiva completa!",  
-              "price": 1500.0,  
-              "discount": 15,  
-              "currency": "Dollars",  
-              "currencyName": "<green><bold>%price%$</bold></green>",  
-              "featured": true,  
-              "scale": 1.3,  
-              "offsetX": 0,  
-              "offsetY": 0,  
-              "width": 120,  
-              "height": 160,  
-              "maxPurchases": 1,  
-              "imageUrls": [  
-                "https://i.imgur.com/ZGNJEw7.png"  
-              ],  
-              "includedItems": [  
-                "Shiny Tinkaton com IVs Perfeitos",  
-                "5x Diamantes"  
-              ],  
-              "commands": [  
-                "pokegiveother %player% tinkaton s min_perfect_ivs=6",  
-                "give %player% diamond 5"  
-              ]  
-            },  
-            {  
-              "id": "abilitypatch",  
-              "name": "AbilityPatch",  
-              "type": "item",  
-              "description": "Altera a habilidade do seu Pokémon para a Hidden Ability.",  
-              "price": 1000.0,  
-              "discount": 0,  
-              "currency": "Dollars",  
-              "currencyName": "<green><bold>%price%$</bold></green>",  
-              "featured": false,  
-              "scale": 1.0,  
-              "offsetX": 0,  
-              "offsetY": 0,  
-              "width": 60,  
-              "height": 60,  
-              "maxPurchases": 0,  
-              "imageUrls": [  
-                "https://i.imgur.com/T9VPbyx.png"  
-              ],  
-              "includedItems": [  
-                "1x Ability Patch"  
-              ],  
-              "commands": [  
-                "give %player% cobblemon:ability_patch"  
-              ]  
-            }  
-          ]  
-        }
+```json
+{
+  "shop": [
+    {
+      "id": "example_bundle",
+      "name": "Tinkaton Bundle",
+      "type": "bundle",
+      "description": "Adquira este incrível pacote rosa com a linha evolutiva completa!",
+      "price": 1500.0,
+      "discount": 15,
+      "currency": "Dollars",
+      "currencyName": "<green><bold>%price%$</bold></green>",
+      "featured": true,
+      "scale": 1.3,
+      "offsetX": 0,
+      "offsetY": 0,
+      "width": 120,
+      "height": 160,
+      "maxPurchases": 1,
+      "imageUrls": ["https://i.imgur.com/ZGNJEw7.png"],
+      "includedItems": ["Shiny Tinkaton com IVs Perfeitos", "5x Diamantes"],
+      "commands": [
+        "pokegiveother %player% tinkaton s min_perfect_ivs=6",
+        "give %player% diamond 5"
+      ]
+    },
+    {
+      "id": "abilitypatch",
+      "name": "AbilityPatch",
+      "type": "item",
+      "description": "Altera a habilidade do seu Pokémon para a Hidden Ability.",
+      "price": 1000.0,
+      "discount": 0,
+      "currency": "Dollars",
+      "currencyName": "<green><bold>%price%$</bold></green>",
+      "featured": false,
+      "scale": 1.0,
+      "offsetX": 0,
+      "offsetY": 0,
+      "width": 60,
+      "height": 60,
+      "maxPurchases": 0,
+      "imageUrls": ["https://i.imgur.com/T9VPbyx.png"],
+      "includedItems": ["1x Ability Patch"],
+      "commands": ["give %player% cobblemon:ability_patch"]
+    }
+  ]
+}
+```
 
 ---
 
@@ -83,11 +74,11 @@ Abaixo está um exemplo da estrutura gerada automaticamente pelo mod, contendo u
 
 ### **1\. Identificação e Metadados**
 
-* **`id`**: String única que identifica o produto no banco de dados. 
-!!! warning "**Atenção:**"
-    Nunca altere o ID de um produto após jogadores o terem comprado, senão eles perderão o histórico de compras e poderão comprar novamente burlar limites.  
-* **`name`**: O nome do produto (Suporta MiniMessage e cores legadas).  
-* **`type`**: Define visualmente o produto. Geralmente usa-se "item" ou "bundle".  
+* **`id`**: String única que identifica o produto no banco de dados.
+!!! warning "Atenção"
+    Nunca altere o ID de um produto depois que jogadores já o compraram, senão eles perdem o histórico de compra e podem burlar os limites.
+* **`name`**: O nome do produto (suporta MiniMessage e cores legadas).  
+* **`type`**: Só afeta o selo dos cards em *destaque* — `"bundle"` mostra a tag "Bundle", qualquer outro valor mostra "Item". Não muda comportamento; um card com vários `commands` funciona seja qual for o `type`.  
 * **`description`**: O texto de descrição exibido na dica de ferramenta (tooltip) do item.  
 * **`featured`**: (true/false) Se for verdadeiro, o produto aparecerá em destaque na prateleira superior da loja em tamanho maior.
 

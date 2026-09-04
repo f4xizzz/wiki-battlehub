@@ -16,23 +16,21 @@ Estes presets são ficheiros JSON simples que armazenam listas pré-definidas de
 
 O mod gera automaticamente as listas baseadas nas divisões competitivas oficiais da Smogon. Para simplificar a manutenção e evitar ficheiros gigantescos repetitivos, o código do mod utiliza uma **Lógica em Cascata**.
 
-Isso significa que as tiers inferiores importam de forma automática todos os banimentos das tiers que estão acima delas. Veja como funciona o fluxo de herança direta:
+Isso significa que os tiers inferiores importam de forma automática todos os banimentos dos tiers acima deles. Veja o fluxo de herança:
 
-        [Ubers (Bans base)]  
-             ↓  
-        [OU (Ubers + Bans OU)]  
-             ↓  
-        [UU (OU + Bans UU)]  
-             ↓  
-        [RU (UU + Bans RU)]  
-             ↓  
-        [NU (RU + Bans NU)]  
-             ↓  
-        [PU (NU + Bans PU)]
+```text
+ubers   (lista base)
+  └─ ou    = ubers + bans de OU
+       └─ uu    = ou + bans de UU
+            └─ ru    = uu + bans de RU
+                 └─ nu    = ru + bans de NU
+                      └─ pu    = nu + bans de PU
+```
 
-* Se você utilizar o preset ou, ele banirá os Pokémons banidos de OU **mais** todos os de Ubers.  
-* Se você utilizar o preset pu, ele banirá os Pokémons banidos de PU **mais** todos os de NU, RU, UU, OU e Ubers de uma só vez.  
-* **Nota:** Os formatos específicos como lc (Little Cup), doubles\_ou e monotype possuem as suas próprias heranças ou listas isoladas adaptadas às suas regras particulares.
+* Se você usar o preset `ou`, ele bane tudo que é banido em OU **mais** todos os de Ubers.
+* Se você usar o preset `pu`, ele bane a lista de PU **mais** todos de NU, RU, UU, OU e Ubers de uma vez.
+* `monotype` é construído em cima de `ou` (bans de OU + alguns Pokémon quebrados especificamente no Monotype).
+* `doubles_ou`, `lc`, `legendaries`, `ultra_beasts` e `paradoxes` são listas **isoladas** — não herdam de nada.
 
 ---
 
@@ -44,9 +42,9 @@ Na primeira inicialização do mod, os seguintes ficheiros JSON são gerados de 
 
 | Nome do Preset | Descrição |
 | :---- | :---- |
-| `legendaries` | Contém todos os Pokémon Lendários e Míticos (ex: Mewtwo, Lugia, Zacian, Koraidon). |
-| `ultra_beasts` | Contém todas as Ultra Beasts do ecossistema Pokémon (ex: Nihilego, Buzzwole, Kartana). |
-| `paradoxes` | Contém todos os Pokémon Paradoxos do passado e do futuro (ex: Great Tusk, Iron Valiant). |
+| `legendaries` | Pokémon lendários e sublendários (Mewtwo, Lugia, Zacian, Koraidon, os gênios, os Tesouros da Ruína…). **Não** inclui Míticos como Mew ou Celebi — bane esses na mão se precisar. |
+| `ultra_beasts` | As 11 Ultra Beasts (Nihilego, Buzzwole, Kartana, Naganadel…). |
+| `paradoxes` | Todos os 20 Pokémon Paradoxo, passado e futuro (Great Tusk, Iron Valiant, Roaring Moon, Walking Wake…). |
 
 ---
 
@@ -78,26 +76,28 @@ Vá até a pasta `ban_presets/` e crie um ficheiro com o nome que desejar. O nom
 
 ### **Passo 2: Adicionar a Lista de Pokémons**
 
-Adicione os Pokémons desejados em formato de lista (Array JSON). O sistema é inteligente e converte automaticamente os nomes para letras minúsculas, além de ignorar o prefixo cobblemon: caso seja adicionado por engano:
+Adicione os Pokémon como um array JSON simples de IDs de espécie. Os nomes são convertidos para minúsculas automaticamente e um prefixo `cobblemon:` perdido é removido. Use o estilo com as formas **juntas, sem separadores**, igual às listas que já vêm no mod (`vulpixalola`, `calyrexshadow`, `sneaselhisui`):
 
-        [  
-          "charizard",  
-          "blastoise",  
-          "venusaur",  
-          "cobblemon:meowscarada"  
-        ]
+```json
+[
+  "charizard",
+  "blastoise",
+  "venusaur",
+  "cobblemon:meowscarada"
+]
+```
 
 ### **Passo 3: Utilizar o Preset em uma Ladder**
 
-Abra a configuração da sua Ladder desejada (na pasta `ladders/`) e adicione o ID do seu preset dentro da lista `"banPresets"`:
+Abra o arquivo da sua Ladder (na pasta `ladders/`) e adicione o ID do preset em `"banPresets"` — você pode listar vários, e eles se somam entre si e com o `bannedSpeciesKeys` da própria ladder:
 
-        {  
-          "id": "evento_singles",  
-          "displayName": "Combate de Evento",  
-          "banPresets": [  
-            "evento_sem_iniciais"  
-          ]  
-        }
+```json
+{
+  "id": "evento_singles",
+  "displayName": "Combate de Evento",
+  "banPresets": ["evento_sem_iniciais", "legendaries"]
+}
+```
 
 ### **Passo 4: Recarregar**
 

@@ -15,6 +15,8 @@
 | Comando | Descrição | Permissão |
 | :--- | :--- | :--- |
 | `/battlehub`<br>_Aliases: `/bh`, `/bhub`, `/cbh`_ | Abre a interface principal do Cobblemon BattleHUB. | `battlehub.base` |
+| `/bh accept` | Aceita um convite de duelo pendente. | `battlehub.accept` |
+| `/bh deny` | Recusa um convite de duelo pendente. | `battlehub.deny` |
 | `/bh status` | Mostra o status atual do servidor (ex: jogadores na fila, temporada, partidas em andamento, etc). | `battlehub.status` |
 | `/bh stats` | Mostra suas estatísticas pessoais (ex: rank, pontos, partidas jogadas, etc). | `battlehub.stats.self` |
 | `/bh stats [jogador]` | Mostra as estatísticas de um jogador específico. | `battlehub.stats.other` |

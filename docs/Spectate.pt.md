@@ -1,4 +1,4 @@
-# **Ladder Custom Example**
+# **Spectate**
 
 ---
 

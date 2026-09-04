@@ -25,16 +25,18 @@
 
 ## **Modelo Padrão de Configuração**
 
-Abaixo está o modelo padrão gerado pela classe ChatConfig na primeira inicialização:
+Abaixo está o modelo padrão gerado pela classe `ChatConfig` na primeira inicialização:
 
-        {  
-         "globalChannelId": "global",  
-         "localChannelId": "local",  
-         "globalCommand": "g",  
-         "localCommand": "l",  
-         "tabGlobalName": "GLOBAL",  
-         "tabLocalName": "LOCAL"  
-    }
+```json
+{
+  "globalChannelId": "global",
+  "localChannelId": "local",
+  "globalCommand": "g",
+  "localCommand": "l",
+  "tabGlobalName": "GLOBAL",
+  "tabLocalName": "LOCAL"
+}
+```
 
 ---
 

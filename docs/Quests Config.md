@@ -10,7 +10,7 @@ The quest system in **Cobblemon BattleHUB** rewards player activity and loyalty 
 
 ### **File Path**
 
-`config/cobblemon\_battlehub/quests.json`
+`config/cobblemon_battlehub/quests.json`
 
 ---
 
@@ -26,54 +26,50 @@ The system behavior is orchestrated dynamically by the `QuestManager.java` class
 
 ## **Configuration Structure Template**
 
-Below is the simplified structure of `quests.json` that demonstrates how quests and global parameters are defined:
+Below is a simplified `quests.json` showing how quests and the global parameters are defined:
 
-        {  
-          "daily_quests_per_player": 2,  
-          "weekly_quests_per_player": 5,  
-          "daily_quests": [  
-            {  
-              "id": "daily_01",  
-              "type": "PLAY_MATCHES",  
-              "title": "First Step",  
-              "description": "Play 1 match in any queue.",  
-              "targetAmount": 1,  
-              "typeFilter": null,  
-              "rewardDescription": "50 Dollars",  
-              "rewardCommands": [  
-                "eco deposit 50 dollar %player%"  
-              ]  
-            }  
-          ],  
-          "weekly_quests": [  
-            {  
-              "id": "weekly_01",  
-              "type": "WIN_RANKED",  
-              "title": "Arena Veteran",  
-              "description": "Win 15 Ranked matches.",  
-              "targetAmount": 15,  
-              "typeFilter": null,  
-              "rewardDescription": "1000 Battle Points",  
-              "rewardCommands": [  
-                "eco deposit 1000 battlepoint %player%"  
-              ]  
-            }  
-          ],  
-          "permanent_quests": [  
-            {  
-              "id": "perm_mono_fire",  
-              "type": "MASTER_MONOTYPE",  
-              "title": "Master of Flames",  
-              "description": "Reach 100 wins using Fire Monotype.",  
-              "targetAmount": 100,  
-              "typeFilter": "fire",  
-              "rewardDescription": "Fire Master Tag",  
-              "rewardCommands": [  
-                "lp user %player% parent add master_fire"  
-              ]  
-            }  
-          ]  
-        }
+```json
+{
+  "daily_quests_per_player": 2,
+  "weekly_quests_per_player": 5,
+  "daily_quests": [
+    {
+      "id": "daily_01",
+      "type": "PLAY_MATCHES",
+      "title": "First Step",
+      "description": "Play 1 match in any queue.",
+      "targetAmount": 1,
+      "typeFilter": null,
+      "rewardDescription": "50 Dollars",
+      "rewardCommands": ["eco deposit 50 dollar %player%"]
+    }
+  ],
+  "weekly_quests": [
+    {
+      "id": "weekly_01",
+      "type": "WIN_RANKED",
+      "title": "Arena Veteran",
+      "description": "Win 15 Ranked matches.",
+      "targetAmount": 15,
+      "typeFilter": null,
+      "rewardDescription": "1000 Battle Points",
+      "rewardCommands": ["eco deposit 1000 battlepoint %player%"]
+    }
+  ],
+  "permanent_quests": [
+    {
+      "id": "perm_mono_fire",
+      "type": "MASTER_MONOTYPE",
+      "title": "Master of Flames",
+      "description": "Reach 100 wins using Fire Monotype.",
+      "targetAmount": 100,
+      "typeFilter": "fire",
+      "rewardDescription": "Fire Master Tag",
+      "rewardCommands": ["lp user %player% parent add master_fire"]
+    }
+  ]
+}
+```
 
 ---
 

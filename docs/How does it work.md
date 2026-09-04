@@ -29,9 +29,9 @@ To enable a tournament, open the tournament JSON file in the mod folder and set 
        ```
 
 ### **3. Draw the Bracket (Seeding)**
-Once registration is closed, run the draw command to generate the bracket:
+Once registration is closed, run the draw command to generate the bracket. `<tournament id>` is the `tournamentId` from the profile file (`"default"` in the shipped one):
 
-`/bht <block id> roll`
+`/bht <tournament id> roll`
 *(Example: `/bht default roll`)*
 
 > 📢 **Recommendation:** Make sure your **Discord webhook** is configured to receive the visual bracket panel directly on your server.
@@ -75,9 +75,11 @@ The IDs for each match/block are generated and saved in `tournaments_state.json`
 
 ## **Tournament Lifecycle**
 
-A tournament progresses through six well-defined logical states, controlled by the manager status:
+A tournament progresses through these states (the `Status` enum), controlled by the manager:
 
 [UPCOMING] ➔ [REGISTRATION] ➔ [SEEDING] ➔ [IN_PROGRESS] ➔ [FINISHED]
+
+(`/bht <id> cancel` sends it back to REGISTRATION at any point.)
 
 ### **1. Initialization and Profiles (UPCOMING)**
 
@@ -92,7 +94,7 @@ When the `manualRegistrationOpen` parameter is set to true (or activated via com
 
 ### **3. Bracket Drawing and Pairing (SEEDING)**
 
-When `/bh tournament <ID> roll` is executed, the system closes registration and begins building the single-elimination bracket.
+When `/bht <tournament id> roll` is executed, the system closes registration and begins building the single-elimination bracket.
 
 ### **4. Match Callouts (IN_PROGRESS)**
 

@@ -38,7 +38,7 @@ Assim que o limite de participantes for preenchido (ou no horário agendado com 
 
 ### **Caminho do Diretório de Perfis**
 
-`config/cobblemon\_battlehub/tournaments/`
+`config/cobblemon_battlehub/tournaments/`
 
 ---
 

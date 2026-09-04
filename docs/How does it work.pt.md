@@ -1,4 +1,4 @@
-# **How dows it work?**
+# **Como funciona?**
 
 ---
 
@@ -29,9 +29,9 @@ Para liberar um torneio, abra o arquivo JSON correspondente ao seu torneio na pa
         ```
 
 ### **3. Sortear o Chaveamento (Seeding)**
-Com as inscrições encerradas, execute o comando de sorteio para gerar as chaves:
+Com as inscrições encerradas, execute o comando de sorteio para gerar as chaves. `<id do torneio>` é o `tournamentId` do arquivo de perfil (`"default"` no que vem por padrão):
 
-`/bht <block id> roll`
+`/bht <id do torneio> roll`
 *(Exemplo: `/bht default roll`)*
 
 > 📢 **Recomendação:** Certifique-se de estar com o **Webhook do Discord** configurado para receber o painel visual do chaveamento gerado diretamente no seu servidor.
@@ -76,9 +76,11 @@ Os IDs de cada partida/bloco são gerados e salvos no arquivo `tournaments_state
 
 ## **O Ciclo de Vida de um Torneio**
 
-O fluxo de execução de um torneio passa por 6 estados lógicos bem definidos, controlados pela propriedade Status do gerenciador:
+O fluxo de execução de um torneio passa por estes estados (o enum `Status`), controlados pelo gerenciador:
 
-\[UPCOMING\] ➔ \[REGISTRATION\] ➔ \[SEEDING\] ➔ \[IN\_PROGRESS\] ➔ \[FINISHED\]
+[UPCOMING] ➔ [REGISTRATION] ➔ [SEEDING] ➔ [IN_PROGRESS] ➔ [FINISHED]
+
+(`/bht <id> cancel` devolve para REGISTRATION a qualquer momento.)
 
 ### **1\. Inicialização e Perfis (UPCOMING)**
 
@@ -93,7 +95,7 @@ Quando o parâmetro `manualRegistrationOpen` é definido como true (ou ativado v
 
 ### **3\. Sorteio de Chaves e Emparelhamento (SEEDING)**
 
-Quando o comando `/bh tournament <ID> roll` é executado, o sistema encerra as inscrições e inicia a montagem matemática da chave de eliminação única (*Single Elimination Bracket*):
+Quando o comando `/bht <id do torneio> roll` é executado, o sistema encerra as inscrições e inicia a montagem da chave de eliminação única (*Single Elimination Bracket*):
 
 ### **4\. Convocação de Partidas (IN\_PROGRESS)**
 
