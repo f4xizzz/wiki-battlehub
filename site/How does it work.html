@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1928,13 +1956,13 @@
 <li><strong>Registration testing methods:</strong></li>
 <li><strong>Add bots:</strong> You can fill tournament slots automatically using <code>/bht &lt;tournamentId&gt; playerlist fill</code> <em>(Note: bots fill bracket slots but do not play matches)</em>.</li>
 <li><strong>Low-player tests:</strong> You can set a minimum limit in the tournament file to test with a friend or alternate account:
-       <div class="highlight"><pre><span></span><code><span class="nt">&quot;maxParticipants&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="nt">&quot;minParticipants&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+       <div class="highlight"><pre><span></span><code><span class="nt">"maxParticipants"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="nt">"minParticipants"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div></li>
 </ol>
 <h3 id="3-draw-the-bracket-seeding"><strong>3. Draw the Bracket (Seeding)</strong></h3>
-<p>Once registration is closed, run the draw command to generate the bracket:</p>
-<p><code>/bht &lt;block id&gt; roll</code>
+<p>Once registration is closed, run the draw command to generate the bracket. <code>&lt;tournament id&gt;</code> is the <code>tournamentId</code> from the profile file (<code>"default"</code> in the shipped one):</p>
+<p><code>/bht &lt;tournament id&gt; roll</code>
 <em>(Example: <code>/bht default roll</code>)</em></p>
 <blockquote>
 <p>📢 <strong>Recommendation:</strong> Make sure your <strong>Discord webhook</strong> is configured to receive the visual bracket panel directly on your server.</p>
@@ -1970,8 +1998,9 @@
 </ul>
 <hr />
 <h2 id="tournament-lifecycle"><strong>Tournament Lifecycle</strong></h2>
-<p>A tournament progresses through six well-defined logical states, controlled by the manager status:</p>
+<p>A tournament progresses through these states (the <code>Status</code> enum), controlled by the manager:</p>
 <p>[UPCOMING] ➔ [REGISTRATION] ➔ [SEEDING] ➔ [IN_PROGRESS] ➔ [FINISHED]</p>
+<p>(<code>/bht &lt;id&gt; cancel</code> sends it back to REGISTRATION at any point.)</p>
 <h3 id="1-initialization-and-profiles-upcoming"><strong>1. Initialization and Profiles (UPCOMING)</strong></h3>
 <p>The mod loads all tournament definitions and structural rules directly from the profile folder. The tournament stays on standby, displaying reward details, scheduled date, and format rules in the players' UI.</p>
 <h3 id="2-registration-opening-registration"><strong>2. Registration Opening (REGISTRATION)</strong></h3>
@@ -1981,7 +2010,7 @@
 <li>Each participant's registration data is saved by associating their UUID with their nickname in the database.</li>
 </ul>
 <h3 id="3-bracket-drawing-and-pairing-seeding"><strong>3. Bracket Drawing and Pairing (SEEDING)</strong></h3>
-<p>When <code>/bh tournament &lt;ID&gt; roll</code> is executed, the system closes registration and begins building the single-elimination bracket.</p>
+<p>When <code>/bht &lt;tournament id&gt; roll</code> is executed, the system closes registration and begins building the single-elimination bracket.</p>
 <h3 id="4-match-callouts-in_progress"><strong>4. Match Callouts (IN_PROGRESS)</strong></h3>
 <p>Once the bracket is generated, the tournament is underway. The tick system actively monitors matches and manages battles through "Fight Blocks":</p>
 <ol>
@@ -2102,7 +2131,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

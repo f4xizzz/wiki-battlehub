@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -909,10 +937,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#template-padrao-de-configuracao" class="md-nav__link">
+  <a href="#template-de-configuracao" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Template Padrão de Configuração
+        Template de Configuração
       
     </span>
   </a>
@@ -965,10 +993,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-filtros-de-meta-restricted-mythical-e-paradox" class="md-nav__link">
+  <a href="#4-filtros-de-meta-lendarios-miticos-e-paradoxos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Filtros de Meta (Restricted, Mythical e Paradox)
+        4. Filtros de Meta (Lendários, Míticos e Paradoxos)
       
     </span>
   </a>
@@ -1664,10 +1692,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#template-padrao-de-configuracao" class="md-nav__link">
+  <a href="#template-de-configuracao" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Template Padrão de Configuração
+        Template de Configuração
       
     </span>
   </a>
@@ -1720,10 +1748,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-filtros-de-meta-restricted-mythical-e-paradox" class="md-nav__link">
+  <a href="#4-filtros-de-meta-lendarios-miticos-e-paradoxos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Filtros de Meta (Restricted, Mythical e Paradox)
+        4. Filtros de Meta (Lendários, Míticos e Paradoxos)
       
     </span>
   </a>
@@ -1789,61 +1817,94 @@
 <hr />
 <h2 id="configuracao-de-ladder_1"><strong>Configuração de Ladder</strong></h2>
 <p>As <strong>Ladders</strong> (Categorias de Batalha) definem os formatos de matchmaking competitivos e casuais no <strong>Cobblemon BattleHUB</strong>. Elas controlam tudo: tamanho do time, regras de banimento, ajustes de nível e quais mecânicas de batalha (gimmicks) são permitidas na arena.</p>
+<p>Cada ladder é um arquivo <code>.json</code>. Quais delas realmente aparecem na fila é decidido pelos campos <code>activeRankedLadders</code> / <code>activeCasualLadders</code> do <a href="Server%20Config.html"><code>server_config.json</code></a> — um arquivo de ladder que não está listado lá ainda carrega, mas nunca fica disponível na fila.</p>
 <hr />
 <h3 id="caminho-dos-diretorios"><strong>Caminho dos Diretórios</strong></h3>
-<p>O mod organiza automaticamente as ladders em dois diretórios distintos para manter separadas as configurações padrão e as personalizadas:</p>
+<p>O mod organiza as ladders em dois diretórios para manter separadas as padrão e as personalizadas:</p>
 <ul>
-<li><strong>Diretório Raiz (Ladders Padrão):</strong> <code>config/cobblemon\_battlehub/ladders/</code></li>
-<li><strong>Diretório Customizado (Criações de Jogadores/Admins):</strong> <code>config/cobblemon\_battlehub/ladders/custom\_ladders/</code></li>
+<li><strong>Diretório Raiz (Ladders Padrão):</strong> <code>config/cobblemon_battlehub/ladders/</code></li>
+<li><strong>Diretório Customizado (Criações de Jogadores/Admins):</strong> <code>config/cobblemon_battlehub/ladders/custom_ladders/</code></li>
 </ul>
 <hr />
 <h2 id="ladders-auto-geradas"><strong>Ladders Auto-Geradas</strong></h2>
-<p>Se a pasta raiz estiver vazia, o servidor irá gerar automaticamente um conjunto completo de formatos padrão:</p>
-<ul>
-<li><strong>Singles, Doubles e Triples:</strong> Gera versões Casuais (Nv. 50 e Nv. 100) e Ranqueadas (Nv. 50, com bans de OU) para cada tipo.</li>
-<li><strong>Monotype:</strong> Gera formatos Casuais Nv. 50 e Nv. 100 usando a "Cláusula Mesmo Tipo".</li>
-<li><strong>Tournaments:</strong> Gera filas específicas para torneios (<code>tourney_solo</code>, <code>tourney_duplas</code>, <code>tourney_trios</code>, <code>tourney_monotype</code>).</li>
-</ul>
+<p>Se a pasta raiz estiver vazia, o servidor gera um conjunto completo de formatos padrão no primeiro boot:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">IDs gerados</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: left;">Observações</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>singles_50_casual</code>, <code>singles_100_casual</code>, <code>singles_ranked</code></td>
+<td style="text-align: left;">Singles</td>
+<td style="text-align: left;">Casual em Nv. 50 e Nv. 100; ranqueada em Nv. 50</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>doubles_50_casual</code>, <code>doubles_100_casual</code>, <code>doubles_ranked</code></td>
+<td style="text-align: left;">Doubles</td>
+<td style="text-align: left;">mesmo padrão</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>triples_50_casual</code>, <code>triples_100_casual</code>, <code>triples_ranked</code></td>
+<td style="text-align: left;">Triples</td>
+<td style="text-align: left;">mesmo padrão</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>monotype_50_casual</code>, <code>monotype_100_casual</code></td>
+<td style="text-align: left;">Monotype (Singles)</td>
+<td style="text-align: left;">Cláusula Mesmo Tipo aplicada pelo <code>monotype</code> no ID</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tourney_solo</code>, <code>tourney_duplas</code>, <code>tourney_trios</code>, <code>tourney_monotype</code></td>
+<td style="text-align: left;">Torneio</td>
+<td style="text-align: left;">usadas pelo sistema de torneios, não pela fila normal</td>
+</tr>
+</tbody>
+</table>
+<p>Todo arquivo gerado sai com os <strong>defaults da classe</strong> para as regras, e as ranqueadas / de torneio ainda recebem <code>"banPresets": ["ou"]</code> (o torneio monotype recebe <code>["monotype"]</code>). Ou seja, um <code>singles_ranked.json</code> recém-gerado ainda tem <code>allowDynamax: true</code>, <code>allowRestrictedLegendary: true</code>, <code>maxSubLegendary: 6</code>, etc. — <strong>se você quer um meta ranqueado apertado, precisa apertar isso você mesmo.</strong></p>
 <hr />
-<h2 id="template-padrao-de-configuracao"><strong>Template Padrão de Configuração</strong></h2>
-<p>Abaixo está o template JSON padrão para criar ou editar uma Ladder. Ele baseia-se diretamente nos campos da classe <code>Ladder.java</code>:</p>
+<h2 id="template-de-configuracao"><strong>Template de Configuração</strong></h2>
+<p>Abaixo, um template completo de Ladder mostrando todos os campos da classe <code>Ladder.java</code>. Os valores aqui são um exemplo ilustrativo de <strong>Singles ranqueado apertado</strong> — não uma cópia do arquivo auto-gerado. Para referência, os defaults da classe (o que você tem se omitir um campo) são: <code>enforce*Clause: true</code>, todo <code>allow*: true</code>, todo <code>max*: 6</code>, <code>requiredTeamSize: 6</code>, <code>adjustLevel: 50</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;singles_ranked&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;queueLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fila Ranqueada&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Singles Ranqueados Nv. 50&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Formato oficial ranqueado de Singles.&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;ranked&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;battleTypeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;singles&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;requiredTeamSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;adjustLevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;enforceSpeciesClause&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;enforceItemClause&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;banPresets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;ou&quot;</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"singles_ranked"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"queueLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fila Ranqueada"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Singles Ranqueados Nv. 50"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Formato oficial ranqueado de Singles."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"ranked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"battleTypeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"singles"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"requiredTeamSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"adjustLevel"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"enforceSpeciesClause"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"enforceItemClause"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"banPresets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">"ou"</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;bannedSpeciesKeys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;bannedItemKeys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;bannedAbilityKeys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;bannedMoveKeys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;allowRestrictedLegendary&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;allowMythical&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;allowParadox&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;allowMega&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;allowZMove&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;allowDynamax&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;allowTera&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;maxSubLegendary&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;maxRestricted&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;maxMythical&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;maxParadox&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;maxCombinedSpecial&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="nt">"bannedSpeciesKeys"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"bannedItemKeys"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"bannedAbilityKeys"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"bannedMoveKeys"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"allowRestrictedLegendary"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowMythical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowParadox"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowMega"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowZMove"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowDynamax"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowTera"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"maxSubLegendary"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"maxRestricted"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"maxMythical"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"maxParadox"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"maxCombinedSpecial"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
 <span class="p">}</span>
 </code></pre></div>
 <hr />
 <h2 id="explicacao-detalhada-dos-parametros"><strong>Explicação Detalhada dos Parâmetros</strong></h2>
 <h3 id="1-identificacao-e-exibicao-ui-de-matchmaking"><strong>1. Identificação e Exibição (UI de Matchmaking)</strong></h3>
 <ul>
-<li><strong><code>id</code></strong>: ID interno único da categoria (deve coincidir exatamente com o nome do ficheiro, sem a extensão <code>.json</code>).</li>
+<li><strong><code>id</code></strong>: ID interno único da categoria (deve coincidir exatamente com o nome do arquivo, sem a extensão <code>.json</code>).</li>
 <li><strong><code>queueLabel</code></strong>: Nome da fila exibido em pacotes de rede e interfaces (ex.: Fila Ranqueada, Fila Rápida, Torneio).</li>
 <li><strong><code>displayName</code></strong>: Título amigável mostrado aos jogadores nos menus do mod.</li>
 <li><strong><code>description</code></strong>: Breve descrição explicando as regras ou o propósito da fila na interface.</li>
@@ -1855,23 +1916,29 @@
 <li>"singles" (1v1)</li>
 <li>"doubles" (2v2)</li>
 <li>"triples" (3v3)</li>
-<li><strong><code>requiredTeamSize</code></strong>: Número mínimo de Pokémon que o jogador deve ter na equipe para entrar na fila (Padrão: 6).</li>
-<li><strong><code>adjustLevel</code></strong>: Nível para o qual todos os Pokémon da equipe serão temporariamente ajustados durante a batalha. Use 0 para desativar o ajuste e lutar no nível real do Pokémon.</li>
+<li><strong><code>requiredTeamSize</code></strong>: Quantos Pokémon o jogador precisa trazer para entrar na fila / aceitar um duelo (Padrão: 6). Diminua (ex.: <code>3</code>) para um formato estilo "traga 3, use 3".</li>
+<li><strong><code>adjustLevel</code></strong>: Nível para o qual todos os Pokémon da equipe são temporariamente ajustados na batalha (Padrão: 50). Use <strong><code>0</code></strong> para desativar o ajuste e lutar no nível real de cada Pokémon.</li>
 </ul>
 <h3 id="3-clausulas-competitivas"><strong>3. Cláusulas Competitivas</strong></h3>
 <ul>
 <li><strong><code>enforceSpeciesClause</code></strong> (true/false): Impede que o jogador use dois ou mais Pokémon da mesma espécie na mesma equipe.</li>
 <li><strong><code>enforceItemClause</code></strong> (true/false): Impede que dois ou mais Pokémon segurem o mesmo item equipado.</li>
 </ul>
-<h3 id="4-filtros-de-meta-restricted-mythical-e-paradox"><strong>4. Filtros de Meta (Restricted, Mythical e Paradox)</strong></h3>
+<h3 id="4-filtros-de-meta-lendarios-miticos-e-paradoxos"><strong>4. Filtros de Meta (Lendários, Míticos e Paradoxos)</strong></h3>
+<p>O BattleHUB lê as próprias <em>labels</em> do Cobblemon para cada espécie, então esses filtros continuam corretos conforme o Cobblemon adiciona novos Pokémon — você nunca mantém uma lista manual.</p>
+<p><strong>Toggles de permissão</strong> — um <code>allow* : false</code> bane a categoria inteira de vez:</p>
 <ul>
-<li><strong><code>allowRestrictedLegendary</code></strong> (true/false): Se desativado, bane pokémon lendários de tier restrito (segundo regras oficiais VGC).</li>
-<li><strong><code>allowMythical</code></strong> (true/false): Habilita ou desabilita o uso de pokémon míticos (ex.: Mew, Celebi, Jirachi).</li>
-<li><strong><code>allowParadox</code></strong> (true/false): Habilita ou desabilita o uso de pokémon Paradox (ex.: Great Tusk, Iron Valiant).</li>
-<li><strong><code>maxRestricted</code></strong>: Quantidade máxima de pokémon lendários restritos permitida na equipe.</li>
-<li><strong><code>maxMythical</code></strong>: Quantidade máxima de pokémon míticos permitida na equipe.</li>
-<li><strong><code>maxParadox</code></strong>: Quantidade máxima de pokémon paradox permitida na equipe.</li>
-<li><strong><code>maxCombinedSpecial</code></strong>: Limite combinado máximo de pokémon de categorias especiais permitidos na equipe.</li>
+<li><strong><code>allowRestrictedLegendary</code></strong> (true/false): lendários <em>restritos</em> — os de capa (Mewtwo, Rayquaza, Koraidon…) que o VGC oficial restringe.</li>
+<li><strong><code>allowMythical</code></strong> (true/false): Pokémon míticos (Mew, Celebi, Jirachi…).</li>
+<li><strong><code>allowParadox</code></strong> (true/false): Pokémon Paradoxo (Great Tusk, Iron Valiant…).</li>
+</ul>
+<p><strong>Limites numéricos</strong> — usados quando o <code>allow*</code> correspondente é <code>true</code>, para limitar quantos daquela categoria a equipe pode trazer (default da classe <code>6</code> = na prática, ilimitado):</p>
+<ul>
+<li><strong><code>maxSubLegendary</code></strong>: máximo de Pokémon com a label <code>legendary</code> / <code>sub-legendary</code> do Cobblemon que <strong>não</strong> estão na lista de restritos (Articuno, Zapdos, Regirock, os gênios…). Não existe toggle <code>allowSubLegendary</code>; coloque <code>0</code> para bani-los completamente.</li>
+<li><strong><code>maxRestricted</code></strong>: máximo de lendários restritos (só importa se <code>allowRestrictedLegendary</code> for <code>true</code>).</li>
+<li><strong><code>maxMythical</code></strong>: máximo de Pokémon míticos.</li>
+<li><strong><code>maxParadox</code></strong>: máximo de Pokémon paradoxo.</li>
+<li><strong><code>maxCombinedSpecial</code></strong>: máximo <strong>combinado</strong> somando todas as categorias especiais acima — ex.: <code>1</code> significa que a equipe pode trazer um lendário <em>ou</em> um mítico <em>ou</em> um paradoxo, não um de cada.</li>
 </ul>
 <h3 id="5-mecanicas-da-arena-gimmicks"><strong>5. Mecânicas da Arena (Gimmicks)</strong></h3>
 <ul>
@@ -1992,7 +2059,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

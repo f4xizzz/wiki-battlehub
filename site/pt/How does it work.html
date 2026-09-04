@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-dows-it-work" class="md-skip">
+        <a href="#como-funciona" class="md-skip">
           Ir para o conteúdo
         </a>
       
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1907,7 +1935,7 @@
 
 
 
-<h1 id="how-dows-it-work"><strong>How dows it work?</strong></h1>
+<h1 id="como-funciona"><strong>Como funciona?</strong></h1>
 <hr />
 <h2 id="funcionamento-do-sistema-de-torneios"><strong>Funcionamento do Sistema de Torneios</strong></h2>
 <p>O sistema de torneios do <strong>Cobblemon BattleHUB</strong> é integrado ao ecossistema de combates do servidor. Ele gerencia o ciclo de vida completo de uma competição — desde a abertura das inscrições até a coroação do grande campeão — sem que os administradores precisem controlar chaves externas de forma manual.</p>
@@ -1932,8 +1960,8 @@
        "minParticipants": 2</code></li>
 </ol>
 <h3 id="3-sortear-o-chaveamento-seeding"><strong>3. Sortear o Chaveamento (Seeding)</strong></h3>
-<p>Com as inscrições encerradas, execute o comando de sorteio para gerar as chaves:</p>
-<p><code>/bht &lt;block id&gt; roll</code>
+<p>Com as inscrições encerradas, execute o comando de sorteio para gerar as chaves. <code>&lt;id do torneio&gt;</code> é o <code>tournamentId</code> do arquivo de perfil (<code>"default"</code> no que vem por padrão):</p>
+<p><code>/bht &lt;id do torneio&gt; roll</code>
 <em>(Exemplo: <code>/bht default roll</code>)</em></p>
 <blockquote>
 <p>📢 <strong>Recomendação:</strong> Certifique-se de estar com o <strong>Webhook do Discord</strong> configurado para receber o painel visual do chaveamento gerado diretamente no seu servidor.</p>
@@ -1969,8 +1997,9 @@
 </ul>
 <hr />
 <h2 id="o-ciclo-de-vida-de-um-torneio"><strong>O Ciclo de Vida de um Torneio</strong></h2>
-<p>O fluxo de execução de um torneio passa por 6 estados lógicos bem definidos, controlados pela propriedade Status do gerenciador:</p>
+<p>O fluxo de execução de um torneio passa por estes estados (o enum <code>Status</code>), controlados pelo gerenciador:</p>
 <p>[UPCOMING] ➔ [REGISTRATION] ➔ [SEEDING] ➔ [IN_PROGRESS] ➔ [FINISHED]</p>
+<p>(<code>/bht &lt;id&gt; cancel</code> devolve para REGISTRATION a qualquer momento.)</p>
 <h3 id="1-inicializacao-e-perfis-upcoming"><strong>1. Inicialização e Perfis (UPCOMING)</strong></h3>
 <p>O mod carrega todas as definições e regras estruturais dos torneios diretamente da pasta de perfis. O torneio fica em modo de espera, exibindo seus dados de recompensas, data agendada e regras de formato na interface visual dos jogadores.</p>
 <h3 id="2-abertura-de-inscricoes-registration"><strong>2. Abertura de Inscrições (REGISTRATION)</strong></h3>
@@ -1980,7 +2009,7 @@
 <li>Os dados de inscrição de cada participante são salvos associando sua UUID ao seu Nickname no banco de dados.</li>
 </ul>
 <h3 id="3-sorteio-de-chaves-e-emparelhamento-seeding"><strong>3. Sorteio de Chaves e Emparelhamento (SEEDING)</strong></h3>
-<p>Quando o comando <code>/bh tournament &lt;ID&gt; roll</code> é executado, o sistema encerra as inscrições e inicia a montagem matemática da chave de eliminação única (<em>Single Elimination Bracket</em>):</p>
+<p>Quando o comando <code>/bht &lt;id do torneio&gt; roll</code> é executado, o sistema encerra as inscrições e inicia a montagem da chave de eliminação única (<em>Single Elimination Bracket</em>):</p>
 <h3 id="4-convocacao-de-partidas-in_progress"><strong>4. Convocação de Partidas (IN_PROGRESS)</strong></h3>
 <p>Assim que o chaveamento é gerado, o torneio entra em andamento. O sistema de ticks monitora ativamente as partidas e gerencia os combates através de "Blocos de Luta":</p>
 <ol>
@@ -2101,7 +2130,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

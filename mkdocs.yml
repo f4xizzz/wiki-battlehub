@@ -37,7 +37,6 @@ plugins:
           default: true
         - locale: pt
           name: Português
-          docs_path: pt
       fallback_to_default: true
 
 nav:

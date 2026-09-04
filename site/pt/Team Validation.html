@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ranks" class="md-skip">
+        <a href="#validacao-de-equipes" class="md-skip">
           Ir para o conteúdo
         </a>
       
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -982,7 +1010,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#validacao-de-equipes" class="md-nav__link">
+  <a href="#validacao-de-equipes_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Validação de Equipes
@@ -1575,7 +1603,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#validacao-de-equipes" class="md-nav__link">
+  <a href="#validacao-de-equipes_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Validação de Equipes
@@ -1685,45 +1713,40 @@
 
 
 
-<h1 id="ranks"><strong>Ranks</strong></h1>
+<h1 id="validacao-de-equipes"><strong>Validação de Equipes</strong></h1>
 <hr />
-<h2 id="validacao-de-equipes"><strong>Validação de Equipes</strong></h2>
+<h2 id="validacao-de-equipes_1"><strong>Validação de Equipes</strong></h2>
 <p>Para garantir que as partidas competitivas e casuais ocorram de forma justa e sem erros de motor de batalha, o <strong>Cobblemon BattleHUB</strong> utiliza um rigoroso sistema de análise de equipes.</p>
 <p>Este validador analisa a party do jogador no momento exato em que ele tenta entrar em uma fila ou aceitar um convite de duelo, barrando imediatamente qualquer irregularidade.</p>
 <hr />
 <h2 id="1-verificacoes-estruturais-de-sobrevivencia"><strong>1. Verificações Estruturais de Sobrevivência</strong></h2>
 <p>Antes de analisar as regras do formato, o sistema faz duas checagens básicas de infraestrutura:</p>
 <ul>
-<li><strong>Tamanho Mínimo da Equipa:</strong> O validador confere se o jogador possui a quantidade de Pokémon exigida pela Ladder (ex: 6 para Singles padrão).  </li>
-<li><strong>Estado de Saúde:</strong> O mod varre a party do jogador para garantir que ele possua <strong>pelo menos um Pokémon saudável</strong> (não desmaiado). Se todos os Pokémon da equipa estiverem desmaiados, a entrada na fila é bloqueada com o aviso:<em>"Todos os seus Pokémon estão debilitados. Cure seu time antes de entrar em batalha."</em></li>
+<li><strong>Tamanho Mínimo da Equipe:</strong> O validador confere se o jogador possui a quantidade de Pokémon exigida pela Ladder (ex: 6 para Singles padrão).</li>
+<li><strong>Estado de Saúde:</strong> O mod varre a party do jogador para garantir que ele possua <strong>pelo menos um Pokémon saudável</strong> (não desmaiado). Se todos os Pokémon da equipe estiverem desmaiados, a entrada na fila é bloqueada com o aviso: <em>"Todos os seus Pokémon estão debilitados. Cure seu time antes de entrar em batalha."</em></li>
 </ul>
 <h2 id="2-clausulas-competitivas-regras-ranqueadas"><strong>2. Cláusulas Competitivas (Regras Ranqueadas)</strong></h2>
-<p>Se a Ladder ativa for competitiva <code>(ranked: true)</code> ou de torneio <code>(tourney_)</code>, o validador aplica as seguintes restrições:</p>
-<h3 id="clausula-de-especie-species-clause"><strong>Cláusula de Espécie <code>(Species Clause)</code></strong></h3>
-<p>Impede que o jogador utilize dois ou mais Pokémon da mesma espécie na equipa.</p>
+<p>Se a Ladder ativa for competitiva (<code>ranked: true</code>) ou de torneio (<code>tourney_</code>), o validador aplica as seguintes restrições:</p>
+<h3 id="clausula-de-especie-species-clause"><strong>Cláusula de Espécie (Species Clause)</strong></h3>
+<p>Impede que o jogador utilize dois ou mais Pokémon da mesma espécie na equipe.</p>
 <ul>
 <li>O sistema normaliza os IDs das espécies (removendo caracteres especiais e convertendo para minúsculas) para evitar fraudes com formas ou nomes alternativos.</li>
 </ul>
-<h3 id="clausula-de-item-item-clause"><strong>Cláusula de Item <code>(Item Clause)</code></strong></h3>
+<h3 id="clausula-de-item-item-clause"><strong>Cláusula de Item (Item Clause)</strong></h3>
 <p>Garante que cada item equipado na party seja único.</p>
 <ul>
-<li>Se dois Pokémon estiverem segurando o mesmo item (por exemplo, duas Leftovers), o sistema barra a entrada.  </li>
+<li>Se dois Pokémon estiverem segurando o mesmo item (por exemplo, duas Leftovers), o sistema barra a entrada.</li>
 <li>Itens vazios (air ou nenhum item) são ignorados pelo filtro.</li>
 </ul>
-<h3 id="lista-de-itens-banidos-banned-items"><strong>Lista de Itens Banidos <code>(Banned Items)</code></strong></h3>
-<p>O validador verifica se algum item equipado na equipa está registrado na lista global de banimentos do formato (como os banimentos oficiais da classe VGCRules).</p>
+<h3 id="lista-de-itens-banidos-banned-items"><strong>Lista de Itens Banidos (Banned Items)</strong></h3>
+<p>O validador verifica se algum item equipado na equipe está registrado na lista global de banimentos do formato (como os banimentos oficiais da classe VGCRules).</p>
 <h2 id="3-filtros-de-meta-automaticos-miticos-e-paradoxos"><strong>3. Filtros de Meta Automáticos (Míticos e Paradoxos)</strong></h2>
 <p>Diferente de outros mods onde você precisa cadastrar manualmente centenas de Pokémon nas listas de banimento, o BattleHUB faz uma varredura direta no código do Cobblemon pelas <strong>Labels nativas</strong> do jogo.</p>
 <p>Isso garante um bloqueio 100% preciso de qualquer criatura classificada como mythical ou paradox pela própria base do Cobblemon, mantendo a sua configuração sempre atualizada com futuras adições do mod.</p>
 <h2 id="4-algoritmo-de-validacao-monotype"><strong>4. Algoritmo de Validação Monotype</strong></h2>
-<p>Se o formato da Ladder possuir o sufixo ou regra monotype, o validador executa um algoritmo matemático de <strong>Interseção de Conjuntos</strong>.</p>
-<p>Para que a equipa seja considerada válida para Monotype, o conjunto resultante da interseção de todos os tipos dos Pokémon da equipa não pode ser vazio. Ou seja:</p>
-<p><img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmwAAABUCAYAAAA/I2vMAAAFCklEQVR4Xu3dT2gcZRgH4ARbqFiR2qaxye7sboKGoqAQRSuIBxXxoNRqsVLoTQuKB0URq1UUiicvRcVDUUS8eVQR9FDUg9qDNwVRsCo9Kkp7EaS+r52t04+k2Ur+bXweeNn53vlmJnv7sV9mZmQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFlm32/2qqqqfOp3OrhzH54Gob6K/s5wLAMAKiGD2YAS0ryO0fVS3RmP7+XMmAQCwciKsPdVqtS6uA1uGtdkMceU8AABWSLvdvic/I6TtifDWy3GGtnIeAAArpNfrXZufk5OTmyOoPRbB7ZmJiYkt5TwAAFZAGcw6nc4vEdj2N3sAAKyQXPqMgPZZM6DF+JDlUAAAAAAAAAAAAAAAYGR8fPySqqq+7HQ6f0WdjvozH6AbdXc5FwCA5XVR/Uqq3xtBLd8n2g9up2P/reVBAAAsg9nZ2fV1KDsWoaxb7q+Nxv7f6gB3X7lztYmwuTu+yoayDwAwlCLYPBAB57ter9cp9zVFULu5Dm0nyn1LLa65Pf7OG8t+U8zZFnUw6vWoV6I1Ws4BABg6U1NTl0W4+aLdbt9S7pvDaL6mKn+Ny+1yZ/R/yGXU81V5zKDi3K/G8VeX/ab837v4HtdHTcT2W/nLYTkHAGDoRBB6og5gg8ql0XcjFN3QbPZ6vfHp6emt/XHMORb1Y6vVmszx2NjYxhi/8+8Rg8vgNUBYuz1/YcvtvGaMX4jxB5ZFAYChF6HmyAUGtgxHT1fFXaMZmJrjOOcfUe/F5rp6/6YYH27OGVQce8fIHL/oNcW5D2QozO18xVb+fdE73g9xAABDq9vtvh2h5lTZP595Atvu5jhDYM7rjycnJzfH+OHmnEG0Wq2L47g3yn4pv0c/sMX8l+vAdqryHlQAYNgtVmBrqn9NO7scOoiYe3l15nlvzf95+znqZNSJfi/Oe7A8tl5uPZqfGdBi+yWBDQBYM5YosGVoOrsc2hTX2zOywPJmX5xjV9SzZX8O6/J6dXB7pLEkKrABAMNvKQJbnG9vzin7qbqAZdE4z5GJiYl22Z9Lfo+YuyWOea2+6UBgAwDWhsUObNWZ5dBj5XJovvIqrvViPkak2e+r7wS9Ler+uvZF7W+M/6nuPM9iq87cJfpkfD6U49g+NN+vfAAAQ2UJAlsuh+b5zglK0bs3rnVdfO5o9udTL50OrF4O/T6vn+M4/tNcGi3nAQAMncUKbFNTU1fFeX7t1O8djToZ9W0/QLVarSvjWjfFeFPzuLnkHaVx7JtlfyFxzPG4xuNRO2P7OQ/OBQDWhMUKbAup/7/s86hH81Ed5f6mDGsZ2sr+QsplWACANWG5Alv9q9kng7wCK+btLXsAAP9byxXYAAD4jwQ2AIBVTmADAFjl8u7OvLOy7J9PzL8in6tW9gEAAAAAAAAAAAAAgDUmX8g+30vZS9PT01urqtpX9gEAWCXycR6dTudo2QcAYGmM1i9K/7DcMR+BDQBgGUXw2h51V9SBHEd4uzPD2Bz1fq/Xm8k5AhsAwDKL8LUj6uPcjsC2Iba3lRVhbXx2dnZ9zhHYAACWWYSvw/mqqXa7fc3Y2NjGMqwJbAAAK290Zmbm0rIJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXIi/AdiSHHS7fAJWAAAAAElFTkSuQmCC" /></p>
-<p>Onde:</p>
-<ul>
-<li><img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAaCAYAAABVX2cEAAABS0lEQVR4XmNgGAUUAXl5eUcgfg3E/0FYTk5uh4yMDCdMXkVFhU9BQWEXTB6K14mLi3Mjm4MMGIEKZgHxLyD+CcSW6AqAYkFAvAbZIqwA6BpBoO0LgXQ+1OYpQGFGZDVAsSIgjkYWwwoUFRX1gQb1AxVLAvF1IH4CxIpISliA/NkgdUhi2AHIRqDL0kFsIN0AdV0OTF5KSkoE6nJBhC4cAKixD6jQGMSWlZXVAfLfA/EJJSUlfpAYUM4GyJ+MqgsLgIUXyHaoEMhLy4H4H1DcAyQAcjVJ4cWAFOAgQ0CGgQwFxR5Z4QUDIO+BvAn1rhOx4QVKX5OB4WSKLgHUHCMPiYhrQMM60eUxAJbwggOgt8TlIckEZCDh8AJ5AYjXAQ3jQpcDAWgyeQvEmuhycAB0kQtQwReorSAMykLe6OpAyQSUV4kJr1EwCoYMAABopFha15uM6gAAAABJRU5ErkJggg==" /> é a quantidade de Pokémon na party.  </li>
-<li><img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAaCAYAAAC6nQw6AAABXElEQVR4Xu2UzSsFURjG54aFkMSYmu+PmB1qUhQpWdhaKGWvZGVlS/4D2VEWVmR/FyztlK2Vkj/AQqwUfqfOmY5T484sWN2nnmbmed/3mXeemXstq4taiKJoGT6GYfhckyumh0ALk+M4ji9gLK6FiHYKP5FWZV8P50toT0EQzJbTCkmSODRcZlk2rjTuOMLAnRjyfd9Tum3bg2jnnuf5Sish1sRoV9cwn2bgFV5x2at0eYOjPM+HtPayuJ6m6aSu0bwJv6jt6TqbjKJtWfLxO0Lm88HQglmrjap8GgOjApN3Mx8dZDhFrhvWb49YlY8OTLZlVpVo0XD25/k4jjPANgfUT3jTw2a9RKd80NcwmuHYhvM/iuIbQryHLyIbjW/wQZirXracwGgO/Vpsr/s0Bkb7gqbeCK7rjrHNrdxqhw37zZ5aED8RDG7gIf8Ai2a9EYqi6BNvz9S7+Ed8A4W8XCl+8lIfAAAAAElFTkSuQmCC" /> representa o conjunto de tipos do Pokémon <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAaCAYAAAB7GkaWAAAAxklEQVR4XmNgGGAgLi7OraCgUKikpKSGLscgLy9fBMT/gQrS0eUYpKSkRIASDsbGxqzocjgBs5ycnDEQ24DYcFGQEUDBCUC7aoH4NBD3wiWBEq5AgRoVFRU+IH0AaOdKuG4gJ1NRUVEfKGEJxN+A/Ai4ThgACjYAJZ8AsSKKBMgLQMGrQDwFyGVEkQTq8gBK/ALa7wK0Qh1kClwSKDgD5FJpaWlhUCiBHAmXlJWV9QPZBxTcANRVwIButKioKA9QQgBFcIQAADeCJYgIvG3hAAAAAElFTkSuQmCC" /> (que pode ter 1 ou 2 tipos).</li>
-</ul>
+<p>Se o formato da Ladder possuir o sufixo ou regra monotype, o validador roda uma checagem de <strong>interseção de conjuntos</strong> sobre os tipos da equipe.</p>
+<p>Todo Pokémon tem um conjunto de tipos (1 ou 2). O sistema faz a interseção de todos esses conjuntos; a equipe passa no Monotype <strong>só se essa interseção ainda tiver pelo menos um tipo</strong> — ou seja, existe um único tipo que <em>todos</em> os Pokémon da equipe compartilham.</p>
+<p><strong>Exemplo:</strong> Charizard <code>{Fogo, Voador}</code> + Talonflame <code>{Fogo, Voador}</code> + Arcanine <code>{Fogo}</code> → o tipo em comum é <code>{Fogo}</code> → <strong>válido</strong> (mono-Fogo). Troque Arcanine por Gyarados <code>{Água, Voador}</code> e o tipo compartilhado vira <code>{Voador}</code> → ainda válido (mono-Voador). Adicione um Pokémon <code>{Água}</code> puro e a interseção fica vazia → <strong>rejeitado</strong>.</p>
 <hr />
 
 
@@ -1817,7 +1840,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

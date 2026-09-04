@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#server-config" class="md-skip">
+        <a href="#battle-formats" class="md-skip">
           Ir para o conteúdo
         </a>
       
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1707,7 +1735,7 @@
 
 
 
-<h1 id="server-config"><strong>Server Config</strong></h1>
+<h1 id="battle-formats"><strong>Battle Formats</strong></h1>
 <hr />
 <h2 id="formatos-de-batalha-e-presets"><strong>Formatos de Batalha e Presets</strong></h2>
 <p>O <strong>Cobblemon BattleHUB</strong> possui suporte nativo para múltiplos formatos de combate competitivos e casuais, geridos pela lógica interna da classe <code>RankedPreset</code>. Estes formatos definem o comportamento das arenas, a quantidade de Pokémon que entram em campo em simultâneo e as regras estruturais da batalha.</p>
@@ -1759,9 +1787,9 @@
 <ul>
 <li><strong>Estrutura de Combate:</strong> Singles (1v1) por padrão.  </li>
 <li><strong>Nível Ajustado:</strong> 50 por padrão.  </li>
-<li><strong>Cláusula de Espécie:</strong> Desativada por padrão.  </li>
-<li><strong>Cláusula de Item:</strong> Desativada por padrão.  </li>
-<li><strong>Descrição:</strong> Permite aos administradores criar regras totalmente personalizadas nos ficheiros das Ladders, ignorando as restrições competitivas padrão do mod.</li>
+<li><strong>Cláusula de Espécie / Cláusula de Item:</strong> As duas vêm <strong>ativadas</strong> por padrão, igual aos presets travados — mas com o <code>custom</code> você pode desligá-las (<code>enforceSpeciesClause: false</code> / <code>enforceItemClause: false</code>) no arquivo da Ladder.  </li>
+<li><strong>Regras Showdown:</strong> nenhuma forçada.  </li>
+<li><strong>Descrição:</strong> Permite ao administrador montar regras totalmente personalizadas no JSON da Ladder — listas de ban, toggles de gimmick, limites — sem o ruleset fixo <code>Standard</code> da Smogon que os outros presets aplicam.</li>
 </ul>
 <hr />
 <h2 id="gimmicks-e-mecanicas-de-arena"><strong>Gimmicks e Mecânicas de Arena</strong></h2>
@@ -1869,7 +1897,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

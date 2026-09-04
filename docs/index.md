@@ -16,14 +16,13 @@ Cobblemon BattleHUB goes beyond a simple duel system, providing a full managemen
 * **Automated Tournament Management:** Automatic bracket organization and registration control, simplifying competitive event execution.  
 * **Integrated Economy and Shop:** Dedicated in-game shop to reward player activity and sell strategic battle items.  
 * **Statistics and History:** Detailed performance tracking so players can follow their battle history and ranking evolution.  
-* **License Security:** Exclusive protection with IP-based license authentication directly on the backend, ensuring mod integrity and exclusivity.  
 * **Native Network Integration:** Fully compatible with the Fabric ecosystem, offering formatted chat support (via Carbon) and performance telemetry.
 
 ---
 
 ## **Development and Authorship**
 
-This project was fully conceived, designed, and programmed by **F4xizzz**. The entire mod development (in Java/Fabric), backend architecture in Node.js with MongoDB, and license security and validation systems were independently built to ensure high performance, optimization, and stability.
+This project was fully conceived, designed, and programmed by **F4xizzz**. The entire mod development (in Java/Fabric) and backend architecture in Node.js with MongoDB were independently built to ensure high performance, optimization, and stability.
 
 ---
 

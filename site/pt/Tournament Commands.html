@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1922,7 +1950,7 @@
 <h1 id="tournament-commands"><strong>Tournament Commands</strong></h1>
 <hr />
 <h2 id="comandos-de-torneio"><strong>Comandos de Torneio</strong></h2>
-<p>O sistema de torneios do <strong>Cobblemon BattleHUB</strong> é gerenciado por uma árvore de comandos administrativos de alta precisão baseados na classe. Esses comandos permitem criar, resetar, monitorar chaves e até intervir manualmente nas lutas em andamento.</p>
+<p>O sistema de torneios do <strong>Cobblemon BattleHUB</strong> é comandado por uma árvore de comandos de admin (<code>TournamentCommand</code>). Com eles você fecha inscrições, sorteia e reseta chaveamentos, roda bots de teste e intervém em partidas específicas. Os torneios em si são definidos por arquivos de perfil — veja <a href="How%20does%20it%20work.html">Como funciona?</a> e <a href="Tournament%20Example.html">Tournament Example</a>.</p>
 <hr />
 <h2 id="comando-principal-e-aliases"><strong>Comando Principal e Aliases</strong></h2>
 <p>Todos os comandos de gerenciamento de torneio requerem a permissão base <strong><code>battlehub.tournament.base</code></strong> (ou permissão OP Nível 2) no servidor para serem executados.</p>
@@ -1953,7 +1981,7 @@
 <p>Esses comandos dependem do <strong>ID do Torneio</strong> (definido no arquivo .json do perfil) e gerenciam as inscrições e o chaveamento geral.</p>
 <h3 id="1-limpar-inscricoes-clear"><strong>1. Limpar Inscrições (clear)</strong></h3>
 <ul>
-<li><strong>Sintaxe:</strong> <code>/bhubtournament &lt;ID_do_Torneio&gt;</code> clear  </li>
+<li><strong>Sintaxe:</strong> <code>/bhubtournament &lt;ID_do_Torneio&gt; clear</code>  </li>
 <li><strong>Permissão:</strong> <code>battlehub.tournament.clear</code>  </li>
 <li><strong>Funcionamento:</strong> Remove instantaneamente todos os jogadores inscritos na competição selecionada (disponível apenas se o torneio estiver nos estados UPCOMING ou REGISTRATION).</li>
 </ul>
@@ -1996,7 +2024,7 @@
 <h3 id="2-forcar-tempo-de-preparacao-prep"><strong>2. Forçar Tempo de Preparação (prep)</strong></h3>
 <ul>
 <li><strong>Sintaxe:</strong> <code>/bhubtournament prep &lt;ID_do_Bloco&gt; &lt;Tempo&gt;</code>  </li>
-<li><strong>Permissão:</strong> battlehub.tournament.prep  </li>
+<li><strong>Permissão:</strong> <code>battlehub.tournament.prep</code>  </li>
 <li><strong>Funcionamento:</strong> Altera o status do bloco de volta para a fase de preparação (PREPARING) e redefine o cronômetro com base no tempo especificado.  </li>
 <li><strong>Formatos de Tempo Aceitos:</strong> O comando analisa sufixos como m (minutos), h (horas), d (dias).  </li>
 <li><em>Exemplo:</em> <code>/bhubtournament prep bloco_1 5m (Define 5 minutos de tolerância).</code></li>
@@ -2009,9 +2037,9 @@
 </ul>
 <h3 id="4-definir-ganhador-manual-setwinner"><strong>4. Definir Ganhador Manual (setwinner)</strong></h3>
 <ul>
-<li><strong>Sintaxe:</strong> <code>/bhubtournament setwinner &lt;ID_do_Bloco&gt; &lt;_1 ou _2&gt;</code>  </li>
+<li><strong>Sintaxe:</strong> <code>/bhubtournament setwinner &lt;ID_do_Bloco&gt; &lt;1|2&gt;</code>  </li>
 <li><strong>Permissão:</strong> <code>battlehub.tournament.setwinner</code>  </li>
-<li><strong>Funcionamento:</strong> Intervém na chave e declara o vencedor de forma arbitrária. Use 1 para dar a vitória ao Player 1 do bloco ou 2 para o Player 2. O mod atualizará a chave, promoverá o vencedor e acionará os anúncios automaticamente.</li>
+<li><strong>Funcionamento:</strong> Intervém na chave e declara o vencedor. Passe <code>1</code> para dar a vitória ao Player 1 do bloco, ou <code>2</code> para o Player 2 (qualquer outro valor é tratado como Player 2). O mod atualiza a chave, promove o vencedor e dispara os anúncios automaticamente.</li>
 </ul>
 <hr />
 
@@ -2106,7 +2134,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

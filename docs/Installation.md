@@ -58,7 +58,7 @@ To unlock the mod, you need to activate your license inside the server:
     * (The *[KEY]* is sent to you immediately after payment confirmation via Stripe).
 
 !!! warning "Attention: Single Server License"
-    This license is valid exclusively for a single active instance. The security system will permanently bind your activation key to the first IP that validates it. Multiple activations or key sharing are not possible.
+    This license is valid exclusively for a single active instance. Your activation key is permanently bound to the first server that activates it. Multiple activations or key sharing are not possible.
 
 !!! info "Don't have an activation key yet?"
     Your license key (*License Key*) is automatically generated and sent to your email as soon as your Stripe payment is confirmed. To acquire yours, join our [Official Discord](https://discord.gg/aDCgBbvRe5) and open a support ticket.

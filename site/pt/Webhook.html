@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1386,12 +1414,12 @@
   <a href="#integracao-de-webhook-do-discord" class="md-nav__link">
     <span class="md-ellipsis">
       
-        **Integração de Webhook do Discord **
+        Integração de Webhook do Discord
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="**Integração de Webhook do Discord **">
+    <nav class="md-nav" aria-label="Integração de Webhook do Discord">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1422,10 +1450,54 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ativando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ativando
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-quatro-eventos-de-mensagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os quatro eventos de mensagem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#campos-dentro-de-cada-mensagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Campos dentro de cada mensagem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#variaveis-e-placeholders-dinamicos" class="md-nav__link">
     <span class="md-ellipsis">
       
         Variáveis e Placeholders Dinâmicos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reload
       
     </span>
   </a>
@@ -1534,12 +1606,12 @@
   <a href="#integracao-de-webhook-do-discord" class="md-nav__link">
     <span class="md-ellipsis">
       
-        **Integração de Webhook do Discord **
+        Integração de Webhook do Discord
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="**Integração de Webhook do Discord **">
+    <nav class="md-nav" aria-label="Integração de Webhook do Discord">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1570,10 +1642,54 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ativando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ativando
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-quatro-eventos-de-mensagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os quatro eventos de mensagem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#campos-dentro-de-cada-mensagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Campos dentro de cada mensagem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#variaveis-e-placeholders-dinamicos" class="md-nav__link">
     <span class="md-ellipsis">
       
         Variáveis e Placeholders Dinâmicos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reload
       
     </span>
   </a>
@@ -1599,55 +1715,143 @@
 
 <h1 id="webhook"><strong>Webhook</strong></h1>
 <hr />
-<h2 id="integracao-de-webhook-do-discord">**Integração de Webhook do Discord **</h2>
-<p>O <strong>Cobblemon BattleHUB</strong> vem equipado com uma sofisticada ponte de comunicação em tempo real com o Discord. O mod é capaz de notificar sua comunidade sobre o andamento de torneios, convocações de partidas, resultados e coroação de campeões.</p>
-<p>Ele também gera e anexa de forma automatizada o gráfico visual do chaveamento em tempo real.</p>
+<h2 id="integracao-de-webhook-do-discord"><strong>Integração de Webhook do Discord</strong></h2>
+<p>O <strong>Cobblemon BattleHUB</strong> pode enviar eventos de <strong>torneio</strong> direto para um canal do Discord através de um webhook: quando um torneio começa, quando uma partida é convocada, quando uma partida termina e quando um campeão é coroado. O chaveamento atual é renderizado como imagem e anexado automaticamente nas mensagens de início / atualização / fim de partida.</p>
+<div class="admonition info">
+<p class="admonition-title">Só torneios</p>
+<p>Este webhook cobre o sistema de torneios. Resultados de partidas ranqueadas / casuais e viradas de temporada <strong>não</strong> são enviados aqui.</p>
+</div>
 <hr />
 <h3 id="caminho-do-arquivo"><strong>Caminho do Arquivo</strong></h3>
 <p><code>config/cobblemon_battlehub/webhook.json</code></p>
 <hr />
 <h2 id="modelo-padrao-de-configuracao"><strong>Modelo Padrão de Configuração</strong></h2>
-<p>Abaixo está a estrutura gerada de forma automática pelo arquivo WebhookConfig.java na primeira inicialização:</p>
-<pre><code>    {  
-      "enabled": false,  
-      "webhookUrl": "COLE_SUA_URL_AQUI",  
-      "msgTournamentStart": {  
-        "content": "@everyone",  
-        "title": "🏆 O Torneio {name} Começou!",  
-        "description": "O sorteio de chaves foi realizado para os **{participants}** participantes.\n\n**CHAVEAMENTO INICIAL:**\n{chaveamento}\n\n*Boa sorte a todos os treinadores!*",  
-        "colorHex": "#8A2BE2",  
-        "thumbnailUrl": "",  
-        "imageUrl": ""  
-      },  
-      "msgMatchCalled": {  
-        "content": "",  
-        "title": "⚔️ Nova Luta Convocada!",  
-        "description": "A partida pelo bloco **{phase}** está prestes a começar!\n\n🔸 **{p1}** vs **{p2}**\n\nAbram os seus menus e preparem as suas equipes!",  
-        "colorHex": "#8A2BE2",  
-        "thumbnailUrl": "",  
-        "imageUrl": ""  
-      },  
-      "msgMatchWinner": {  
-        "content": "",  
-        "title": "🔥 Batalha Finalizada!",  
-        "description": "**{winner}** derrotou **{loser}** no bloco **{fase}** e avança na tabela do torneio!",  
-        "colorHex": "#8A2BE2",  
-        "thumbnailUrl": "",  
-        "imageUrl": ""  
-      },  
-      "msgTournamentWinner": {  
-       "content": "@everyone",  
-        "title": "👑 TEMOS UM CAMPEÃO!",  
-        "description": "O grande vencedor do torneio **{name}** é **{winner}**!\n\nParabéns pela vitória e obrigado a todos os que      participaram!",  
-        "colorHex": "#8A2BE2",  
-        "thumbnailUrl": "",  
-        "imageUrl": ""  
-      }  
-    }
-</code></pre>
+<p>Gerado pelo <code>WebhookConfig.java</code> na primeira inicialização:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"webhookUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WEBHOOK_URL"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"msgTournamentStart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@everyone"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"🏆 Tournament {name} has Started!"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The bracket has been drawn for the **{participants}** participants.\n\n**INITIAL BRACKET:**\n{bracket}\n\n*Good luck to all trainers!*"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"colorHex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#8A2BE2"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"thumbnailUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"msgMatchCalled"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"⚔️ New Match Called!"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"**{phase}** is about to begin!\n\n🔸 **{p1}** vs **{p2}**\n\nOpen your menus and prepare your teams!"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"colorHex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#8A2BE2"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"thumbnailUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"msgMatchWinner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"🔥 Battle Ended!"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"**{winner}** defeated **{loser}** in **{phase}** and advances in the tournament bracket!"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"colorHex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#8A2BE2"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"thumbnailUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"msgTournamentWinner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@everyone"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"👑 WE HAVE A CHAMPION!"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The grand winner of the **{name}** tournament is **{winner}**!\n\nCongratulations on the victory and thanks to everyone who participated!"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"colorHex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#8A2BE2"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"thumbnailUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Não traduza os placeholders</p>
+<p>Os textos das mensagens você pode reescrever à vontade (inclusive em português). Mas os termos entre chaves — <code>{name}</code>, <code>{phase}</code>, <code>{bracket}</code>, <code>{p1}</code>, etc. — são <strong>literais em inglês</strong>. Se você escrever <code>{fase}</code> ou <code>{chaveamento}</code>, o mod não substitui nada e o texto sai quebrado.</p>
+</div>
+<hr />
+<h2 id="ativando"><strong>Ativando</strong></h2>
+<ol>
+<li>No Discord: <strong>Configurações do canal → Integrações → Webhooks → Novo Webhook</strong>, depois <strong>Copiar URL do Webhook</strong>.</li>
+<li>Cole essa URL em <code>webhookUrl</code>.</li>
+<li>Coloque <code>"enabled": true</code>.</li>
+<li>Rode <code>/bh reload</code> (ou reinicie o servidor).</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Coloque uma URL de verdade</p>
+<p>Deixar <code>webhookUrl</code> no valor placeholder <code>WEBHOOK_URL</code> com <code>enabled</code> em <code>true</code> gera tentativas de envio com erro no log. Ou cole uma URL de webhook válida, ou deixe <code>enabled: false</code>.</p>
+</div>
+<hr />
+<h2 id="os-quatro-eventos-de-mensagem"><strong>Os quatro eventos de mensagem</strong></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Chave</th>
+<th style="text-align: left;">Dispara quando</th>
+<th style="text-align: left;">Anexa a imagem do chaveamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>msgTournamentStart</code></td>
+<td style="text-align: left;">O chaveamento é sorteado e o torneio começa (reenviada também quando o chaveamento avança de rodada).</td>
+<td style="text-align: left;">Sim</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>msgMatchCalled</code></td>
+<td style="text-align: left;">Uma partida específica é convocada e os dois jogadores entram na janela de preparação de 3 minutos.</td>
+<td style="text-align: left;">Não</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>msgMatchWinner</code></td>
+<td style="text-align: left;">Uma partida do torneio termina.</td>
+<td style="text-align: left;">Sim</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>msgTournamentWinner</code></td>
+<td style="text-align: left;">A final termina e um campeão é decidido.</td>
+<td style="text-align: left;">Não</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="campos-dentro-de-cada-mensagem"><strong>Campos dentro de cada mensagem</strong></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Campo</th>
+<th style="text-align: left;">Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>content</code></td>
+<td style="text-align: left;">Texto puro <strong>fora</strong> do embed. É aqui que um <code>@everyone</code> / <code>&lt;@&amp;idDoCargo&gt;</code> de verdade precisa ficar — pings dentro de <code>title</code>/<code>description</code> não notificam. Deixe <code>""</code> para não pingar.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>title</code></td>
+<td style="text-align: left;">Título do embed (linha de cabeçalho em negrito).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>description</code></td>
+<td style="text-align: left;">Corpo do embed. Markdown do Discord funciona: <code>**negrito**</code>, <code>*itálico*</code> e <code>\n</code> para quebra de linha.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>colorHex</code></td>
+<td style="text-align: left;">A cor da barra lateral esquerda do embed, em hexadecimal (<code>#8A2BE2</code>). Valores inválidos são ignorados.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>thumbnailUrl</code></td>
+<td style="text-align: left;">Imagem pequena no canto superior direito do embed. Precisa ser uma URL pública.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>imageUrl</code></td>
+<td style="text-align: left;">Imagem grande na parte de baixo do embed. <strong>Ignorada</strong> nas mensagens que anexam o chaveamento automaticamente (<code>msgTournamentStart</code>, <code>msgMatchWinner</code>) — o <code>bracket.png</code> gerado ocupa esse espaço.</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="variaveis-e-placeholders-dinamicos"><strong>Variáveis e Placeholders Dinâmicos</strong></h2>
-<p>O mod substitui dinamicamente os termos entre chaves {} antes de disparar o pacote para o Discord. Você pode usar estas variáveis no content, title ou description de qualquer mensagem:</p>
+<p>Termos entre chaves são substituídos antes do envio. Um placeholder sem valor para aquele evento vira uma string vazia. Podem ser usados em <code>content</code>, <code>title</code> e <code>description</code>:</p>
 <table>
 <thead>
 <tr>
@@ -1657,40 +1861,43 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">{name}</td>
-<td style="text-align: left;">Nome fantasia do torneio configurado no perfil.</td>
+<td style="text-align: left;"><code>{name}</code></td>
+<td style="text-align: left;">Nome de exibição do torneio, do perfil dele.</td>
 </tr>
 <tr>
-<td style="text-align: left;">{participants}</td>
-<td style="text-align: left;">Quantidade de jogadores inscritos na competição.</td>
+<td style="text-align: left;"><code>{participants}</code></td>
+<td style="text-align: left;">Quantidade de jogadores inscritos (só na mensagem de início).</td>
 </tr>
 <tr>
-<td style="text-align: left;">{phase}</td>
-<td style="text-align: left;">Identificação do bloco/fase atual da partida.</td>
+<td style="text-align: left;"><code>{phase}</code></td>
+<td style="text-align: left;">O identificador do bloco da partida (ex: <code>Round 1 - Match 3</code>).</td>
 </tr>
 <tr>
-<td style="text-align: left;">{p1}</td>
-<td style="text-align: left;">Nome do primeiro jogador convocado no bloco.</td>
+<td style="text-align: left;"><code>{p1}</code></td>
+<td style="text-align: left;">Primeiro jogador da partida convocada.</td>
 </tr>
 <tr>
-<td style="text-align: left;">{p2}</td>
-<td style="text-align: left;">Nome do segundo jogador convocado no bloco.</td>
+<td style="text-align: left;"><code>{p2}</code></td>
+<td style="text-align: left;">Segundo jogador da partida convocada.</td>
 </tr>
 <tr>
-<td style="text-align: left;">{winner}</td>
-<td style="text-align: left;">Nome do jogador que venceu a partida ou o torneio.</td>
+<td style="text-align: left;"><code>{winner}</code></td>
+<td style="text-align: left;">Jogador que venceu a partida, ou o campeão do torneio.</td>
 </tr>
 <tr>
-<td style="text-align: left;">{loser}</td>
-<td style="text-align: left;">Nome do jogador derrotado que foi eliminado.</td>
+<td style="text-align: left;"><code>{loser}</code></td>
+<td style="text-align: left;">Jogador que perdeu a partida.</td>
 </tr>
 <tr>
-<td style="text-align: left;">{bracket}</td>
-<td style="text-align: left;">Link dinâmico ou legenda do status do bracket.</td>
+<td style="text-align: left;"><code>{bracket}</code></td>
+<td style="text-align: left;">Um texto/link curto para o chaveamento (a figura em si é anexada à parte como imagem).</td>
 </tr>
 </tbody>
 </table>
 <hr />
+<h2 id="reload"><strong>Reload</strong></h2>
+<p>Depois de editar o <code>webhook.json</code>:</p>
+<p><code>/bh reload</code></p>
 
 
 
@@ -1783,7 +1990,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

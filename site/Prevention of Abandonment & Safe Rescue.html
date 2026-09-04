@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1720,8 +1748,18 @@
 <ol>
 <li><strong>Location Snapshot:</strong> The mod records the player’s exact location in the overworld (X, Y, Z), the dimension, camera rotation (Yaw/Pitch), and original game mode.  </li>
 <li><strong>Offline/Fallback Registration:</strong> If the player suffers an abrupt disconnection (Alt+F4, power loss, or client crash) during combat, the server prevents them from logging back into the instantiated arena.  </li>
-<li><strong>Emergency Rescue:</strong> When attempting to reconnect, the mod intercepts the player’s login and restores their original game mode and inventory, then safely teleports them to the global coordinates configured in <code>fallbackarenadisconnect.json</code> (usually the server spawn or lobby).</li>
+<li><strong>Emergency Rescue:</strong> When attempting to reconnect, the mod intercepts the player’s login and restores their original game mode and inventory, then safely teleports them to the coordinates configured in <code>config/cobblemon_battlehub/fallbackarenadisconnect.json</code> (usually the server spawn or lobby).</li>
 </ol>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"dimension"</span><span class="p">:</span><span class="w"> </span><span class="s2">"minecraft:overworld"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"x"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"y"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"yaw"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"pitch"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Set this to your lobby / spawn so a player who crashes mid-battle lands somewhere sensible instead of the default <code>0, 100, 0</code>.</p>
 <h2 id="2-leaver-buster-system-desertion-punishment"><strong>2. Leaver Buster System (Desertion Punishment)</strong></h2>
 <p>To keep the competitive ecosystem healthy, abandoning ranked matches (whether by timed-out turns or by intentionally leaving the server) is severely punished.</p>
 <h3 id="what-counts-as-abandonment"><strong>What Counts as Abandonment?</strong></h3>
@@ -1733,7 +1771,7 @@
 <h3 id="consequences-for-the-leaver"><strong>Consequences for the Leaver</strong></h3>
 <ol>
 <li>The active opponent receives an automatic W.O. victory with a congratulatory chat message.  </li>
-<li>The leaver receives an automatic loss in their stats profile and loses Rating (<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAABSElEQVR4XmNgGAUoQF5e3hGInwPxfyT8Coh/AfFfOTm5k0A6GKiUGV0vCgAqmgPEv4EabJCEmYH8NKhBZUA+I5IcAqirq/MCFR0G4ruKioriyHJAMUkgfohNDg6AkppA/BaI1wC5LMhysrKypkDxb0B8VUpKSgRZDg6AivyACv4rKCiko8sBxRpAckBcjC4HB0DJSfJo/jc2NmYFiiVDXVYK4iPrgQNRUVEeoIID8pBQPwZlXwfZCjRwurS0tDC6HhQgj93/jECnV8pDQt8VSTkmgPkfiIuQxYEajYFiX4F4DrI4BpDH4n+oeDTU4FZkcRRAIP5BBoPCoRxZHAUAna8DVPReHjP+WYBhsArZACC7Gsh2gWm0lYekLpATYfgVKDxgJgD5wUD8F2QQUGMskD1bRkaGEyZPFAB5C6jZFxQTJGseBcMeAACyIWKOy8AaQgAAAABJRU5ErkJggg==" />) as usual.  </li>
+<li>The leaver receives an automatic loss in their stats profile and loses Rating (<code>R</code>) as usual.  </li>
 <li>The player is applied a <strong>temporary ranked ban</strong>. The duration of this ban is cumulative and prevents the user from re-entering the competitive queue for a set period.</li>
 </ol>
 <p><strong>Queue Ban Warning:</strong> When attempting to enter matchmaking with an active ban, the player receives a formatted remaining time warning (e.g. <code>"You are banned from the competitive queue for another 01h 15m"</code>).</p>
@@ -1745,7 +1783,7 @@
 <li>When a player types the command, they send a cancellation request.  </li>
 <li>The opponent receives a visual alert that a technical safety cancellation has been requested.  </li>
 <li>If the opponent agrees and also types the command within an acceptable timeframe, the mod cleanly ends the arena:  </li>
-<li>Neither player loses or gains Rating (<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAABSElEQVR4XmNgGAUoQF5e3hGInwPxfyT8Coh/AfFfOTm5k0A6GKiUGV0vCgAqmgPEv4EabJCEmYH8NKhBZUA+I5IcAqirq/MCFR0G4ruKioriyHJAMUkgfohNDg6AkppA/BaI1wC5LMhysrKypkDxb0B8VUpKSgRZDg6AivyACv4rKCiko8sBxRpAckBcjC4HB0DJSfJo/jc2NmYFiiVDXVYK4iPrgQNRUVEeoIID8pBQPwZlXwfZCjRwurS0tDC6HhQgj93/jECnV8pDQt8VSTkmgPkfiIuQxYEajYFiX4F4DrI4BpDH4n+oeDTU4FZkcRRAIP5BBoPCoRxZHAUAna8DVPReHjP+WYBhsArZACC7Gsh2gWm0lYekLpATYfgVKDxgJgD5wUD8F2QQUGMskD1bRkaGEyZPFAB5C6jZFxQTJGseBcMeAACyIWKOy8AaQgAAAABJRU5ErkJggg==" />).  </li>
+<li>Neither player loses or gains Rating (<code>R</code>).  </li>
 <li>Both players and their teams are safely teleported back to their original locations by safeRescue.  </li>
 <li>The instantiated arena is released and cleared from the server immediately.</li>
 </ol>
@@ -1842,7 +1880,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

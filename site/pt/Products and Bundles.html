@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1706,79 +1734,68 @@
 <p><code>config/cobblemon_battlehub/shop.json</code></p>
 <hr />
 <h2 id="estrutura-do-json"><strong>Estrutura do JSON</strong></h2>
-<p>Abaixo está um exemplo da estrutura gerada automaticamente pelo mod, contendo um <code>"Bundle"</code> (pacote com múltiplos comandos/Pokémon) e um <code>"Item"</code> comum:</p>
-<pre><code>    {  
-      "shop": [  
-        {  
-          "id": "example_bundle",  
-          "name": "Tinkaton Bundle",  
-          "type": "bundle",  
-          "description": "Adquira este incrível pacote rosa com a linha evolutiva completa!",  
-          "price": 1500.0,  
-          "discount": 15,  
-          "currency": "Dollars",  
-          "currencyName": "&lt;green&gt;&lt;bold&gt;%price%$&lt;/bold&gt;&lt;/green&gt;",  
-          "featured": true,  
-          "scale": 1.3,  
-          "offsetX": 0,  
-          "offsetY": 0,  
-          "width": 120,  
-          "height": 160,  
-          "maxPurchases": 1,  
-          "imageUrls": [  
-            "https://i.imgur.com/ZGNJEw7.png"  
-          ],  
-          "includedItems": [  
-            "Shiny Tinkaton com IVs Perfeitos",  
-            "5x Diamantes"  
-          ],  
-          "commands": [  
-            "pokegiveother %player% tinkaton s min_perfect_ivs=6",  
-            "give %player% diamond 5"  
-          ]  
-        },  
-        {  
-          "id": "abilitypatch",  
-          "name": "AbilityPatch",  
-          "type": "item",  
-          "description": "Altera a habilidade do seu Pokémon para a Hidden Ability.",  
-          "price": 1000.0,  
-          "discount": 0,  
-          "currency": "Dollars",  
-          "currencyName": "&lt;green&gt;&lt;bold&gt;%price%$&lt;/bold&gt;&lt;/green&gt;",  
-          "featured": false,  
-          "scale": 1.0,  
-          "offsetX": 0,  
-          "offsetY": 0,  
-          "width": 60,  
-          "height": 60,  
-          "maxPurchases": 0,  
-          "imageUrls": [  
-            "https://i.imgur.com/T9VPbyx.png"  
-          ],  
-          "includedItems": [  
-            "1x Ability Patch"  
-          ],  
-          "commands": [  
-            "give %player% cobblemon:ability_patch"  
-          ]  
-        }  
-      ]  
-    }
-</code></pre>
+<p>Abaixo, um exemplo da estrutura que o mod gera, com um <code>bundle</code> (pacote que roda vários comandos) e um <code>item</code> comum:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"shop"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example_bundle"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tinkaton Bundle"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bundle"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adquira este incrível pacote rosa com a linha evolutiva completa!"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">1500.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"discount"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dollars"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"currencyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;green&gt;&lt;bold&gt;%price%$&lt;/bold&gt;&lt;/green&gt;"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"featured"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"offsetX"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"offsetY"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">160</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"maxPurchases"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"imageUrls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://i.imgur.com/ZGNJEw7.png"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"includedItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Shiny Tinkaton com IVs Perfeitos"</span><span class="p">,</span><span class="w"> </span><span class="s2">"5x Diamantes"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"pokegiveother %player% tinkaton s min_perfect_ivs=6"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"give %player% diamond 5"</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abilitypatch"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AbilityPatch"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Altera a habilidade do seu Pokémon para a Hidden Ability."</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">1000.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"discount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dollars"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"currencyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;green&gt;&lt;bold&gt;%price%$&lt;/bold&gt;&lt;/green&gt;"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"featured"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"offsetX"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"offsetY"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"maxPurchases"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"imageUrls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://i.imgur.com/T9VPbyx.png"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"includedItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1x Ability Patch"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"give %player% cobblemon:ability_patch"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h2 id="explicacao-dos-parametros"><strong>Explicação dos Parâmetros</strong></h2>
 <h3 id="1-identificacao-e-metadados"><strong>1. Identificação e Metadados</strong></h3>
 <ul>
-<li><strong><code>id</code></strong>: String única que identifica o produto no banco de dados. </li>
+<li><strong><code>id</code></strong>: String única que identifica o produto no banco de dados.</li>
 </ul>
 <div class="admonition warning">
-<p class="admonition-title"><strong>Atenção:</strong></p>
-<p>Nunca altere o ID de um produto após jogadores o terem comprado, senão eles perderão o histórico de compras e poderão comprar novamente burlar limites.  </p>
+<p class="admonition-title">Atenção</p>
+<p>Nunca altere o ID de um produto depois que jogadores já o compraram, senão eles perdem o histórico de compra e podem burlar os limites.</p>
 </div>
 <ul>
-<li><strong><code>name</code></strong>: O nome do produto (Suporta MiniMessage e cores legadas).  </li>
-<li><strong><code>type</code></strong>: Define visualmente o produto. Geralmente usa-se "item" ou "bundle".  </li>
+<li><strong><code>name</code></strong>: O nome do produto (suporta MiniMessage e cores legadas).  </li>
+<li><strong><code>type</code></strong>: Só afeta o selo dos cards em <em>destaque</em> — <code>"bundle"</code> mostra a tag "Bundle", qualquer outro valor mostra "Item". Não muda comportamento; um card com vários <code>commands</code> funciona seja qual for o <code>type</code>.  </li>
 <li><strong><code>description</code></strong>: O texto de descrição exibido na dica de ferramenta (tooltip) do item.  </li>
 <li><strong><code>featured</code></strong>: (true/false) Se for verdadeiro, o produto aparecerá em destaque na prateleira superior da loja em tamanho maior.</li>
 </ul>
@@ -1895,7 +1912,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -393,6 +393,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependencies
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="Dependencies.html" class="md-nav__link md-nav__link--active">
         
   
@@ -409,6 +427,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hard-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hard requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#needed-for-full-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Needed for full functionality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional integrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -430,6 +500,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1437,6 +1535,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hard-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hard requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#needed-for-full-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Needed for full functionality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional integrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1454,30 +1593,49 @@
 
 <h1 id="dependencies"><strong>Dependencies</strong></h1>
 <hr />
+<h2 id="hard-requirements"><strong>Hard requirements</strong></h2>
+<p>The mod will not load without these:</p>
 <ul>
-<li>
-<p>Required Dependencies:</p>
-<ul>
-<li><a href="https://modrinth.com/mod/impactor/version/KwNU9SQW">Impactor 5.3.5</a>                                                                           <br />
-<em>(Currently this is the only economy supported by the mod!)</em></li>
-<li><a href="https://modrinth.com/mod/cobblemon/version/kF7CvxTo">Cobblemon</a></li>
-<li><a href="https://modrinth.com/plugin/luckperms/version/l47d4ZWk">LuckPerms 5.4.140</a></li>
-<li><a href="https://modrinth.com/plugin/carbon/version/314t2qDy">CarbonChat 3.0.0-beta.32</a></li>
+<li><strong>Fabric Loader</strong> <code>&gt;= 0.17.3</code> and <strong>Fabric API</strong></li>
+<li><strong>Minecraft</strong> <code>1.21.1</code>, <strong>Java</strong> <code>21</code></li>
+<li><a href="https://modrinth.com/mod/cobblemon/version/kF7CvxTo"><strong>Cobblemon</strong></a> <code>&gt;= 1.7.3</code></li>
 </ul>
-</li>
-<li>
-<p>Optional Dependencies:</p>
+<h2 id="needed-for-full-functionality"><strong>Needed for full functionality</strong></h2>
+<p>BattleHUB loads without these, but the matching features stay inactive until they're installed:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Mod / Plugin</th>
+<th style="text-align: left;">Enables</th>
+<th style="text-align: left;">Without it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://modrinth.com/mod/impactor/version/KwNU9SQW">Impactor</a> <code>5.3.5</code></td>
+<td style="text-align: left;">The shop economy (buying products, bundles, rotation Pokémon)</td>
+<td style="text-align: left;">Shop purchases fail — this is the only economy supported right now</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modrinth.com/plugin/luckperms/version/l47d4ZWk">LuckPerms</a> <code>5.4.140</code></td>
+<td style="text-align: left;">Granular <code>battlehub.*</code> permission nodes</td>
+<td style="text-align: left;">Permissions fall back to vanilla OP levels</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modrinth.com/plugin/carbon/version/314t2qDy">CarbonChat</a> <code>3.0.0-beta.32</code></td>
+<td style="text-align: left;">The in-menu Global / Local chat tabs</td>
+<td style="text-align: left;">The chat tabs won't relay messages — see <a href="Chat%20Config.html">Chat Config</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="optional-integrations"><strong>Optional integrations</strong></h2>
 <ul>
-<li><a href="https://modrinth.com/mod/cobblemon-mega-showdown/version/Y6di9Ram">Cobblemon Mega Showdown 1.8.4</a></li>
-<li><a href="https://modrinth.com/mod/cobblemon-battle-extras/version/1.13.45">Cobblemon Battle Extras 1.13.45</a></li>
-</ul>
-</li>
+<li><a href="https://modrinth.com/mod/cobblemon-mega-showdown/version/Y6di9Ram">Cobblemon Mega Showdown</a> <code>1.8.4</code></li>
+<li><a href="https://modrinth.com/mod/cobblemon-battle-extras/version/1.13.45">Cobblemon Battle Extras</a> <code>1.13.45</code></li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title">Development Notes</p>
-<ul>
-<li>We prioritize compatibility with your ecosystem. If your server uses a specific economy or chat mod, please report this need via a ticket on our <a href="https://discord.gg/aDCgBbvRe5">Discord</a>. We will evaluate and prioritize the requested integration."</li>
-</ul>
+<p class="admonition-title">Using a different economy or chat mod?</p>
+<p>Impactor and CarbonChat are the only ones wired in today. If your server runs something else, open a ticket on our <a href="https://discord.gg/aDCgBbvRe5">Discord</a> and we'll look at adding the integration.</p>
 </div>
 
 
@@ -1571,7 +1729,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

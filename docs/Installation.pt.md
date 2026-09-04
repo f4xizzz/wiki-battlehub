@@ -58,7 +58,7 @@ Para desbloquear o mod, você precisa ativar a sua licença dentro do servidor:
     * (A *[KEY]* é enviada para você imediatamente após a confirmação do pagamento via Stripe).
 
 !!! warning "Atenção: Licença Única por Servidor"
-    Esta licença é válida exclusivamente para uma única instância ativa. O sistema de segurança vinculará permanentemente a sua chave de ativação ao primeiro IP que validá-la. Não é possível realizar ativações múltiplas ou compartilhamento de chave.
+    Esta licença é válida exclusivamente para uma única instância ativa. A chave de ativação fica permanentemente vinculada ao primeiro servidor que a ativar. Não é possível realizar ativações múltiplas ou compartilhamento de chave.
 
 !!! info "Ainda não possui uma chave de ativação?"
     A sua chave de licença (*License Key*) é gerada de forma automática e enviada ao seu e-mail assim que o pagamento via Stripe for confirmado. Para adquirir a sua, junte-se ao nosso [Discord Oficial](https://discord.gg/aDCgBbvRe5) e abra um ticket de atendimento.

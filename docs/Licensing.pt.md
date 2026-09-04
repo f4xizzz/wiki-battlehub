@@ -2,7 +2,7 @@
 
 ---
 
-O Cobblemon BattleHUB é um mod pago. Num **servidor dedicado** ele fica travado até você ativar uma chave de licença, que é então vinculada permanentemente ao IP do servidor por um backend assinado.
+O Cobblemon BattleHUB é um mod pago. Num **servidor dedicado** ele fica travado até você ativar uma chave de licença. A chave é então vinculada ao servidor e validada contra o nosso backend.
 
 **Singleplayer e mundos LAN integrados estão sempre ativos** — sem chave, sem checagem de internet.
 
@@ -16,10 +16,13 @@ O Cobblemon BattleHUB é um mod pago. Num **servidor dedicado** ele fica travado
 
     `/bh activation [CHAVE-DE-LICENCA]`
 
-Ao dar certo o servidor grava `config/cobblemon_battlehub/license.json` e destrava tudo. Esse arquivo é verificado **offline** (assinatura RSA) a cada boot, e a chave é revalidada contra o backend a cada **4 horas**.
+Ao dar certo o servidor grava `config/cobblemon_battlehub/license.json` e destrava tudo. A licença é revalidada contra o backend a cada **4 horas**.
 
-!!! warning "Um IP por chave"
-    O backend vincula a chave ao **primeiro IP** que a ativar. Você não pode mover uma chave pra um IP novo nem compartilhar entre servidores. Abra um ticket no Discord se você legitimamente precisa migrar uma chave.
+!!! info "Um servidor por chave"
+    Na primeira ativação a chave é vinculada àquela instância de servidor. O seu IP público pode mudar (IP dinâmico, troca de host) sem quebrar a ativação, mas a chave não funciona em um segundo servidor diferente ao mesmo tempo. Abra um ticket no Discord se precisar migrar a chave pra outra máquina.
+
+!!! info "Queda do backend não te derruba"
+    Se o backend de licença ficar temporariamente fora do ar, um servidor já ativado continua rodando por um período de tolerância enquanto tenta de novo em segundo plano. Você só perde o acesso se a chave for realmente revogada ou expirar.
 
 ---
 
@@ -39,36 +42,16 @@ O mod ainda carrega — ele só fica inerte até você ativar.
 
 | Formato | Comportamento |
 | :--- | :--- |
-| `BATTLEHUB-XXXX-XXXX` | Chave normal. Travada por IP, integridade do jar checada. Vitalícia, salvo se emitida como temporária. |
+| `BATTLEHUB-XXXX-XXXX` | Chave normal. Vinculada ao seu servidor. Vitalícia, salvo se emitida como temporária. |
 | `BATTLEHUB-XXXX-XXXX` *(temporária)* | Igual, mas expira numa data definida; o mod se trava quando a data passa (`/bh` mostra um aviso de "temporary license expired"). |
-| `BATTLEHUB-DEV-XXXX-XXXX` | Chave de desenvolvedor. **Sem trava de IP, sem checagem de hash do jar.** Só pros seus próprios ambientes de teste. |
 
 ---
 
 ## **`license.json`**
 
-```json
-{
-  "license_key": "BATTLEHUB-XXXX-XXXX",
-  "expires_at": -1,
-  "signature": "assinatura-RSA-em-base64"
-}
-```
+Gravado e gerenciado pelo mod. **Não** edite — um arquivo inválido simplesmente falha na verificação e o mod fica travado até você rodar `/bh activation` de novo. Esse arquivo é por servidor: não coloque no controle de versão nem copie entre servidores.
 
-**Não** edite. A `signature` é verificada contra a chave pública embutida no mod a cada startup; uma assinatura adulterada trava o mod. Esse arquivo é por servidor — não coloque no controle de versão nem copie entre servidores.
-
----
-
-## **Anti-adulteração**
-
-O BattleHUB inspeciona a própria pilha de execução quando a licença é checada. Se detectar outro mod tentando injetar nas classes de licenciamento (via Mixin), ele **trava o mod e loga um alerta** — o servidor Minecraft continua rodando normalmente, só o BattleHUB fica inerte:
-
-```
-[BattleHUB] SECURITY ALERT: possible illegal mixin injection into the license system.
-[BattleHUB] Locking the mod (server keeps running).
-```
-
-Se isso disparar num setup limpo, é um falso positivo de uma interação incomum de mod. Você pode desligar a inspeção de pilha: coloque `ENABLE_STACK_INSPECTION = false` no `ActivationManager.java` e rebuilde, ou fale com o suporte.
+Se o BattleHUB ficar travado num setup limpo e licenciado, abra um ticket no Discord com o seu `latest.log`.
 
 ---
 
@@ -76,8 +59,6 @@ Se isso disparar num setup limpo, é um falso positivo de uma interação incomu
 
 | Sintoma | Causa / solução |
 | :--- | :--- |
-| "Activation failed. Invalid key, or key is already bound to another IP." | Chave já usada em outro IP, revogada, ou digitada errado. |
+| "Activation failed. Invalid key, or key is already bound to another server." | Chave já vinculada a outro servidor, revogada, ou digitada errado. |
 | A ativação trava e falha na primeira tentativa | O backend de licença estava dormindo (cold start pode levar até um minuto). Rode o comando de novo. |
-| "Integrity check failed. Adulterated JAR." | O hash do seu jar não está registrado pra essa release. Use uma chave `-DEV-` ou peça ao suporte pra registrar o hash da release. |
-| Funciona, depois trava algumas horas depois | Chave temporária expirou, ou a revalidação de 4h falhou (chave revogada, ou o servidor não conseguiu alcançar o backend). |
-| Log diz "LICENSE TAMPERED" no boot | O `license.json` foi editado (ou corrompido). Apague ele e rode `/bh activation` de novo. |
+| Funciona, depois trava | Chave temporária expirou, a chave foi revogada, ou o backend ficou fora do ar além do período de tolerância. |
