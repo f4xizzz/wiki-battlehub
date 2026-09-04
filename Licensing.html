@@ -544,17 +544,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#anti-tamper" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Anti-tamper
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1619,17 +1608,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#anti-tamper" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Anti-tamper
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1659,7 +1637,7 @@
 
 <h1 id="licensing-activation"><strong>Licensing &amp; Activation</strong></h1>
 <hr />
-<p>Cobblemon BattleHUB is a paid mod. On a <strong>dedicated server</strong> it stays locked until you activate a license key, which is then permanently bound to that server's IP by a signed backend.</p>
+<p>Cobblemon BattleHUB is a paid mod. On a <strong>dedicated server</strong> it stays locked until you activate a license key. The key is then bound to that server and validated against our backend.</p>
 <p><strong>Singleplayer and integrated LAN worlds are always active</strong> — no key, no internet check.</p>
 <hr />
 <h2 id="activating"><strong>Activating</strong></h2>
@@ -1671,10 +1649,14 @@
 <p><code>/bh activation [LICENSE-KEY]</code></p>
 </li>
 </ol>
-<p>On success the server writes <code>config/cobblemon_battlehub/license.json</code> and unlocks everything. That file is verified <strong>offline</strong> (RSA signature) on every boot, and the key is re-validated against the backend every <strong>4 hours</strong>.</p>
-<div class="admonition warning">
-<p class="admonition-title">One IP per key</p>
-<p>The backend binds the key to the <strong>first IP</strong> that activates it. You cannot move a key to a new IP or share it between servers. Open a ticket on Discord if you legitimately need to migrate a key.</p>
+<p>On success the server writes <code>config/cobblemon_battlehub/license.json</code> and unlocks everything. The license is re-validated against the backend every <strong>4 hours</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">One server per key</p>
+<p>On first activation the key is bound to that server instance. Your public IP can change (dynamic IP, host migration) without breaking activation, but the key will not work on a second, different server at the same time. Open a ticket on Discord if you need to move a key to a new machine.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Backend outages don't take you down</p>
+<p>If the licensing backend is temporarily unreachable, an already-activated server keeps running for a grace period while it retries in the background. You only lose access if the key is actually revoked or expires.</p>
 </div>
 <hr />
 <h2 id="while-unlicensed"><strong>While unlicensed</strong></h2>
@@ -1697,34 +1679,18 @@
 <tbody>
 <tr>
 <td style="text-align: left;"><code>BATTLEHUB-XXXX-XXXX</code></td>
-<td style="text-align: left;">Normal key. IP-locked, jar-integrity checked. Lifetime unless issued as temporary.</td>
+<td style="text-align: left;">Normal key. Bound to your server. Lifetime unless issued as temporary.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>BATTLEHUB-XXXX-XXXX</code> <em>(temporary)</em></td>
 <td style="text-align: left;">Same, but expires on a set date; the mod locks itself when the date passes (<code>/bh</code> shows a "temporary license expired" notice).</td>
 </tr>
-<tr>
-<td style="text-align: left;"><code>BATTLEHUB-DEV-XXXX-XXXX</code></td>
-<td style="text-align: left;">Developer key. <strong>No IP-lock, no jar-hash check.</strong> For your own test environments only.</td>
-</tr>
 </tbody>
 </table>
 <hr />
 <h2 id="licensejson"><strong><code>license.json</code></strong></h2>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"license_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BATTLEHUB-XXXX-XXXX"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base64-RSA-signature"</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Do <strong>not</strong> edit it. The <code>signature</code> is checked against the mod's embedded public key on every startup; a tampered signature locks the mod. This file is per-server — don't put it in version control or copy it between servers.</p>
-<hr />
-<h2 id="anti-tamper"><strong>Anti-tamper</strong></h2>
-<p>BattleHUB inspects its own call stack when the license is checked. If it detects another mod trying to inject into the licensing classes (via Mixin), it <strong>locks the mod and logs an alert</strong> — the Minecraft server keeps running normally, only BattleHUB goes inert:</p>
-<div class="highlight"><pre><span></span><code>[BattleHUB] SECURITY ALERT: possible illegal mixin injection into the license system.
-[BattleHUB] Locking the mod (server keeps running).
-</code></pre></div>
-<p>If this fires on a clean setup it's a false positive from an unusual mod interaction. You can disable the stack inspection: set <code>ENABLE_STACK_INSPECTION = false</code> in <code>ActivationManager.java</code> and rebuild, or contact support.</p>
+<p>Written and managed by the mod. Do <strong>not</strong> edit it — an invalid file simply fails verification and the mod stays locked until you run <code>/bh activation</code> again. This file is per-server: don't put it in version control or copy it between servers.</p>
+<p>If BattleHUB stays locked on a clean, licensed setup, open a ticket on Discord with your <code>latest.log</code>.</p>
 <hr />
 <h2 id="troubleshooting"><strong>Troubleshooting</strong></h2>
 <table>
@@ -1736,24 +1702,16 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">"Activation failed. Invalid key, or key is already bound to another IP."</td>
-<td style="text-align: left;">Key already used on another IP, revoked, or mistyped.</td>
+<td style="text-align: left;">"Activation failed. Invalid key, or key is already bound to another server."</td>
+<td style="text-align: left;">Key already bound elsewhere, revoked, or mistyped.</td>
 </tr>
 <tr>
 <td style="text-align: left;">Activation hangs then fails on the first try</td>
 <td style="text-align: left;">The licensing backend was asleep (cold start can take up to a minute). Run the command again.</td>
 </tr>
 <tr>
-<td style="text-align: left;">"Integrity check failed. Adulterated JAR."</td>
-<td style="text-align: left;">Your jar's hash isn't registered for this release. Use a <code>-DEV-</code> key or ask support to register the release hash.</td>
-</tr>
-<tr>
-<td style="text-align: left;">Works, then locks a few hours later</td>
-<td style="text-align: left;">Temporary key expired, or the 4-hour re-validation failed (key revoked, or the server couldn't reach the backend).</td>
-</tr>
-<tr>
-<td style="text-align: left;">Log says "LICENSE TAMPERED" on boot</td>
-<td style="text-align: left;"><code>license.json</code> was edited (or corrupted). Delete it and re-run <code>/bh activation</code>.</td>
+<td style="text-align: left;">Works, then locks later</td>
+<td style="text-align: left;">Temporary key expired, the key was revoked, or the backend was unreachable past the grace period.</td>
 </tr>
 </tbody>
 </table>

@@ -544,17 +544,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#anti-adulteracao" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Anti-adulteração
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#resolvendo-problemas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1619,17 +1608,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#anti-adulteracao" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Anti-adulteração
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#resolvendo-problemas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1659,7 +1637,7 @@
 
 <h1 id="licenca-ativacao"><strong>Licença &amp; Ativação</strong></h1>
 <hr />
-<p>O Cobblemon BattleHUB é um mod pago. Num <strong>servidor dedicado</strong> ele fica travado até você ativar uma chave de licença, que é então vinculada permanentemente ao IP do servidor por um backend assinado.</p>
+<p>O Cobblemon BattleHUB é um mod pago. Num <strong>servidor dedicado</strong> ele fica travado até você ativar uma chave de licença. A chave é então vinculada ao servidor e validada contra o nosso backend.</p>
 <p><strong>Singleplayer e mundos LAN integrados estão sempre ativos</strong> — sem chave, sem checagem de internet.</p>
 <hr />
 <h2 id="ativando"><strong>Ativando</strong></h2>
@@ -1671,10 +1649,14 @@
 <p><code>/bh activation [CHAVE-DE-LICENCA]</code></p>
 </li>
 </ol>
-<p>Ao dar certo o servidor grava <code>config/cobblemon_battlehub/license.json</code> e destrava tudo. Esse arquivo é verificado <strong>offline</strong> (assinatura RSA) a cada boot, e a chave é revalidada contra o backend a cada <strong>4 horas</strong>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Um IP por chave</p>
-<p>O backend vincula a chave ao <strong>primeiro IP</strong> que a ativar. Você não pode mover uma chave pra um IP novo nem compartilhar entre servidores. Abra um ticket no Discord se você legitimamente precisa migrar uma chave.</p>
+<p>Ao dar certo o servidor grava <code>config/cobblemon_battlehub/license.json</code> e destrava tudo. A licença é revalidada contra o backend a cada <strong>4 horas</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">Um servidor por chave</p>
+<p>Na primeira ativação a chave é vinculada àquela instância de servidor. O seu IP público pode mudar (IP dinâmico, troca de host) sem quebrar a ativação, mas a chave não funciona em um segundo servidor diferente ao mesmo tempo. Abra um ticket no Discord se precisar migrar a chave pra outra máquina.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Queda do backend não te derruba</p>
+<p>Se o backend de licença ficar temporariamente fora do ar, um servidor já ativado continua rodando por um período de tolerância enquanto tenta de novo em segundo plano. Você só perde o acesso se a chave for realmente revogada ou expirar.</p>
 </div>
 <hr />
 <h2 id="enquanto-sem-licenca"><strong>Enquanto sem licença</strong></h2>
@@ -1697,34 +1679,18 @@
 <tbody>
 <tr>
 <td style="text-align: left;"><code>BATTLEHUB-XXXX-XXXX</code></td>
-<td style="text-align: left;">Chave normal. Travada por IP, integridade do jar checada. Vitalícia, salvo se emitida como temporária.</td>
+<td style="text-align: left;">Chave normal. Vinculada ao seu servidor. Vitalícia, salvo se emitida como temporária.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>BATTLEHUB-XXXX-XXXX</code> <em>(temporária)</em></td>
 <td style="text-align: left;">Igual, mas expira numa data definida; o mod se trava quando a data passa (<code>/bh</code> mostra um aviso de "temporary license expired").</td>
 </tr>
-<tr>
-<td style="text-align: left;"><code>BATTLEHUB-DEV-XXXX-XXXX</code></td>
-<td style="text-align: left;">Chave de desenvolvedor. <strong>Sem trava de IP, sem checagem de hash do jar.</strong> Só pros seus próprios ambientes de teste.</td>
-</tr>
 </tbody>
 </table>
 <hr />
 <h2 id="licensejson"><strong><code>license.json</code></strong></h2>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"license_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BATTLEHUB-XXXX-XXXX"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assinatura-RSA-em-base64"</span>
-<span class="p">}</span>
-</code></pre></div>
-<p><strong>Não</strong> edite. A <code>signature</code> é verificada contra a chave pública embutida no mod a cada startup; uma assinatura adulterada trava o mod. Esse arquivo é por servidor — não coloque no controle de versão nem copie entre servidores.</p>
-<hr />
-<h2 id="anti-adulteracao"><strong>Anti-adulteração</strong></h2>
-<p>O BattleHUB inspeciona a própria pilha de execução quando a licença é checada. Se detectar outro mod tentando injetar nas classes de licenciamento (via Mixin), ele <strong>trava o mod e loga um alerta</strong> — o servidor Minecraft continua rodando normalmente, só o BattleHUB fica inerte:</p>
-<div class="highlight"><pre><span></span><code>[BattleHUB] SECURITY ALERT: possible illegal mixin injection into the license system.
-[BattleHUB] Locking the mod (server keeps running).
-</code></pre></div>
-<p>Se isso disparar num setup limpo, é um falso positivo de uma interação incomum de mod. Você pode desligar a inspeção de pilha: coloque <code>ENABLE_STACK_INSPECTION = false</code> no <code>ActivationManager.java</code> e rebuilde, ou fale com o suporte.</p>
+<p>Gravado e gerenciado pelo mod. <strong>Não</strong> edite — um arquivo inválido simplesmente falha na verificação e o mod fica travado até você rodar <code>/bh activation</code> de novo. Esse arquivo é por servidor: não coloque no controle de versão nem copie entre servidores.</p>
+<p>Se o BattleHUB ficar travado num setup limpo e licenciado, abra um ticket no Discord com o seu <code>latest.log</code>.</p>
 <hr />
 <h2 id="resolvendo-problemas"><strong>Resolvendo problemas</strong></h2>
 <table>
@@ -1736,24 +1702,16 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">"Activation failed. Invalid key, or key is already bound to another IP."</td>
-<td style="text-align: left;">Chave já usada em outro IP, revogada, ou digitada errado.</td>
+<td style="text-align: left;">"Activation failed. Invalid key, or key is already bound to another server."</td>
+<td style="text-align: left;">Chave já vinculada a outro servidor, revogada, ou digitada errado.</td>
 </tr>
 <tr>
 <td style="text-align: left;">A ativação trava e falha na primeira tentativa</td>
 <td style="text-align: left;">O backend de licença estava dormindo (cold start pode levar até um minuto). Rode o comando de novo.</td>
 </tr>
 <tr>
-<td style="text-align: left;">"Integrity check failed. Adulterated JAR."</td>
-<td style="text-align: left;">O hash do seu jar não está registrado pra essa release. Use uma chave <code>-DEV-</code> ou peça ao suporte pra registrar o hash da release.</td>
-</tr>
-<tr>
-<td style="text-align: left;">Funciona, depois trava algumas horas depois</td>
-<td style="text-align: left;">Chave temporária expirou, ou a revalidação de 4h falhou (chave revogada, ou o servidor não conseguiu alcançar o backend).</td>
-</tr>
-<tr>
-<td style="text-align: left;">Log diz "LICENSE TAMPERED" no boot</td>
-<td style="text-align: left;">O <code>license.json</code> foi editado (ou corrompido). Apague ele e rode <code>/bh activation</code> de novo.</td>
+<td style="text-align: left;">Funciona, depois trava</td>
+<td style="text-align: left;">Chave temporária expirou, a chave foi revogada, ou o backend ficou fora do ar além do período de tolerância.</td>
 </tr>
 </tbody>
 </table>
