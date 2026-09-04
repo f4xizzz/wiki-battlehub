@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1922,7 +1950,7 @@
 <h1 id="tournament-commands"><strong>Tournament Commands</strong></h1>
 <hr />
 <h2 id="tournament-commands_1"><strong>Tournament Commands</strong></h2>
-<p>The <strong>Cobblemon BattleHUB</strong> tournament system is managed by a high-precision administrative command tree based on the class. These commands allow you to create, reset, monitor brackets, and even manually intervene in ongoing matches.</p>
+<p>The <strong>Cobblemon BattleHUB</strong> tournament system is driven by an admin command tree (<code>TournamentCommand</code>). These commands let you close registration, draw and reset brackets, run test bots, and step into individual matches. Tournaments themselves are defined by profile files — see <a href="How%20does%20it%20work.html">How does it work?</a> and <a href="Tournament%20Example.html">Tournament Example</a>.</p>
 <hr />
 <h2 id="main-command-and-aliases"><strong>Main Command and Aliases</strong></h2>
 <p>All tournament management commands require the base permission <strong><code>battlehub.tournament.base</code></strong> (or OP Level 2 permission) on the server to execute.</p>
@@ -1953,7 +1981,7 @@
 <p>These commands depend on the <strong>Tournament ID</strong> (set in the profile .json file) and manage registrations and the overall bracket.</p>
 <h3 id="1-clear-registrations-clear"><strong>1. Clear Registrations (clear)</strong></h3>
 <ul>
-<li><strong>Syntax:</strong> <code>/bhubtournament &lt;Tournament_ID&gt;</code> clear  </li>
+<li><strong>Syntax:</strong> <code>/bhubtournament &lt;Tournament_ID&gt; clear</code>  </li>
 <li><strong>Permission:</strong> <code>battlehub.tournament.clear</code>  </li>
 <li><strong>Functionality:</strong> Instantly removes all players registered in the selected competition (available only if the tournament is in the UPCOMING or REGISTRATION states).</li>
 </ul>
@@ -2009,9 +2037,9 @@
 </ul>
 <h3 id="4-set-manual-winner-setwinner"><strong>4. Set Manual Winner (setwinner)</strong></h3>
 <ul>
-<li><strong>Syntax:</strong> <code>/bhubtournament setwinner &lt;Block_ID&gt; &lt;_1 or _2&gt;</code>  </li>
+<li><strong>Syntax:</strong> <code>/bhubtournament setwinner &lt;Block_ID&gt; &lt;1|2&gt;</code>  </li>
 <li><strong>Permission:</strong> <code>battlehub.tournament.setwinner</code>  </li>
-<li><strong>Functionality:</strong> Intervenes in the bracket and declares the winner arbitrarily. Use 1 to award victory to Player 1 of the block or 2 to award victory to Player 2. The mod will update the bracket, promote the winner, and trigger announcements automatically.</li>
+<li><strong>Functionality:</strong> Intervenes in the bracket and declares the winner. Pass <code>1</code> to award the win to Player 1 of the block, or <code>2</code> for Player 2 (any other value is treated as Player 2). The mod updates the bracket, promotes the winner, and fires the announcements automatically.</li>
 </ul>
 <hr />
 
@@ -2106,7 +2134,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1784,23 +1812,19 @@
 <p><code>config/cobblemon_battlehub/ladders/ban_presets/</code></p>
 <h2 id="como-funciona-a-logica-em-cascata-smogon-tiers"><strong>Como Funciona a Lógica em Cascata (Smogon Tiers)</strong></h2>
 <p>O mod gera automaticamente as listas baseadas nas divisões competitivas oficiais da Smogon. Para simplificar a manutenção e evitar ficheiros gigantescos repetitivos, o código do mod utiliza uma <strong>Lógica em Cascata</strong>.</p>
-<p>Isso significa que as tiers inferiores importam de forma automática todos os banimentos das tiers que estão acima delas. Veja como funciona o fluxo de herança direta:</p>
-<pre><code>    [Ubers (Bans base)]  
-         ↓  
-    [OU (Ubers + Bans OU)]  
-         ↓  
-    [UU (OU + Bans UU)]  
-         ↓  
-    [RU (UU + Bans RU)]  
-         ↓  
-    [NU (RU + Bans NU)]  
-         ↓  
-    [PU (NU + Bans PU)]
-</code></pre>
+<p>Isso significa que os tiers inferiores importam de forma automática todos os banimentos dos tiers acima deles. Veja o fluxo de herança:</p>
+<div class="highlight"><pre><span></span><code>ubers   (lista base)
+  └─ ou    = ubers + bans de OU
+       └─ uu    = ou + bans de UU
+            └─ ru    = uu + bans de RU
+                 └─ nu    = ru + bans de NU
+                      └─ pu    = nu + bans de PU
+</code></pre></div>
 <ul>
-<li>Se você utilizar o preset ou, ele banirá os Pokémons banidos de OU <strong>mais</strong> todos os de Ubers.  </li>
-<li>Se você utilizar o preset pu, ele banirá os Pokémons banidos de PU <strong>mais</strong> todos os de NU, RU, UU, OU e Ubers de uma só vez.  </li>
-<li><strong>Nota:</strong> Os formatos específicos como lc (Little Cup), doubles_ou e monotype possuem as suas próprias heranças ou listas isoladas adaptadas às suas regras particulares.</li>
+<li>Se você usar o preset <code>ou</code>, ele bane tudo que é banido em OU <strong>mais</strong> todos os de Ubers.</li>
+<li>Se você usar o preset <code>pu</code>, ele bane a lista de PU <strong>mais</strong> todos de NU, RU, UU, OU e Ubers de uma vez.</li>
+<li><code>monotype</code> é construído em cima de <code>ou</code> (bans de OU + alguns Pokémon quebrados especificamente no Monotype).</li>
+<li><code>doubles_ou</code>, <code>lc</code>, <code>legendaries</code>, <code>ultra_beasts</code> e <code>paradoxes</code> são listas <strong>isoladas</strong> — não herdam de nada.</li>
 </ul>
 <hr />
 <h2 id="presets-base-gerados-automaticamente"><strong>Presets Base Gerados Automaticamente</strong></h2>
@@ -1816,15 +1840,15 @@
 <tbody>
 <tr>
 <td style="text-align: left;"><code>legendaries</code></td>
-<td style="text-align: left;">Contém todos os Pokémon Lendários e Míticos (ex: Mewtwo, Lugia, Zacian, Koraidon).</td>
+<td style="text-align: left;">Pokémon lendários e sublendários (Mewtwo, Lugia, Zacian, Koraidon, os gênios, os Tesouros da Ruína…). <strong>Não</strong> inclui Míticos como Mew ou Celebi — bane esses na mão se precisar.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>ultra_beasts</code></td>
-<td style="text-align: left;">Contém todas as Ultra Beasts do ecossistema Pokémon (ex: Nihilego, Buzzwole, Kartana).</td>
+<td style="text-align: left;">As 11 Ultra Beasts (Nihilego, Buzzwole, Kartana, Naganadel…).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>paradoxes</code></td>
-<td style="text-align: left;">Contém todos os Pokémon Paradoxos do passado e do futuro (ex: Great Tusk, Iron Valiant).</td>
+<td style="text-align: left;">Todos os 20 Pokémon Paradoxo, passado e futuro (Great Tusk, Iron Valiant, Roaring Moon, Walking Wake…).</td>
 </tr>
 </tbody>
 </table>
@@ -1885,24 +1909,22 @@
 <li><em>Exemplo:</em> <code>evento_sem_iniciais.json</code></li>
 </ul>
 <h3 id="passo-2-adicionar-a-lista-de-pokemons"><strong>Passo 2: Adicionar a Lista de Pokémons</strong></h3>
-<p>Adicione os Pokémons desejados em formato de lista (Array JSON). O sistema é inteligente e converte automaticamente os nomes para letras minúsculas, além de ignorar o prefixo cobblemon: caso seja adicionado por engano:</p>
-<pre><code>    [  
-      "charizard",  
-      "blastoise",  
-      "venusaur",  
-      "cobblemon:meowscarada"  
-    ]
-</code></pre>
+<p>Adicione os Pokémon como um array JSON simples de IDs de espécie. Os nomes são convertidos para minúsculas automaticamente e um prefixo <code>cobblemon:</code> perdido é removido. Use o estilo com as formas <strong>juntas, sem separadores</strong>, igual às listas que já vêm no mod (<code>vulpixalola</code>, <code>calyrexshadow</code>, <code>sneaselhisui</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="s2">"charizard"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"blastoise"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"venusaur"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"cobblemon:meowscarada"</span>
+<span class="p">]</span>
+</code></pre></div>
 <h3 id="passo-3-utilizar-o-preset-em-uma-ladder"><strong>Passo 3: Utilizar o Preset em uma Ladder</strong></h3>
-<p>Abra a configuração da sua Ladder desejada (na pasta <code>ladders/</code>) e adicione o ID do seu preset dentro da lista <code>"banPresets"</code>:</p>
-<pre><code>    {  
-      "id": "evento_singles",  
-      "displayName": "Combate de Evento",  
-      "banPresets": [  
-        "evento_sem_iniciais"  
-      ]  
-    }
-</code></pre>
+<p>Abra o arquivo da sua Ladder (na pasta <code>ladders/</code>) e adicione o ID do preset em <code>"banPresets"</code> — você pode listar vários, e eles se somam entre si e com o <code>bannedSpeciesKeys</code> da própria ladder:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evento_singles"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Combate de Evento"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"banPresets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"evento_sem_iniciais"</span><span class="p">,</span><span class="w"> </span><span class="s2">"legendaries"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="passo-4-recarregar"><strong>Passo 4: Recarregar</strong></h3>
 <p>Para aplicar e sincronizar os novos arquivos criados, execute o comando de reload no console ou como administrador in-game:</p>
 <p><code>/bh reload</code></p>
@@ -1999,7 +2021,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

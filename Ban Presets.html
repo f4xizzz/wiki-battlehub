@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1785,22 +1813,18 @@
 <h2 id="how-the-cascade-logic-works-smogon-tiers"><strong>How the Cascade Logic Works (Smogon Tiers)</strong></h2>
 <p>The mod automatically generates lists based on Smogon's official competitive divisions. To simplify maintenance and avoid huge repetitive files, the mod uses a <strong>cascade logic</strong>.</p>
 <p>That means lower tiers automatically inherit all bans from the tiers above them. Here is the direct inheritance flow:</p>
-<pre><code>    [Ubers (Base bans)]  
-         ↓  
-    [OU (Ubers + OU bans)]  
-         ↓  
-    [UU (OU + UU bans)]  
-         ↓  
-    [RU (UU + RU bans)]  
-         ↓  
-    [NU (RU + NU bans)]  
-         ↓  
-    [PU (NU + PU bans)]
-</code></pre>
+<div class="highlight"><pre><span></span><code>ubers   (base list)
+  └─ ou    = ubers + OU bans
+       └─ uu    = ou + UU bans
+            └─ ru    = uu + RU bans
+                 └─ nu    = ru + NU bans
+                      └─ pu    = nu + PU bans
+</code></pre></div>
 <ul>
-<li>If you use the <code>ou</code> preset, it will ban Pokémon banned in OU <strong>plus</strong> all Ubers.  </li>
-<li>If you use the <code>pu</code> preset, it will ban Pokémon banned in PU <strong>plus</strong> all of NU, RU, UU, OU, and Ubers at once.  </li>
-<li><strong>Note:</strong> Specific formats like <code>lc</code> (Little Cup), <code>doubles_ou</code>, and <code>monotype</code> have their own inheritance or separate ban lists adapted to their particular rules.</li>
+<li>If you use the <code>ou</code> preset, it bans everything banned in OU <strong>plus</strong> all of Ubers.</li>
+<li>If you use the <code>pu</code> preset, it bans PU's list <strong>plus</strong> all of NU, RU, UU, OU, and Ubers at once.</li>
+<li><code>monotype</code> builds on top of <code>ou</code> (OU bans + a few Pokémon that are broken specifically in Monotype).</li>
+<li><code>doubles_ou</code>, <code>lc</code>, <code>legendaries</code>, <code>ultra_beasts</code>, and <code>paradoxes</code> are <strong>standalone</strong> lists — they don't inherit from anything.</li>
 </ul>
 <hr />
 <h2 id="automatically-generated-base-presets"><strong>Automatically Generated Base Presets</strong></h2>
@@ -1816,15 +1840,15 @@
 <tbody>
 <tr>
 <td style="text-align: left;"><code>legendaries</code></td>
-<td style="text-align: left;">Contains all Legendary and Mythical Pokémon (e.g. Mewtwo, Lugia, Zacian, Koraidon).</td>
+<td style="text-align: left;">Legendary and sub-legendary Pokémon (Mewtwo, Lugia, Zacian, Koraidon, the genies, the Treasures of Ruin…). It does <strong>not</strong> include Mythicals like Mew or Celebi — ban those by hand if you need to.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>ultra_beasts</code></td>
-<td style="text-align: left;">Contains all Ultra Beasts in the Pokémon ecosystem (e.g. Nihilego, Buzzwole, Kartana).</td>
+<td style="text-align: left;">The 11 Ultra Beasts (Nihilego, Buzzwole, Kartana, Naganadel…).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>paradoxes</code></td>
-<td style="text-align: left;">Contains all Paradox Pokémon from the past and future (e.g. Great Tusk, Iron Valiant).</td>
+<td style="text-align: left;">All 20 Paradox Pokémon, past and future (Great Tusk, Iron Valiant, Roaring Moon, Walking Wake…).</td>
 </tr>
 </tbody>
 </table>
@@ -1885,24 +1909,22 @@
 <li><em>Example:</em> <code>no_starters_event.json</code></li>
 </ul>
 <h3 id="step-2-add-the-pokemon-list"><strong>Step 2: Add the Pokémon List</strong></h3>
-<p>Add the desired Pokémon as a JSON array. The system is smart and automatically converts names to lowercase, and ignores the <code>cobblemon:</code> prefix if added by mistake:</p>
-<pre><code>    [  
-      "charizard",  
-      "blastoise",  
-      "venusaur",  
-      "cobblemon:meowscarada"  
-    ]
-</code></pre>
+<p>Add the Pokémon as a plain JSON array of species IDs. Names are lowercased automatically and a stray <code>cobblemon:</code> prefix is stripped. Use the <strong>form-merged</strong> style with no separators for regional/special forms, matching the bundled lists (<code>vulpixalola</code>, <code>calyrexshadow</code>, <code>sneaselhisui</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="s2">"charizard"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"blastoise"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"venusaur"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"cobblemon:meowscarada"</span>
+<span class="p">]</span>
+</code></pre></div>
 <h3 id="step-3-use-the-preset-in-a-ladder"><strong>Step 3: Use the Preset in a Ladder</strong></h3>
-<p>Open the configuration of your desired Ladder (in the <code>ladders/</code> folder) and add your preset ID to the <code>"banPresets"</code> list:</p>
-<pre><code>    {  
-      "id": "event_singles",  
-      "displayName": "Event Battle",  
-      "banPresets": [  
-        "no_starters_event"  
-      ]  
-    }
-</code></pre>
+<p>Open your Ladder file (in the <code>ladders/</code> folder) and add the preset ID to <code>"banPresets"</code> — you can list several, and they stack with each other and with the ladder's own <code>bannedSpeciesKeys</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"event_singles"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Event Battle"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"banPresets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"no_starters_event"</span><span class="p">,</span><span class="w"> </span><span class="s2">"legendaries"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="step-4-reload"><strong>Step 4: Reload</strong></h3>
 <p>To apply and sync the new files, run the reload command from the console or as an in-game administrator:</p>
 <p><code>/bh reload</code></p>
@@ -1999,7 +2021,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

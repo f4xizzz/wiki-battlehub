@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1703,65 +1731,59 @@
 <p>O sistema de missões do <strong>Cobblemon BattleHUB</strong> recompensa a atividade e a fidelidade dos jogadores através de desafios diários, semanais e permanentes. O arquivo quests.json é o núcleo onde todas as missões, metas de conclusão e comandos de recompensa são armazenados e editados.</p>
 <hr />
 <h3 id="caminho-do-arquivo"><strong>Caminho do Arquivo</strong></h3>
-<p><code>config/cobblemon\_battlehub/quests.json</code></p>
+<p><code>config/cobblemon_battlehub/quests.json</code></p>
 <hr />
 <h2 id="como-o-sistema-funciona"><strong>Como o Sistema Funciona</strong></h2>
 <p>O comportamento do sistema é orquestrado de forma dinâmica pela classe QuestManager.java a cada login e término de partida:</p>
 <ol>
 <li><strong>Geração Automática:</strong> Na primeira inicialização, se o arquivo quests.json não for encontrado, o mod cria o arquivo automaticamente, populando-o com mais de <strong>90 missões pré-definidas</strong>.  </li>
 <li><strong>Seleção Randômica Inteligente:</strong> Para as missões diárias e semanais, o mod não entrega o catálogo inteiro para o jogador. Ele seleciona aleatoriamente um subconjunto de IDs com base em uma <em>seed</em> gerada pela data atual combinada com a UUID do jogador. Isso garante que cada jogador receba missões diferentes a cada ciclo!  </li>
-<li><strong>Persistência Seguro:</strong> O progresso atual do jogador (quantas etapas concluiu, o que já foi reivindicado e os horários de reset) é salvo de forma assíncrona no banco de dados.</li>
+<li><strong>Persistência Segura:</strong> O progresso atual do jogador (quantas etapas concluiu, o que já foi resgatado e os horários de reset) é salvo de forma assíncrona no banco de dados.</li>
 </ol>
 <hr />
 <h2 id="modelo-estrutural-de-configuracao"><strong>Modelo Estrutural de Configuração</strong></h2>
 <p>Abaixo está a estrutura simplificada do arquivo <code>quests.json</code> que demonstra como as missões e parâmetros globais são definidos:</p>
-<pre><code>    {  
-      "daily_quests_per_player": 2,  
-      "weekly_quests_per_player": 5,  
-      "daily_quests": [  
-        {  
-          "id": "daily_01",  
-          "type": "PLAY_MATCHES",  
-          "title": "Primeiro Passo",  
-          "description": "Participe de 1 partida em qualquer fila.",  
-          "targetAmount": 1,  
-          "typeFilter": null,  
-          "rewardDescription": "50 Dinheiros",  
-          "rewardCommands": [  
-            "eco deposit 50 dollar %player%"  
-          ]  
-        }  
-      ],  
-      "weekly_quests": [  
-        {  
-          "id": "weekly_01",  
-          "type": "WIN_RANKED",  
-          "title": "Veterano da Arena",  
-          "description": "Vença 15 partidas Ranqueadas.",  
-          "targetAmount": 15,  
-          "typeFilter": null,  
-          "rewardDescription": "1000 Pontos de Batalha",  
-          "rewardCommands": [  
-            "eco deposit 1000 battlepoint %player%"  
-          ]  
-        }  
-      ],  
-      "permanent_quests": [  
-        {  
-          "id": "perm_mono_fire",  
-          "type": "MASTER_MONOTYPE",  
-          "title": "Mestre das Chamas",  
-          "description": "Alcance 100 vitórias usando Monotype Fogo.",  
-          "targetAmount": 100,  
-          "typeFilter": "fire",  
-          "rewardDescription": "Tag Mestre Fogo",  
-          "rewardCommands": [  
-            "lp user %player% parent add master_fire"  
-          ]  
-        }  
-      ]  
-    }
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"daily_quests_per_player"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"weekly_quests_per_player"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"daily_quests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daily_01"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PLAY_MATCHES"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Primeiro Passo"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Participe de 1 partida em qualquer fila."</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"targetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"typeFilter"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"rewardDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50 Dinheiros"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"rewardCommands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"eco deposit 50 dollar %player%"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"weekly_quests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weekly_01"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WIN_RANKED"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Veterano da Arena"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vença 15 partidas Ranqueadas."</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"targetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"typeFilter"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"rewardDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000 Pontos de Batalha"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"rewardCommands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"eco deposit 1000 battlepoint %player%"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"permanent_quests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"perm_mono_fire"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MASTER_MONOTYPE"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mestre das Chamas"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alcance 100 vitórias usando Monotype Fogo."</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"targetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"typeFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fire"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"rewardDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tag Mestre Fogo"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"rewardCommands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"lp user %player% parent add master_fire"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h2 id="explicacao-detalhada-dos-parametros"><strong>Explicação Detalhada dos Parâmetros</strong></h2>
 <h3 id="1-parametros-de-selecao-global"><strong>1. Parâmetros de Seleção Global</strong></h3>
@@ -1888,7 +1910,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

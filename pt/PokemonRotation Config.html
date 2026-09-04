@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1329,8 +1357,52 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2-pools-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pools (pools)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tiers-de-iv-ivtiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tiers de IV (ivTiers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-o-preco-e-calculado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como o preço é calculado
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reload
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1609,8 +1681,52 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2-pools-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pools (pools)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tiers-de-iv-ivtiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tiers de IV (ivTiers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-o-preco-e-calculado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como o preço é calculado
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reload
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1634,59 +1750,74 @@
 <h1 id="pokemonrotation-config"><strong>PokemonRotation Config</strong></h1>
 <hr />
 <h2 id="configuracao-da-rotacao-de-pokemon"><strong>Configuração da Rotação de Pokémon</strong></h2>
-<p>O sistema de rotação de Pokémon do <strong>Cobblemon BattleHUB</strong> funciona como uma "vitrine dinâmica" ou "roleta". De tempos em tempos (configuráveis), o mod sorteia uma lista de Pokémon com status (IVs) e chances de brilhantes (Shiny) aleatórios para serem expostos na loja com preços calculados em tempo real.</p>
+<p>A rotação de Pokémon é o estoque rotativo da loja. A cada <code>intervalHours</code>, o mod sorteia uma lista nova de Pokémon: escolhe um <strong>pool</strong> (por peso), sorteia um <strong>tier de IV</strong> (por peso), sorteia Shiny, calcula um preço a partir disso e lista essa quantidade de cards na aba de rotação da loja. Cada card pode ser comprado uma vez.</p>
 <h3 id="caminho-do-arquivo"><strong>Caminho do Arquivo</strong></h3>
 <p><code>config/cobblemon_battlehub/pkmrotation_config.json</code></p>
 <hr />
 <h2 id="modelo-padrao-de-configuracao"><strong>Modelo Padrão de Configuração</strong></h2>
-<p>Abaixo está o modelo JSON padrão gerado automaticamente na primeira inicialização do mod:</p>
-<pre><code>    {  
-      "intervalHours": 12,  
-      "pokemonsPerRotation": 12,  
-      "shinyChancePercent": 2.5,  
-      "shinyPriceMultiplier": 3.0,  
-      "currency": "Dollars",  
-      "currencyName": "&lt;green&gt;&lt;bold&gt;%price%$&lt;/bold&gt;&lt;/green&gt;",  
-      "pools": [  
-        {  
-          "name": "Common",  
-          "weight": 80,  
-          "basePrice": 500.0,  
-          "pokemons": ["absol", "bidoof", "gastly", "geodude", "psyduck"]  
-        },  
-        {  
-          "name": "Legendary",  
-          "weight": 3,  
-          "basePrice": 15000.0,  
-          "pokemons": ["articuno", "mewtwo", "rayquaza", "lugia"]  
-        }  
-      ],  
-      "ivTiers": [  
-        {  
-          "perfectIvs": 1,  
-          "weight": 50,  
-          "priceMultiplier": 1.0  
-        },  
-        {  
-          "perfectIvs": 6,  
-          "weight": 1,  
-          "priceMultiplier": 6.0  
-        }  
-      ]  
-    }
-</code></pre>
-<h2 id="explicacao-detalhada-dos-parametros"><strong>Explicação Detalhada dos Parâmetros</strong></h2>
+<p>O arquivo gerado de verdade tem <strong>8 pools</strong> (Common, Uncommon, Rare, Ultra-Rare, Legendary, Mythical, Ultra Beast, Paradox) e <strong>6 tiers de IV</strong> (de 1 a 6 IVs perfeitos). Encurtado aqui para leitura:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"intervalHours"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"pokemonsPerRotation"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"shinyChancePercent"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"shinyPriceMultiplier"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dollars"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"currencyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;green&gt;&lt;bold&gt;%price%$&lt;/bold&gt;&lt;/green&gt;"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"pools"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Common"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"basePrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">500.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"pokemons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"absol"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bidoof"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gastly"</span><span class="p">,</span><span class="w"> </span><span class="s2">"geodude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"psyduck"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Legendary"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"basePrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">15000.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"pokemons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"articuno"</span><span class="p">,</span><span class="w"> </span><span class="s2">"mewtwo"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rayquaza"</span><span class="p">,</span><span class="w"> </span><span class="s2">"lugia"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"ivTiers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"perfectIvs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="nt">"priceMultiplier"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"perfectIvs"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">  </span><span class="nt">"priceMultiplier"</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
+<h2 id="explicacao-detalhada-dos-parametros"><strong>Explicação Detalhada dos Parâmetros</strong></h2>
 <h3 id="1-parametros-globais-da-rotacao"><strong>1. Parâmetros Globais da Rotação</strong></h3>
 <ul>
-<li><strong><code>intervalHours</code></strong> (Padrão: 12): O intervalo de tempo (em horas) para a roleta girar automaticamente e gerar uma nova lista de Pokémon à venda.  </li>
-<li><strong><code>pokemonsPerRotation</code></strong> (Padrão: 12): A quantidade de cards de Pokémon que serão expostos simultaneamente na aba de rotação da loja.  </li>
-<li><strong><code>shinyChancePercent</code></strong> (Padrão: 2.5): A probabilidade (em porcentagem, de 0.0 a 100.0) de cada Pokémon sorteado nascer Shiny (Brilhante).  </li>
-<li><strong><code>shinyPriceMultiplier</code></strong> (Padrão: 3.0): O multiplicador aplicado ao preço final caso o Pokémon sorteado venha Shiny.  </li>
-<li><strong><code>currency</code></strong>: O ID interno da moeda do ImpactorBridge que será cobrada (Ex: "Dollars" ou "BattlePoints").  </li>
-<li><strong><code>currencyName</code></strong>: A formatação visual do preço no menu. Suporta cores do MiniMessage e a variável %price%.</li>
+<li><strong><code>intervalHours</code></strong> (Padrão: 12): Horas entre rotações automáticas. O horário da próxima rotação é gravado quando uma rotação é gerada.</li>
+<li><strong><code>pokemonsPerRotation</code></strong> (Padrão: 12): Quantos cards de Pokémon a rotação gera por ciclo.</li>
+<li><strong><code>shinyChancePercent</code></strong> (Padrão: 2.5): Chance em porcentagem (0–100) de cada Pokémon sorteado sair Shiny.</li>
+<li><strong><code>shinyPriceMultiplier</code></strong> (Padrão: 3.0): Multiplicador extra no preço final quando o sorteio saiu Shiny.</li>
+<li><strong><code>currency</code></strong> (Padrão: <code>"Dollars"</code>): O ID da moeda da economia cobrada na compra, via ponte do Impactor. Veja <a href="Products%20and%20Bundles.html">Products and Bundles</a> e <a href="Storage.html">Storage</a>.</li>
+<li><strong><code>currencyName</code></strong> (Padrão: <code>&lt;green&gt;&lt;bold&gt;%price%$&lt;/bold&gt;&lt;/green&gt;</code>): Como o preço é desenhado no card. Formatação MiniMessage é suportada; <code>%price%</code> é trocado pelo número calculado.</li>
 </ul>
+<h3 id="2-pools-pools"><strong>2. Pools (<code>pools</code>)</strong></h3>
+<p>Cada pool é um balde de raridade:</p>
+<ul>
+<li><strong><code>name</code></strong>: Só um rótulo — aparece (em maiúsculas) no texto de descrição do card. <strong>Não</strong> filtra Pokémon; a lista <code>pokemons</code> é o conteúdo de verdade.</li>
+<li><strong><code>weight</code></strong>: Chance relativa desse pool ser escolhido para um card, contra a soma dos pesos de todos os pools. Com Common <code>80</code> e Legendary <code>3</code>, Common é ~27× mais provável por card.</li>
+<li><strong><code>basePrice</code></strong>: O preço inicial de um Pokémon desse pool, antes dos multiplicadores de IV e Shiny.</li>
+<li><strong><code>pokemons</code></strong>: IDs de espécie do Cobblemon (minúsculo) elegíveis nesse pool. Adicione ou remova à vontade.</li>
+</ul>
+<h3 id="3-tiers-de-iv-ivtiers"><strong>3. Tiers de IV (<code>ivTiers</code>)</strong></h3>
+<p>Cada sorteio também tira um tier de IV (sorteio por peso independente):</p>
+<ul>
+<li><strong><code>perfectIvs</code></strong>: Quantos status com IV 31 garantidos o Pokémon vendido recebe (passado ao comando de give como <code>min_perfect_ivs</code>).</li>
+<li><strong><code>weight</code></strong>: Chance relativa desse tier, contra a soma dos pesos de todos os tiers.</li>
+<li><strong><code>priceMultiplier</code></strong>: Multiplica o <code>basePrice</code> do pool.</li>
+</ul>
+<h3 id="como-o-preco-e-calculado"><strong>Como o preço é calculado</strong></h3>
+<div class="highlight"><pre><span></span><code>precoFinal = pool.basePrice
+           × ivTier.priceMultiplier
+           × (shinyPriceMultiplier se o sorteio saiu Shiny)
+</code></pre></div>
+<p>Exemplo: um Pokémon <code>Rare</code> (<code>basePrice 3000</code>) no tier de 4 IVs perfeitos (<code>priceMultiplier 2.0</code>), Shiny (<code>3.0</code>) → <code>3000 × 2.0 × 3.0 = 18000</code>.</p>
 <hr />
+<h2 id="reload"><strong>Reload</strong></h2>
+<p><code>/bh reload</code> recarrega a config. Para descartar o estoque atual e forçar uma rotação nova na hora, use <code>/bh rollpokemonshop</code>.</p>
 
 
 
@@ -1779,7 +1910,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

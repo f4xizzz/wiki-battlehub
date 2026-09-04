@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1136,10 +1164,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quest-trigger-and-behavior-table-questtype" class="md-nav__link">
+  <a href="#quest-trigger-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quest Trigger and Behavior Table (QuestType)
+        Quest Trigger Table
       
     </span>
   </a>
@@ -1147,30 +1175,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-the-format-filter-works" class="md-nav__link">
+  <a href="#how-the-format-filter-works-win_ranked-play_ranked" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How the Format Filter Works
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How the Format Filter Works">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#practical-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Practical Example:
+        How the format filter works (WIN_RANKED / PLAY_RANKED)
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1542,10 +1564,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quest-trigger-and-behavior-table-questtype" class="md-nav__link">
+  <a href="#quest-trigger-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quest Trigger and Behavior Table (QuestType)
+        Quest Trigger Table
       
     </span>
   </a>
@@ -1553,30 +1575,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-the-format-filter-works" class="md-nav__link">
+  <a href="#how-the-format-filter-works-win_ranked-play_ranked" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How the Format Filter Works
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How the Format Filter Works">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#practical-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Practical Example:
+        How the format filter works (WIN_RANKED / PLAY_RANKED)
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1600,107 +1616,111 @@
 <h1 id="quests-types"><strong>Quests Types</strong></h1>
 <hr />
 <h2 id="quest-types-and-progress-triggers"><strong>Quest Types and Progress Triggers</strong></h2>
-<p><strong>Cobblemon BattleHUB</strong> ships with a wide range of battle objectives. Each quest's behavior is determined by its <code>type</code>.</p>
-<p>Below is the detailed table of all natively supported quest types, how progress is calculated, and how to use the <code>typeFilter</code> parameter in each scenario.</p>
+<p>Every quest's behavior comes from its <code>type</code> field, which must be one of the 15 keys below (exact spelling, from <code>QuestType.java</code>). Progress is checked once at the <strong>end of every match</strong>.</p>
+<p><code>targetAmount</code> is how much progress completes the quest. Most types add <strong>+1</strong> progress per qualifying match; the exceptions are called out below.</p>
 <hr />
-<h2 id="quest-trigger-and-behavior-table-questtype"><strong>Quest Trigger and Behavior Table (QuestType)</strong></h2>
+<h2 id="quest-trigger-table"><strong>Quest Trigger Table</strong></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Technical Key (type)</th>
-<th style="text-align: left;">Filter (typeFilter)</th>
-<th style="text-align: left;">Behavior and Progress</th>
+<th style="text-align: left;"><code>type</code></th>
+<th style="text-align: left;"><code>typeFilter</code></th>
+<th style="text-align: left;">What it does at end of match</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;"><strong><code>PLAY_MATCHES</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress for every completed match (Ranked or Casual).</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 for every completed match (ranked or casual, win or lose).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>WIN_MATCHES</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress whenever the player wins a match in any queue.</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 when the player won.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>WIN_RANKED</code></strong></td>
-<td style="text-align: left;">Format (e.g. singles, doubles)</td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress if the player wins a <strong>Competitive</strong> match that matches the filter format. If the filter is <code>null</code>, any ranked format is accepted.</td>
+<td style="text-align: left;">format keyword</td>
+<td style="text-align: left;">+1 when the player won a <strong>ranked</strong> match whose ladder ID matches the filter.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>PLAY_RANKED</code></strong></td>
-<td style="text-align: left;">Format (e.g. singles, doubles)</td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress if the player completes a <strong>Competitive</strong> match in the specified format.</td>
+<td style="text-align: left;">format keyword</td>
+<td style="text-align: left;">+1 when the player completed a <strong>ranked</strong> match matching the filter (win or lose).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>PLAY_CASUAL</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress when completing matches in the server’s Casual queues.</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 when the match was in a casual queue.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>WIN_STREAK</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Tracks consecutive wins. If the player wins, they gain <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress. <strong>Warning:</strong> If the player loses a match, this quest’s progress resets to <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAWCAYAAAASEbZeAAAA30lEQVR4XmNgGMRARkaGU15ePgqIZwFxl6KiojqKAiUlJX6gxG4gbhYVFeVRUFAwALKvAXEwXJGcnFw5UOA0kBaEiQH50UB8HWiiOEiBIEgBUPdCuC4gkJWVNQWKfwHSfiAdmkD8Fl0RULMxUPwrELfCObgUgcWBHF8g5z9eRUCGJ0FFxFqnBOQ8x6UIiKsYQIEHZBwA4q1AhRxIilyAYr9ANEwgBogfAQUVoWoYgexmID4Big2wiLGxMStQ0XSg4H6gaQFQBVdB0QPVBAeMQF1qQMUhwKiwA2lEVzCYAAC0J0evUZaWqQAAAABJRU5ErkJggg==" />!</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 on a win. <strong>On a loss, progress resets to 0.</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>USE_TYPE</code></strong></td>
-<td style="text-align: left;">Elemental type (e.g. fire, ghost)</td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress if the player completes a battle using at least <strong>one</strong> Pokémon of the specified type in their main party.</td>
+<td style="text-align: left;">elemental type (<code>fire</code>, <code>ghost</code>, …)</td>
+<td style="text-align: left;">+1 if at least one Pokémon the player brought had that type. Filter is <strong>required</strong> — no filter, no progress.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>WIN_WITH_ALIVE</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress whenever the player wins a match (focused on survival strategies).</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 when the player won. <em>(Currently identical to <code>WIN_MATCHES</code> — it does not check how many Pokémon survived.)</em></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>WIN_FAST</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress if the player wins the match in a total of <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAWCAYAAAAmaHdCAAABMklEQVR4XmNgGAV4gby8vCMQvwbi/yAsJye3Q0ZGhhMmr6KiwqegoLALJg/F65DNgAFGoMQsIP4FxD+B2BJdAVAsCIjXIFuAAoC2CwJtWwik86E2TQEKMyKrAYoVAXE0shgKUFRU1Aca0A9UJAnE14H4CRArIilhAfJng9QhiaECkA1Al6SD2EC6AeqaHJi8lJSUCNSlgghdaACooQ+owBjElpWV1QHy3wPxCSUlJX6QGFDOBsifjKoLCcDCA2QbVAjk9OVA/A8o7gESALkSb3ggewUGQC4AuQTqIidCXgFF7WSgF0zRJYCaYqBhcw1oSCe6PBxg8QocAGNCXB4SUyCD8HrFCYjXAQ3hQpcDAWhMvQViTXQ5kAtcgBJfoLaAMCiVeqOrA8UUKBvgC49RMBgBAJmsUaA7kqF0AAAAAElFTkSuQmCC" /> turns or less (<code>targetAmount</code> defines the value).</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 if the player won <strong>and</strong> the match ended in <code>targetAmount</code> turns or fewer. Here <code>targetAmount</code> is the turn limit, so this quest completes in a single fast win.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>PLAY_LONG</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress if the match lasts <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAWCAYAAAAmaHdCAAABMklEQVR4XmNgGAV4gby8vCMQvwbi/yAsJye3Q0ZGhhMmr6KiwqegoLALJg/F65DNgAFGoMQsIP4FxD+B2BJdAVAsCIjXIFuAAoC2CwJtWwik86E2TQEKMyKrAYoVAXE0shgKUFRU1Aca0A9UJAnE14H4CRArIilhAfJng9QhiaECkA1Al6SD2EC6AeqaHJi8lJSUCNSlgghdaACooQ+owBjElpWV1QHy3wPxCSUlJX6QGFDOBsifjKoLCcDCA2QbVAjk9OVA/A8o7gESALkSb3ggewUGQC4AuQTqIidCXgFF7WSgF0zRJYCaYqBhcw1oSCe6PBxg8QocAGNCXB4SUyCD8HrFCYjXAQ3hQpcDAWhMvQViTXQ5kAtcgBJfoLaAMCiVeqOrA8UUKBvgC49RMBgBAJmsUaA7kqF0AAAAAElFTkSuQmCC" /> turns or more (or exceeds the overall 20-turn limit).</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 if the match lasted at least <code>targetAmount</code> turns (or ran past 20 turns).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>WIN_BY_FORFEIT</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress if the opponent forfeits the match (surrender/Alt+F4), awarding victory to the player.</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 when the player won because the opponent forfeited / disconnected.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>PLAY_NO_FORFEIT</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress by completing a full match without either side forfeiting.</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 when the match finished with nobody forfeiting.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>PLAY_MONOTYPE</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Increases <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> progress if the player enters a battle with a team that follows Monotype rules (all Pokémon share a common type).</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">+1 if the player's team had <strong>2 or fewer distinct types total</strong> across all its Pokémon.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>KNOCKOUT_TOTAL</code></strong></td>
-<td style="text-align: left;"><em>Not used</em></td>
-<td style="text-align: left;">Balances knockout progress. Grants <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAYAAAArdgcFAAABgUlEQVR4Xu2TP0vDUBTFU1QQVBQkBtukadNAR5V8AXEQFxfRqaObq5siCPopRJAOTg5OOouOQp2KiyKC6KabuNT6u22SpheR+GcReuDQ++4997x330sNo4d/Cdd1J+EW3IPr2WzW0ZofIZ/PL2J4WiwWp3zfN4l34Btc0toYiC05iWVZQ7oWoVAoDKI5gS9wRnJs5hE/wbrWx5BRaa6apjmsaxFC82PYIJ6VXC6Xs1k/wFsl7yCNuUA2wHCcMBOuF+h9h/tK2kFa8yTk1PSc03spsa7H+I55qVSaQH8RXkdNHtcIJ5FRxsQsSRHwe2Tbtq9rX21IfQ6+4rltyNfAYtNtf6NJHsI7Xv/gk9qqNo1QLpdH3PYUDV2L4aa4Fs/zRuWEaCtGdA1G6yaq5JoJaTfSmId/oCa8F73kRE989hfmAbpnuBsEwYDkwjd6hNdaHyONOcigW4N1uAEr8Are0DutxTFSmrcgd+84zjyTLMs0pPq0pgtiinCFsF/XevgVPgBM+mcIEeMAbgAAAABJRU5ErkJggg==" /> points if the player wins the match, or <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAAAzklEQVR4XmNgGAUjCsjLyxvKysq6oYtTBSgoKJjLycmVAS05DcT/gexydDV4gaKiojhQ4yxxcXFudDlkALXIF6jWC4i/kmwRUJMk0JCFoqKiPOhy2ADQAuNRi8CAJhYBDRQAGYyMgYlBH0ivlpGRUUGXw2Y5QYtAqQqooBqIZ6HhpUB8H6hxPha5ZHRzCFqEC4BcTvWgwwYGvUVAXIUuhxcQaxFQTQZQ7TMg/o+E3wHxYWVlZTF09RiAWIsoBiALgMERCmSyoMuNglEwNAAA0OVRFOvBHZ8AAAAASUVORK5CYII=" /> point if they lose, reflecting average battle aggression.</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;"><strong>+3 on a win, +1 on a loss</strong> — a rough "aggression" score, always adds something.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>MASTER_MONOTYPE</code></strong></td>
-<td style="text-align: left;">Elemental type (e.g. water, steel)</td>
-<td style="text-align: left;"><strong>Direct Profile Sync:</strong> This type tracks total Monotype wins in the database. The mod automatically syncs the player’s progress with the total Monotype victories recorded in their global stats profile (<code>StatsManager</code>).</td>
+<td style="text-align: left;">elemental type</td>
+<td style="text-align: left;">Not a per-match counter. It <strong>syncs</strong> the quest's progress up to the player's lifetime monotype-win count for that type from their stats profile. Filter is <strong>required</strong>.</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="how-the-format-filter-works"><strong>How the Format Filter Works</strong></h2>
-<p>The <code>typeFilter</code> parameter uses a partial validation system (<code>formatMatches</code>). It checks whether the technical Ladder ID played contains the word specified in the filter.</p>
-<h3 id="practical-example"><strong>Practical Example:</strong></h3>
-<p>If you create a quest with:</p>
+<h2 id="how-the-format-filter-works-win_ranked-play_ranked"><strong>How the format filter works (<code>WIN_RANKED</code> / <code>PLAY_RANKED</code>)</strong></h2>
+<p>The filter is a plain <strong>substring check, case-insensitive</strong>, against the ladder ID that was played.</p>
 <ul>
-<li><code>type: "WIN_RANKED"</code>  </li>
-<li><code>typeFilter: "doubles"</code></li>
+<li><code>typeFilter: "doubles"</code> → matches <code>doubles_ranked</code>, <code>doubles_50_casual</code>, <code>tourney_duplas</code>? → no (that ID is <code>tourney_duplas</code>, which does <strong>not</strong> contain "doubles"). It matches any ladder ID that literally contains <code>doubles</code>.</li>
+<li><code>typeFilter: null</code> or <code>""</code> → matches every format.</li>
 </ul>
-<p>The system will validate progress if the player wins on a ladder such as <code>doubles_ranked</code> or <code>doubles_50_ranked</code>, because both contain the keyword <code>doubles</code>. If the filter is configured as <code>null</code> or <code>""</code>, the mod ignores validation and accepts any ranked format.</p>
+<p>So filter on the actual ID fragments your ladders use (<code>singles</code>, <code>doubles</code>, <code>triples</code>, <code>monotype</code>, <code>ranked</code>, <code>_50_</code>, …).</p>
 <hr />
+<h2 id="notes"><strong>Notes</strong></h2>
+<ul>
+<li><code>WIN_FAST</code>'s <code>targetAmount</code> is a <strong>turn cap, not a repeat count</strong> — the quest is done the first time the player wins within that many turns. Pair it with a permanent quest if you want it repeatable-feeling, or accept it as a one-and-done.</li>
+<li><code>MASTER_MONOTYPE</code> progress can jump by more than 1 at once (it catches up to the profile total), and it never goes down.</li>
+<li>Quest <code>type</code> keys are case-sensitive and must match <code>QuestType.java</code> exactly — a typo makes the whole quest fail to load.</li>
+</ul>
 
 
 
@@ -1793,7 +1813,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
     
     
   
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -418,6 +418,34 @@
     
   
     Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Licensing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing & Activation
   
 
     
@@ -1720,8 +1748,18 @@
 <ol>
 <li><strong>Snapshot de Localização:</strong> O mod regista no servidor a localização exata do jogador no mundo principal (X, Y, Z), a dimensão, a rotação da câmara (Yaw/Pitch) e o modo de jogo original.  </li>
 <li><strong>Registro Offline / Fallback:</strong> Caso o jogador sofra uma desconexão abrupta (Alt+F4, queda de energia ou crash do cliente) durante o combate, o servidor impede que ele faça login novamente dentro da arena instanciada.  </li>
-<li><strong>Resgate de Emergência:</strong> Ao tentar reconectar, o mod interceta a entrada do jogador e devolve o seu modo de jogo e o inventário original, e teleporta-o em segurança para as coordenadas globais configuradas no arquivo <code>fallbackarenadisconnect.json</code> (geralmente o Spawn ou Lobby do servidor).</li>
+<li><strong>Resgate de Emergência:</strong> Ao tentar reconectar, o mod intercepta a entrada do jogador, devolve o modo de jogo e o inventário original, e teleporta ele em segurança para as coordenadas configuradas em <code>config/cobblemon_battlehub/fallbackarenadisconnect.json</code> (geralmente o spawn ou lobby do servidor).</li>
 </ol>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"dimension"</span><span class="p">:</span><span class="w"> </span><span class="s2">"minecraft:overworld"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"x"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"y"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"yaw"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"pitch"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ajuste isso para o seu lobby / spawn, senão quem crashar no meio da batalha cai no padrão <code>0, 100, 0</code>.</p>
 <h2 id="2-sistema-leaver-buster-punicao-por-desercao"><strong>2. Sistema Leaver Buster (Punição por Deserção)</strong></h2>
 <p>Para manter o ecossistema competitivo saudável, o abandono de partidas ranqueadas (seja por turnos estourados ou por sair do servidor de propósito) é severamente punido.</p>
 <h3 id="o-que-e-considerado-abandono"><strong>O que é considerado Abandono?</strong></h3>
@@ -1733,8 +1771,8 @@
 <h3 id="consequencias-para-o-desertor"><strong>Consequências para o Desertor</strong></h3>
 <ol>
 <li>O oponente ativo recebe uma vitória automática por W.O. com uma mensagem de congratulações no chat.  </li>
-<li>O desertor recebe uma derrota automática no seu perfil estatístico e perde Rating (<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAABSElEQVR4XmNgGAUoQF5e3hGInwPxfyT8Coh/AfFfOTm5k0A6GKiUGV0vCgAqmgPEv4EabJCEmYH8NKhBZUA+I5IcAqirq/MCFR0G4ruKioriyHJAMUkgfohNDg6AkppA/BaI1wC5LMhysrKypkDxb0B8VUpKSgRZDg6AivyACv4rKCiko8sBxRpAckBcjC4HB0DJSfJo/jc2NmYFiiVDXVYK4iPrgQNRUVEeoIID8pBQPwZlXwfZCjRwurS0tDC6HhQgj93/jECnV8pDQt8VSTkmgPkfiIuQxYEajYFiX4F4DrI4BpDH4n+oeDTU4FZkcRRAIP5BBoPCoRxZHAUAna8DVPReHjP+WYBhsArZACC7Gsh2gWm0lYekLpATYfgVKDxgJgD5wUD8F2QQUGMskD1bRkaGEyZPFAB5C6jZFxQTJGseBcMeAACyIWKOy8AaQgAAAABJRU5ErkJggg==" />) normalmente.  </li>
-<li>E aplicado um <strong>bloqueio temporário (Ranked Ban)</strong> ao jogador. A duração deste banimento é cumulativa e impede o utilizador de entrar novamente na fila competitiva por um tempo determinado.</li>
+<li>O desertor recebe uma derrota automática no perfil de estatísticas e perde Rating (<code>R</code>) normalmente.  </li>
+<li>É aplicado um <strong>bloqueio temporário (Ranked Ban)</strong> ao jogador. A duração desse ban é cumulativa e impede a pessoa de entrar de novo na fila competitiva por um tempo determinado.</li>
 </ol>
 <p><strong>Aviso de Fila Bloqueada:</strong> Ao tentar entrar na fila de matchmaking com o banimento ativo, o jogador recebe o aviso do tempo restante formatado (<code>ex: "Você está banido da fila competitiva por mais 01h 15m"</code>).</p>
 <h2 id="3-cancelamento-seguro"><strong>3. Cancelamento Seguro</strong></h2>
@@ -1745,9 +1783,9 @@
 <li>Ao digitar o comando, o jogador envia uma solicitação de cancelamento.  </li>
 <li>O oponente recebe um alerta visual de que foi solicitado um cancelamento técnico de segurança.  </li>
 <li>Se o oponente concordar e também digitar o comando dentro de um período aceitável, o mod encerra a arena de forma limpa:  </li>
-<li>Nenhum dos jogadores perde ou ganha Rating (<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAABSElEQVR4XmNgGAUoQF5e3hGInwPxfyT8Coh/AfFfOTm5k0A6GKiUGV0vCgAqmgPEv4EabJCEmYH8NKhBZUA+I5IcAqirq/MCFR0G4ruKioriyHJAMUkgfohNDg6AkppA/BaI1wC5LMhysrKypkDxb0B8VUpKSgRZDg6AivyACv4rKCiko8sBxRpAckBcjC4HB0DJSfJo/jc2NmYFiiVDXVYK4iPrgQNRUVEeoIID8pBQPwZlXwfZCjRwurS0tDC6HhQgj93/jECnV8pDQt8VSTkmgPkfiIuQxYEajYFiX4F4DrI4BpDH4n+oeDTU4FZkcRRAIP5BBoPCoRxZHAUAna8DVPReHjP+WYBhsArZACC7Gsh2gWm0lYekLpATYfgVKDxgJgD5wUD8F2QQUGMskD1bRkaGEyZPFAB5C6jZFxQTJGseBcMeAACyIWKOy8AaQgAAAABJRU5ErkJggg==" />).  </li>
-<li>Ambos os jogadores e as suas equipas são teleportados de volta para os seus locais de origem em segurança pelo safeRescue.  </li>
-<li>A arena instanciada é libertada e limpa imediatamente do servidor.</li>
+<li>Nenhum dos jogadores perde ou ganha Rating (<code>R</code>).  </li>
+<li>Os dois jogadores e as equipes são teleportados de volta em segurança para os locais de origem pelo safeRescue.  </li>
+<li>A arena instanciada é liberada e limpa imediatamente do servidor.</li>
 </ol>
 <hr />
 
@@ -1842,7 +1880,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "search.highlight", "search.suggest", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
