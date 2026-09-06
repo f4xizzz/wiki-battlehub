@@ -1593,12 +1593,15 @@
 
 <h1 id="dependencias"><strong>Dependências</strong></h1>
 <hr />
+<p>O BattleHUB roda em <strong>Fabric</strong> ou <strong>NeoForge</strong> no Minecraft <code>1.21.1</code> (Java <code>21+</code>). Baixe o jar que combina com o seu loader.</p>
 <h2 id="requisitos-obrigatorios"><strong>Requisitos obrigatórios</strong></h2>
 <p>O mod não carrega sem estes:</p>
 <ul>
-<li><strong>Fabric Loader</strong> <code>&gt;= 0.17.3</code> e <strong>Fabric API</strong></li>
 <li><strong>Minecraft</strong> <code>1.21.1</code>, <strong>Java</strong> <code>21</code></li>
-<li><a href="https://modrinth.com/mod/cobblemon/version/kF7CvxTo"><strong>Cobblemon</strong></a> <code>&gt;= 1.7.3</code></li>
+<li><a href="https://modrinth.com/mod/cobblemon"><strong>Cobblemon</strong></a> <code>&gt;= 1.7.3</code> (Fabric ou NeoForge)</li>
+<li><a href="https://modrinth.com/mod/architectury-api"><strong>Architectury API</strong></a> <code>&gt;= 13.0</code> (Fabric ou NeoForge) — normalmente o Cobblemon já instala</li>
+<li><strong>Fabric:</strong> Fabric Loader <code>&gt;= 0.16</code> + Fabric API + Fabric Language Kotlin</li>
+<li><strong>NeoForge:</strong> NeoForge <code>21.1.133+</code> + Kotlin for Forge <code>5.7.0+</code></li>
 </ul>
 <h2 id="necessarios-para-funcionar-por-completo"><strong>Necessários para funcionar por completo</strong></h2>
 <p>O BattleHUB carrega sem estes, mas as funcionalidades correspondentes ficam inativas até instalá-los:</p>
@@ -1612,19 +1615,19 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><a href="https://modrinth.com/mod/impactor/version/KwNU9SQW">Impactor</a> <code>5.3.5</code></td>
+<td style="text-align: left;"><a href="https://modrinth.com/mod/impactor">Impactor</a> <code>5.3.5</code> (Fabric / NeoForge)</td>
 <td style="text-align: left;">A economia da loja (comprar produtos, bundles, Pokémon da rotação)</td>
 <td style="text-align: left;">As compras da loja falham — é a única economia suportada por enquanto</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://modrinth.com/plugin/luckperms/version/l47d4ZWk">LuckPerms</a> <code>5.4.140</code></td>
+<td style="text-align: left;"><a href="https://luckperms.net/">LuckPerms</a> <code>5.4+</code> (Fabric / NeoForge)</td>
 <td style="text-align: left;">Os nós de permissão <code>battlehub.*</code> granulares</td>
 <td style="text-align: left;">As permissões caem para os níveis de OP do vanilla</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://modrinth.com/plugin/carbon/version/314t2qDy">CarbonChat</a> <code>3.0.0-beta.32</code></td>
+<td style="text-align: left;"><a href="https://modrinth.com/plugin/carbon">CarbonChat</a> <code>3.0.0-beta.x</code> (<strong>só Fabric</strong>)</td>
 <td style="text-align: left;">As abas de chat Global / Local dentro do menu</td>
-<td style="text-align: left;">As abas de chat não repassam mensagens — veja <a href="Chat%20Config.html">Chat Config</a></td>
+<td style="text-align: left;">As abas de chat não repassam mensagens — veja <a href="Chat%20Config.html">Chat Config</a>. O Carbon não tem build pra NeoForge, então essa feature é só do Fabric.</td>
 </tr>
 </tbody>
 </table>
