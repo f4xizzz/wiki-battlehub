@@ -1742,22 +1742,45 @@
 
 
 <hr />
+<div class="admonition info">
+<p class="admonition-title">Fabric <strong>and</strong> NeoForge</p>
+<p>Cobblemon BattleHUB ships for both loaders — use <code>cobblemon_battlehub-fabric-&lt;version&gt;.jar</code> or <code>cobblemon_battlehub-neoforge-&lt;version&gt;.jar</code>. NeoForge support is a recent addition; if something behaves differently from Fabric, report it on <a href="https://discord.gg/aDCgBbvRe5">Discord</a>. Note that <strong>CarbonChat has no NeoForge build</strong>, so the in-menu chat tabs are Fabric-only.</p>
+</div>
 <h3 id="server-requirements"><strong>Server Requirements</strong></h3>
 <p>Before starting the installation process, make sure your infrastructure meets all the required dependencies listed below:</p>
-<ul>
-<li><strong>Minecraft:</strong> 1.21.1  </li>
-<li><strong>Fabric Loader:</strong> 0.17.3 or higher  </li>
-<li><strong>Fabric API:</strong> 0.116.6+1.21.1 or higher  </li>
-<li><strong>Java:</strong> 21 or higher  </li>
-<li><strong>Cobblemon:</strong> 1.7.3  </li>
-<li><strong>Fabric Language Kotlin:</strong> 1.13.0+kotlin.2.1.0 or higher</li>
-</ul>
+<p><strong>Common:</strong> Minecraft <code>1.21.1</code> · Java <code>21+</code> · Cobblemon <code>1.7.3</code> · <a href="https://modrinth.com/mod/architectury-api">Architectury API</a> <code>13.0+</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Fabric</th>
+<th style="text-align: left;">NeoForge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Loader</td>
+<td style="text-align: left;">Fabric Loader <code>0.16+</code></td>
+<td style="text-align: left;">NeoForge <code>21.1.133+</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">API</td>
+<td style="text-align: left;">Fabric API <code>0.116.6+1.21.1+</code></td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kotlin runtime</td>
+<td style="text-align: left;">Fabric Language Kotlin <code>1.13.0+kotlin.2.1.0+</code></td>
+<td style="text-align: left;">Kotlin for Forge <code>5.7.0+</code></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h1 id="installation"><strong>Installation:</strong></h1>
 <p>The installation process for <strong>Cobblemon BattleHUB</strong> is simple and straightforward. Follow the steps below to prepare your server correctly.</p>
 <h3 id="step-1-initial-installation"><strong>Step 1: Initial Installation</strong></h3>
 <ol>
-<li>Transfer the mod <code>.jar</code> file to your server's <code>mods</code> directory.  </li>
+<li>Transfer the mod <code>.jar</code> for your loader to your server's <code>mods</code> directory, alongside Cobblemon, Architectury API and the Kotlin runtime (Fabric Language Kotlin on Fabric, Kotlin for Forge on NeoForge — plus Fabric API on Fabric).</li>
 <li>Start (or restart) the server to load the mod into memory.  </li>
 <li>The mod will automatically generate the <code>cobblemon_battlehub</code> folder inside your server's <code>config/</code> directory during startup.</li>
 </ol>

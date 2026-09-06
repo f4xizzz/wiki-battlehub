@@ -1593,12 +1593,15 @@
 
 <h1 id="dependencies"><strong>Dependencies</strong></h1>
 <hr />
+<p>BattleHUB runs on <strong>Fabric</strong> or <strong>NeoForge</strong> for Minecraft <code>1.21.1</code> (Java <code>21+</code>). Download the jar that matches your loader.</p>
 <h2 id="hard-requirements"><strong>Hard requirements</strong></h2>
 <p>The mod will not load without these:</p>
 <ul>
-<li><strong>Fabric Loader</strong> <code>&gt;= 0.17.3</code> and <strong>Fabric API</strong></li>
 <li><strong>Minecraft</strong> <code>1.21.1</code>, <strong>Java</strong> <code>21</code></li>
-<li><a href="https://modrinth.com/mod/cobblemon/version/kF7CvxTo"><strong>Cobblemon</strong></a> <code>&gt;= 1.7.3</code></li>
+<li><a href="https://modrinth.com/mod/cobblemon"><strong>Cobblemon</strong></a> <code>&gt;= 1.7.3</code> (Fabric or NeoForge)</li>
+<li><a href="https://modrinth.com/mod/architectury-api"><strong>Architectury API</strong></a> <code>&gt;= 13.0</code> (Fabric or NeoForge) — usually already installed by Cobblemon</li>
+<li><strong>Fabric:</strong> Fabric Loader <code>&gt;= 0.16</code> + Fabric API + Fabric Language Kotlin</li>
+<li><strong>NeoForge:</strong> NeoForge <code>21.1.133+</code> + Kotlin for Forge <code>5.7.0+</code></li>
 </ul>
 <h2 id="needed-for-full-functionality"><strong>Needed for full functionality</strong></h2>
 <p>BattleHUB loads without these, but the matching features stay inactive until they're installed:</p>
@@ -1612,19 +1615,19 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><a href="https://modrinth.com/mod/impactor/version/KwNU9SQW">Impactor</a> <code>5.3.5</code></td>
+<td style="text-align: left;"><a href="https://modrinth.com/mod/impactor">Impactor</a> <code>5.3.5</code> (Fabric / NeoForge)</td>
 <td style="text-align: left;">The shop economy (buying products, bundles, rotation Pokémon)</td>
 <td style="text-align: left;">Shop purchases fail — this is the only economy supported right now</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://modrinth.com/plugin/luckperms/version/l47d4ZWk">LuckPerms</a> <code>5.4.140</code></td>
+<td style="text-align: left;"><a href="https://luckperms.net/">LuckPerms</a> <code>5.4+</code> (Fabric / NeoForge)</td>
 <td style="text-align: left;">Granular <code>battlehub.*</code> permission nodes</td>
 <td style="text-align: left;">Permissions fall back to vanilla OP levels</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://modrinth.com/plugin/carbon/version/314t2qDy">CarbonChat</a> <code>3.0.0-beta.32</code></td>
+<td style="text-align: left;"><a href="https://modrinth.com/plugin/carbon">CarbonChat</a> <code>3.0.0-beta.x</code> (<strong>Fabric only</strong>)</td>
 <td style="text-align: left;">The in-menu Global / Local chat tabs</td>
-<td style="text-align: left;">The chat tabs won't relay messages — see <a href="Chat%20Config.html">Chat Config</a></td>
+<td style="text-align: left;">The chat tabs won't relay messages — see <a href="Chat%20Config.html">Chat Config</a>. Carbon has no NeoForge build, so this feature is Fabric-only.</td>
 </tr>
 </tbody>
 </table>
