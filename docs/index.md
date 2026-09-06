@@ -4,7 +4,7 @@
 
 ## **Welcome to Cobblemon BattleHUB**
 
-**Cobblemon BattleHUB** is the ultimate infrastructure for servers looking to elevate competitive play and organize Pokémon battles within Minecraft. Built to run natively on the **Fabric** platform, the mod integrates a complete ecosystem of matchmaking, automated tournament management, and a robust economy, turning your server into a true Pokémon eSports arena.
+**Cobblemon BattleHUB** is the ultimate infrastructure for servers looking to elevate competitive play and organize Pokémon battles within Minecraft. Built for **Fabric** and **NeoForge**, the mod integrates a complete ecosystem of matchmaking, automated tournament management, and a robust economy, turning your server into a true Pokémon eSports arena.
 
 ---
 
@@ -16,7 +16,7 @@ Cobblemon BattleHUB goes beyond a simple duel system, providing a full managemen
 * **Automated Tournament Management:** Automatic bracket organization and registration control, simplifying competitive event execution.  
 * **Integrated Economy and Shop:** Dedicated in-game shop to reward player activity and sell strategic battle items.  
 * **Statistics and History:** Detailed performance tracking so players can follow their battle history and ranking evolution.  
-* **Native Network Integration:** Fully compatible with the Fabric ecosystem, offering formatted chat support (via Carbon) and performance telemetry.
+* **Native Network Integration:** Formatted chat support (via Carbon, Fabric only) and performance telemetry.
 
 ---
 

@@ -1,15 +1,19 @@
 ---
 
+!!! info "Fabric **e** NeoForge"
+    O Cobblemon BattleHUB tem versão pros dois loaders — use `cobblemon_battlehub-fabric-<versão>.jar` ou `cobblemon_battlehub-neoforge-<versão>.jar`. O suporte a NeoForge é recente; se algo se comportar diferente do Fabric, avise no [Discord](https://discord.gg/aDCgBbvRe5). O **CarbonChat não tem build pra NeoForge**, então as abas de chat do menu só funcionam no Fabric.
+
 ### **Requisitos do servidor**
 
 Antes de iniciar o processo de instalação, certifique-se de que a sua infraestrutura atende a todas as dependências obrigatórias listadas abaixo:
 
-* **Minecraft:** 1.21.1  
-* **Fabric Loader:** 0.17.3 ou superior  
-* **Fabric API:** 0.116.6+1.21.1 ou superior  
-* **Java:** 21 ou superior  
-* **Cobblemon:** 1.7.3  
-* **Fabric Language Kotlin:** 1.13.0+kotlin.2.1.0 ou superior
+**Comum:** Minecraft `1.21.1` · Java `21+` · Cobblemon `1.7.3` · [Architectury API](https://modrinth.com/mod/architectury-api) `13.0+`
+
+| | Fabric | NeoForge |
+| :--- | :--- | :--- |
+| Loader | Fabric Loader `0.16+` | NeoForge `21.1.133+` |
+| API | Fabric API `0.116.6+1.21.1+` | — |
+| Runtime Kotlin | Fabric Language Kotlin `1.13.0+kotlin.2.1.0+` | Kotlin for Forge `5.7.0+` |
 
 ---
 
@@ -18,7 +22,7 @@ Antes de iniciar o processo de instalação, certifique-se de que a sua infraest
 O processo de instalação do **Cobblemon BattleHUB** é simples e direto. Siga os passos abaixo para preparar o seu servidor corretamente.
 
 ### **Passo 1: Instalação Inicial**
-1. Transfira o arquivo .jar do mod para o diretório mods do seu servidor Minecraft.  
+1. Transfira o arquivo `.jar` do mod do seu loader para o diretório `mods` do servidor, junto com Cobblemon, Architectury API e o runtime do Kotlin (Fabric Language Kotlin no Fabric, Kotlin for Forge no NeoForge — mais a Fabric API no Fabric).
 2. Inicie (ou reinicie) o servidor para carregar o mod na memória.  
 3. O mod gerará de forma automática a pasta cobblemon\_battlehub dentro do diretório config/ do seu servidor durante o startup.
 

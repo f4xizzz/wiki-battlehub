@@ -4,7 +4,7 @@
 
 ## **Bem-vindo ao Cobblemon BattleHUB**
 
-O **Cobblemon BattleHUB** é a infraestrutura definitiva para servidores que buscam elevar o nível competitivo e a organização de batalhas Pokémon dentro do Minecraft. Desenvolvido para rodar nativamente no ambiente **Fabric**, o mod integra um ecossistema completo de matchmaking, gerenciamento automático de torneios e uma economia robusta, transformando o seu servidor em uma verdadeira arena de eSports Pokémon.
+O **Cobblemon BattleHUB** é a infraestrutura definitiva para servidores que buscam elevar o nível competitivo e a organização de batalhas Pokémon dentro do Minecraft. Desenvolvido para **Fabric** e **NeoForge**, o mod integra um ecossistema completo de matchmaking, gerenciamento automático de torneios e uma economia robusta, transformando o seu servidor em uma verdadeira arena de eSports Pokémon.
 
 ---
 
@@ -16,7 +16,7 @@ O Cobblemon BattleHUB vai além de um simples sistema de duelos, fornecendo uma 
 * **Gestão Automatizada de Torneios:** Organização automática de chaves (*brackets*) e controle de inscrições, simplificando a realização de eventos competitivos.  
 * **Economia e Loja Integrada:** Loja *in-game* dedicada para recompensar a atividade dos jogadores e comercializar itens estratégicos de batalha.  
 * **Estatísticas e Histórico:** Registro detalhado de desempenho para que os jogadores possam acompanhar o histórico de batalhas e sua evolução no ranking.  
-* **Integração Nativa de Rede:** Totalmente compatível com o ecossistema Fabric, oferecendo suporte a chat formatado (via Carbon) e telemetria de performance.
+* **Integração Nativa de Rede:** Suporte a chat formatado (via Carbon, só no Fabric) e telemetria de performance.
 
 ---
 

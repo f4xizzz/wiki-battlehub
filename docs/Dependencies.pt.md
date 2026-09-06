@@ -2,13 +2,17 @@
 
 ---
 
+O BattleHUB roda em **Fabric** ou **NeoForge** no Minecraft `1.21.1` (Java `21+`). Baixe o jar que combina com o seu loader.
+
 ## **Requisitos obrigatórios**
 
 O mod não carrega sem estes:
 
-* **Fabric Loader** `>= 0.17.3` e **Fabric API**
 * **Minecraft** `1.21.1`, **Java** `21`
-* [**Cobblemon**](https://modrinth.com/mod/cobblemon/version/kF7CvxTo) `>= 1.7.3`
+* [**Cobblemon**](https://modrinth.com/mod/cobblemon) `>= 1.7.3` (Fabric ou NeoForge)
+* [**Architectury API**](https://modrinth.com/mod/architectury-api) `>= 13.0` (Fabric ou NeoForge) — normalmente o Cobblemon já instala
+* **Fabric:** Fabric Loader `>= 0.16` + Fabric API + Fabric Language Kotlin
+* **NeoForge:** NeoForge `21.1.133+` + Kotlin for Forge `5.7.0+`
 
 ## **Necessários para funcionar por completo**
 
@@ -16,9 +20,9 @@ O BattleHUB carrega sem estes, mas as funcionalidades correspondentes ficam inat
 
 | Mod / Plugin | Habilita | Sem ele |
 | :--- | :--- | :--- |
-| [Impactor](https://modrinth.com/mod/impactor/version/KwNU9SQW) `5.3.5` | A economia da loja (comprar produtos, bundles, Pokémon da rotação) | As compras da loja falham — é a única economia suportada por enquanto |
-| [LuckPerms](https://modrinth.com/plugin/luckperms/version/l47d4ZWk) `5.4.140` | Os nós de permissão `battlehub.*` granulares | As permissões caem para os níveis de OP do vanilla |
-| [CarbonChat](https://modrinth.com/plugin/carbon/version/314t2qDy) `3.0.0-beta.32` | As abas de chat Global / Local dentro do menu | As abas de chat não repassam mensagens — veja [Chat Config](Chat Config.md) |
+| [Impactor](https://modrinth.com/mod/impactor) `5.3.5` (Fabric / NeoForge) | A economia da loja (comprar produtos, bundles, Pokémon da rotação) | As compras da loja falham — é a única economia suportada por enquanto |
+| [LuckPerms](https://luckperms.net/) `5.4+` (Fabric / NeoForge) | Os nós de permissão `battlehub.*` granulares | As permissões caem para os níveis de OP do vanilla |
+| [CarbonChat](https://modrinth.com/plugin/carbon) `3.0.0-beta.x` (**só Fabric**) | As abas de chat Global / Local dentro do menu | As abas de chat não repassam mensagens — veja [Chat Config](Chat Config.md). O Carbon não tem build pra NeoForge, então essa feature é só do Fabric. |
 
 ## **Integrações opcionais**
 
