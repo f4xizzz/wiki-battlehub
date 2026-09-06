@@ -9,7 +9,7 @@ O BattleHUB roda em **Fabric** ou **NeoForge** no Minecraft `1.21.1` (Java `21+`
 O mod não carrega sem estes:
 
 * **Minecraft** `1.21.1`, **Java** `21`
-* [**Cobblemon**](https://modrinth.com/mod/cobblemon) `>= 1.7.3` (Fabric ou NeoForge)
+* [**Cobblemon**](https://modrinth.com/mod/cobblemon) `>= 1.8.0` (Fabric ou NeoForge)
 * [**Architectury API**](https://modrinth.com/mod/architectury-api) `>= 13.0` (Fabric ou NeoForge) — normalmente o Cobblemon já instala
 * **Fabric:** Fabric Loader `>= 0.16` + Fabric API + Fabric Language Kotlin
 * **NeoForge:** NeoForge `21.1.133+` + Kotlin for Forge `5.7.0+`

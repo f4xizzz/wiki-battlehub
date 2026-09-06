@@ -7,7 +7,7 @@
 
 Antes de iniciar o processo de instalação, certifique-se de que a sua infraestrutura atende a todas as dependências obrigatórias listadas abaixo:
 
-**Comum:** Minecraft `1.21.1` · Java `21+` · Cobblemon `1.7.3` · [Architectury API](https://modrinth.com/mod/architectury-api) `13.0+`
+**Comum:** Minecraft `1.21.1` · Java `21+` · Cobblemon `1.8.0` · [Architectury API](https://modrinth.com/mod/architectury-api) `13.0+`
 
 | | Fabric | NeoForge |
 | :--- | :--- | :--- |
