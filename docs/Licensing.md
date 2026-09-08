@@ -6,11 +6,14 @@ Cobblemon BattleHUB is a paid mod. On a **dedicated server** it stays locked unt
 
 **Singleplayer and integrated LAN worlds are always active** — no key, no internet check.
 
+!!! tip "Free trial"
+    Grab a free `BATTLEHUB-TRIAL-XXXX-XXXX` key on our [Discord](https://discord.gg/YgM4Ng4QGu) to try the mod on your server. One trial key works on any server; each server gets its own countdown that starts on its first activation, and the mod locks itself when that trial runs out.
+
 ---
 
 ## **Activating**
 
-1. Buy a key on our [Discord](https://discord.gg/aDCgBbvRe5) — you receive a key immediately after your Stripe payment is confirmed.
+1. Get a key on our [Discord](https://discord.gg/YgM4Ng4QGu) — a free `BATTLEHUB-TRIAL-XXXX-XXXX` trial key, or a full key after your purchase is confirmed.
 2. Join your server as a real operator (permission level 4 / console).
 3. Run:
 
@@ -42,8 +45,9 @@ The mod still loads — it just stays inert until you activate it.
 
 | Format | Behaviour |
 | :--- | :--- |
-| `BATTLEHUB-XXXX-XXXX` | Normal key. Bound to your server. Lifetime unless issued as temporary. |
+| `BATTLEHUB-XXXX-XXXX` | Full key. Bound to your server. Lifetime unless issued as temporary. |
 | `BATTLEHUB-XXXX-XXXX` *(temporary)* | Same, but expires on a set date; the mod locks itself when the date passes (`/bh` shows a "temporary license expired" notice). |
+| `BATTLEHUB-TRIAL-XXXX-XXXX` | Free trial. Works on any server; each server gets its own N-day countdown starting at its first activation. Locks when the trial ends. |
 
 ---
 

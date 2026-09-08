@@ -6,11 +6,14 @@ O Cobblemon BattleHUB é um mod pago. Num **servidor dedicado** ele fica travado
 
 **Singleplayer e mundos LAN integrados estão sempre ativos** — sem chave, sem checagem de internet.
 
+!!! tip "Trial grátis"
+    Pega uma chave `BATTLEHUB-TRIAL-XXXX-XXXX` grátis no nosso [Discord](https://discord.gg/YgM4Ng4QGu) pra testar o mod no seu servidor. Uma chave de trial funciona em qualquer servidor; cada servidor tem sua própria contagem regressiva, que começa na primeira ativação dele, e o mod se trava quando o trial acaba.
+
 ---
 
 ## **Ativando**
 
-1. Compre uma chave no nosso [Discord](https://discord.gg/aDCgBbvRe5) — você recebe a chave assim que o pagamento via Stripe for confirmado.
+1. Pega uma chave no nosso [Discord](https://discord.gg/YgM4Ng4QGu) — uma `BATTLEHUB-TRIAL-XXXX-XXXX` grátis, ou uma completa depois da compra confirmada.
 2. Entre no seu servidor como operador de verdade (nível de permissão 4 / console).
 3. Rode:
 
@@ -42,8 +45,9 @@ O mod ainda carrega — ele só fica inerte até você ativar.
 
 | Formato | Comportamento |
 | :--- | :--- |
-| `BATTLEHUB-XXXX-XXXX` | Chave normal. Vinculada ao seu servidor. Vitalícia, salvo se emitida como temporária. |
+| `BATTLEHUB-XXXX-XXXX` | Chave completa. Vinculada ao seu servidor. Vitalícia, salvo se emitida como temporária. |
 | `BATTLEHUB-XXXX-XXXX` *(temporária)* | Igual, mas expira numa data definida; o mod se trava quando a data passa (`/bh` mostra um aviso de "temporary license expired"). |
+| `BATTLEHUB-TRIAL-XXXX-XXXX` | Trial grátis. Funciona em qualquer servidor; cada servidor tem sua contagem de N dias, começando na primeira ativação dele. Trava quando o trial acaba. |
 
 ---
 

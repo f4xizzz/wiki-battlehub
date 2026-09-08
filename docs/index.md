@@ -33,5 +33,5 @@ If you want to ask configuration questions, report bugs, suggest new mechanics, 
 ---
 
 !!! info "Official Community"
-    Contact us directly through our official server on [**Discord**](https://discord.gg/aDCgBbvRe5).  
+    Contact us directly through our official server on [**Discord**](https://discord.gg/YgM4Ng4QGu).  
     *This documentation is constantly updated to ensure the best configuration and usage experience for Cobblemon BattleHUB on your server.*

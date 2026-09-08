@@ -20,7 +20,7 @@ Para garantir que o carregamento das imagens 2D na interface do mod seja rápido
 
 O Cobblemon BattleHUB instância as arenas físicas no mundo de batalhas utilizando o sistema nativo de **Structures** `(.nbt)` do Minecraft. Para personalizar a aparência das arenas, você não precisa alterar o mod, basta usar um **Datapack**\!
 
-1. Em nosso [Discord](https://discord.gg/aDCgBbvRe5), disponibilizamos o download do pacote de *Structures* base do mod.  
+1. Em nosso [Discord](https://discord.gg/YgM4Ng4QGu), disponibilizamos o download do pacote de *Structures* base do mod.  
 2. Salve as construções `(.nbt)` das suas arenas exclusivas usando blocos de estrutura (*Structure Blocks*) no jogo.  
 3. Substitua os arquivos .nbt do pacote original pelos seus, mantendo os mesmos nomes.  
 4. Coloque a pasta do datapack dentro de `world/datapacks/` no seu servidor e execute `/reload`.
@@ -33,7 +33,7 @@ Na próxima vez que uma batalha for iniciada, o mod construirá a sua arena pers
 
 O processo de aquisição é seguro, rápido e 100% automatizado\! Para obter a sua cópia do **Cobblemon BattleHUB** e a sua chave de ativação (*License Key*), siga os passos abaixo:
 
-1. Junte-se à nossa comunidade no [Discord](https://discord.gg/aDCgBbvRe5).  
+1. Junte-se à nossa comunidade no [Discord](https://discord.gg/YgM4Ng4QGu).  
 2. Navegue até o canal/seção de **Loja**.  
 3. Selecione o pacote do Cobblemon BattleHUB e adicione-o ao seu **carrinho**.  
 4. Você será redirecionado para concluir o pagamento de forma segura no site oficial da **Stripe**.  

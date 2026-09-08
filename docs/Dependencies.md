@@ -2,7 +2,7 @@
 
 ---
 
-BattleHUB runs on **Fabric** or **NeoForge** for Minecraft `1.21.1` (Java `21+`). Download the jar that matches your loader.
+BattleHUB's current release runs on **Fabric** for Minecraft `1.21.1` (Java `21+`). A NeoForge build is in testing.
 
 ## **Hard requirements**
 
@@ -30,4 +30,4 @@ BattleHUB loads without these, but the matching features stay inactive until the
 * [Cobblemon Battle Extras](https://modrinth.com/mod/cobblemon-battle-extras/version/1.13.45) `1.13.45`
 
 !!! note "Using a different economy or chat mod?"
-    Impactor and CarbonChat are the only ones wired in today. If your server runs something else, open a ticket on our [Discord](https://discord.gg/aDCgBbvRe5) and we'll look at adding the integration.
+    Impactor and CarbonChat are the only ones wired in today. If your server runs something else, open a ticket on our [Discord](https://discord.gg/YgM4Ng4QGu) and we'll look at adding the integration.

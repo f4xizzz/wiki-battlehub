@@ -19,7 +19,7 @@
 !!! info "Chat Mod Compatibility"
     Currently, **Cobblemon BattleHUB** has native and exclusive support for the **CarbonChat** mod.
 
-    If your server uses another chat mod or management system (such as *EssentialCmds*, *LPC*, etc.), don’t worry! You can join our [Official Discord](https://discord.gg/aDCgBbvRe5) and open a support ticket. We will happily provide a custom integration for your server's chat system.
+    If your server uses another chat mod or management system (such as *EssentialCmds*, *LPC*, etc.), don’t worry! You can join our [Official Discord](https://discord.gg/YgM4Ng4QGu) and open a support ticket. We will happily provide a custom integration for your server's chat system.
 
 --- 
 

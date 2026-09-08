@@ -21,7 +21,7 @@ Abaixo está o modelo oficial gerado de forma automática pela classe `Announcem
   "version": 1,
   "mensagens": [
     "<gradient:gold:yellow><bold>[NEWS]</bold></gradient> <white> Season 1 has started!</white>",
-    "<click:open_url:'https://discord.gg/aDCgBbvRe5'><aqua><u>Join our Discord!</u></aqua></click>"
+    "<click:open_url:'https://discord.gg/YgM4Ng4QGu'><aqua><u>Join our Discord!</u></aqua></click>"
   ]
 }
 ```
@@ -67,7 +67,7 @@ O mod interpreta a sintaxe do **MiniMessage**, então você não precisa se limi
 Você pode fazer com que um texto abra o navegador do jogador ao ser clicado:
 
 * **Sintaxe do Link:** `<click:open_url:'LINK'>Texto Clicável</click>`
-    * *Exemplo Prático:* `<click:open_url:'https://discord.gg/aDCgBbvRe5'><aqua><u>Clique aqui para entrar no Discord!</u></aqua></click>`
+    * *Exemplo Prático:* `<click:open_url:'https://discord.gg/YgM4Ng4QGu'><aqua><u>Clique aqui para entrar no Discord!</u></aqua></click>`
 
 !!! note "O que realmente renderiza"
     As linhas de anúncio são convertidas para o formato de texto clássico do Minecraft, então **cores, gradientes e as decorações negrito / sublinhado / itálico funcionam**, e `<click:open_url:'...'>` é suportado como caso especial. Outras tags do MiniMessage — `<hover>`, `<click:run_command>`, `<click:suggest_command>`, `<insert>`, `<font>` — **não** são aplicadas. Use aspas simples na URL (`'...'`); aspas duplas também funcionam, mas escolha um tipo e não misture na mesma tag.

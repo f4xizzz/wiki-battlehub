@@ -1,7 +1,7 @@
 ---
 
-!!! info "Fabric **e** NeoForge"
-    O Cobblemon BattleHUB tem versão pros dois loaders — use `cobblemon_battlehub-fabric-<versão>.jar` ou `cobblemon_battlehub-neoforge-<versão>.jar`. O suporte a NeoForge é recente; se algo se comportar diferente do Fabric, avise no [Discord](https://discord.gg/aDCgBbvRe5). O **CarbonChat não tem build pra NeoForge**, então as abas de chat do menu só funcionam no Fabric.
+!!! info "Fabric é o lançamento atual"
+    A versão pública roda em **Fabric** — use `cobblemon_battlehub-fabric-<versão>.jar`. Existe um build de **NeoForge** em testes; vai ser publicado assim que for verificado — fica de olho no [Discord](https://discord.gg/YgM4Ng4QGu). O **CarbonChat não tem build pra NeoForge**, então as abas de chat do menu vão continuar só no Fabric.
 
 ### **Requisitos do servidor**
 
@@ -65,7 +65,7 @@ Para desbloquear o mod, você precisa ativar a sua licença dentro do servidor:
     Esta licença é válida exclusivamente para uma única instância ativa. A chave de ativação fica permanentemente vinculada ao primeiro servidor que a ativar. Não é possível realizar ativações múltiplas ou compartilhamento de chave.
 
 !!! info "Ainda não possui uma chave de ativação?"
-    A sua chave de licença (*License Key*) é gerada de forma automática e enviada ao seu e-mail assim que o pagamento via Stripe for confirmado. Para adquirir a sua, junte-se ao nosso [Discord Oficial](https://discord.gg/aDCgBbvRe5) e abra um ticket de atendimento.
+    A sua chave de licença (*License Key*) é gerada de forma automática e enviada ao seu e-mail assim que o pagamento via Stripe for confirmado. Para adquirir a sua, junte-se ao nosso [Discord Oficial](https://discord.gg/YgM4Ng4QGu) e abra um ticket de atendimento.
 
 ---
 

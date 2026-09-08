@@ -2,7 +2,7 @@
 
 ---
 
-O BattleHUB roda em **Fabric** ou **NeoForge** no Minecraft `1.21.1` (Java `21+`). Baixe o jar que combina com o seu loader.
+O lançamento atual do BattleHUB roda em **Fabric** no Minecraft `1.21.1` (Java `21+`). Um build de NeoForge está em testes.
 
 ## **Requisitos obrigatórios**
 
@@ -30,4 +30,4 @@ O BattleHUB carrega sem estes, mas as funcionalidades correspondentes ficam inat
 * [Cobblemon Battle Extras](https://modrinth.com/mod/cobblemon-battle-extras/version/1.13.45) `1.13.45`
 
 !!! note "Usa outra economia ou mod de chat?"
-    Impactor e CarbonChat são os únicos integrados hoje. Se o seu servidor roda outra coisa, abra um ticket no nosso [Discord](https://discord.gg/aDCgBbvRe5) que a gente avalia adicionar a integração.
+    Impactor e CarbonChat são os únicos integrados hoje. Se o seu servidor roda outra coisa, abra um ticket no nosso [Discord](https://discord.gg/YgM4Ng4QGu) que a gente avalia adicionar a integração.
