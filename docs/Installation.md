@@ -1,7 +1,7 @@
 ---
 
 !!! info "Fabric is the current release"
-    The public release runs on **Fabric** — use `cobblemon_battlehub-fabric-<version>.jar`. A **NeoForge** build exists and is in testing; it will be published once verified — watch [Discord](https://discord.gg/YgM4Ng4QGu). Note that **CarbonChat has no NeoForge build**, so the in-menu chat tabs will stay Fabric-only.
+    The public release runs on **Fabric** — use `cobblemon_battlehub-fabric-<version>.jar`. A **NeoForge** build exists and is in testing; it will be published once verified — watch [Discord](https://discord.gg/GbbbNvQG3N). Note that **CarbonChat has no NeoForge build**, so the in-menu chat tabs will stay Fabric-only.
 
 ### **Server Requirements**
 
@@ -65,7 +65,7 @@ To unlock the mod, you need to activate your license inside the server:
     This license is valid exclusively for a single active instance. Your activation key is permanently bound to the first server that activates it. Multiple activations or key sharing are not possible.
 
 !!! info "Don't have an activation key yet?"
-    Your license key (*License Key*) is automatically generated and sent to your email as soon as your Stripe payment is confirmed. To acquire yours, join our [Official Discord](https://discord.gg/YgM4Ng4QGu) and open a support ticket.
+    Your license key (*License Key*) is automatically generated and sent to your email as soon as your Stripe payment is confirmed. To acquire yours, join our [Official Discord](https://discord.gg/GbbbNvQG3N) and open a support ticket.
 
 ---
 

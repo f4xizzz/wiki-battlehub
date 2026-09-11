@@ -22,7 +22,7 @@ Cobblemon BattleHUB goes beyond a simple duel system, providing a full managemen
 
 ## **Development and Authorship**
 
-This project was fully conceived, designed, and programmed by **F4xizzz**. The entire mod development (in Java/Fabric) and backend architecture in Node.js with MongoDB were independently built to ensure high performance, optimization, and stability.
+This project was fully conceived, designed, and programmed by **F4xizzz**, from **SaSDevelopment**. The entire mod development (in Java/Fabric) and backend architecture in Node.js with MongoDB were independently built to ensure high performance, optimization, and stability.
 
 ---
 
@@ -33,5 +33,5 @@ If you want to ask configuration questions, report bugs, suggest new mechanics, 
 ---
 
 !!! info "Official Community"
-    Contact us directly through our official server on [**Discord**](https://discord.gg/YgM4Ng4QGu).  
+    Contact us directly through our official server on [**Discord**](https://discord.gg/GbbbNvQG3N).  
     *This documentation is constantly updated to ensure the best configuration and usage experience for Cobblemon BattleHUB on your server.*
