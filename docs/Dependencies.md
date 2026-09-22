@@ -9,7 +9,14 @@ BattleHUB's current release runs on **Fabric** for Minecraft `1.21.1` (Java `21+
 The mod will not load without these:
 
 * **Minecraft** `1.21.1`, **Java** `21`
-* [**Cobblemon**](https://modrinth.com/mod/cobblemon) `>= 1.8.0` (Fabric or NeoForge)
+* [**Cobblemon**](https://modrinth.com/mod/cobblemon) — **two builds are published**, pick the one matching your Cobblemon version:
+
+    | Your Cobblemon version | Which download |
+    | :--- | :--- |
+    | `1.8.0` or `1.8.1` | The regular release |
+    | `1.7.3` | The build labelled **1.7.3** |
+
+    Installing the wrong one for your Cobblemon version makes the server refuse to start (Fabric blocks it — it won't half-load or crash silently). There's no single jar that covers both: Cobblemon 1.8.0 changed some internal APIs the mod uses, so the **1.7.3** build exists specifically to keep working on servers that haven't updated Cobblemon yet. `1.8.0` and `1.8.1` share the same public API, so the regular release covers both.
 * [**Architectury API**](https://modrinth.com/mod/architectury-api) `>= 13.0` (Fabric or NeoForge) — usually already installed by Cobblemon
 * **Fabric:** Fabric Loader `>= 0.16` + Fabric API + Fabric Language Kotlin
 * **NeoForge:** NeoForge `21.1.133+` + Kotlin for Forge `5.7.0+`
