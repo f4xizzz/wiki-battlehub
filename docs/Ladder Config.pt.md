@@ -37,7 +37,7 @@ Todo arquivo gerado sai com os **defaults da classe** para as regras, e as ranqu
 
 ## **Template de Configuração**
 
-Abaixo, um template completo de Ladder mostrando todos os campos da classe `Ladder.java`. Os valores aqui são um exemplo ilustrativo de **Singles ranqueado apertado** — não uma cópia do arquivo auto-gerado. Para referência, os defaults da classe (o que você tem se omitir um campo) são: `enforce*Clause: true`, todo `allow*: true`, todo `max*: 6`, `requiredTeamSize: 6`, `adjustLevel: 50`.
+Abaixo, um template completo de Ladder mostrando todos os campos da classe `Ladder.java`. Os valores aqui são um exemplo ilustrativo de **Singles ranqueado apertado** — não uma cópia do arquivo auto-gerado. Para referência, os defaults da classe (o que você tem se omitir um campo) são: `enforce*Clause: true`, `openTeamSheet: false`, todo `allow*: true`, todo `max*: 6`, `requiredTeamSize: 6`, `adjustLevel: 50`.
 
 ```json
 {
@@ -51,6 +51,8 @@ Abaixo, um template completo de Ladder mostrando todos os campos da classe `Ladd
   "adjustLevel": 50,
   "enforceSpeciesClause": true,
   "enforceItemClause": true,
+
+  "openTeamSheet": false,
   "banPresets": [
     "ou"
   ],
@@ -98,6 +100,7 @@ Abaixo, um template completo de Ladder mostrando todos os campos da classe `Ladd
 
 - **`enforceSpeciesClause`** (true/false): Impede que o jogador use dois ou mais Pokémon da mesma espécie na mesma equipe.
 - **`enforceItemClause`** (true/false): Impede que dois ou mais Pokémon segurem o mesmo item equipado.
+- **`openTeamSheet`** (true/false, Padrão: `false`): O que o jogador pode ver do time **adversário** na tela pré-batalha. `false` (formatos padrão — singles, ranqueada, casual…): ao passar o mouse num Pokémon do adversário aparecem só espécie, nível e tipos; habilidade, item, natureza e golpes ficam escondidos. `true` (**Open Team Sheet**, estilo VGC): o tooltip também revela habilidade, item, natureza e golpes do adversário. O seu próprio time sempre aparece completo. Arquivos de ladder criados antes desse campo existir se comportam como `false`.
 
 ### **4. Filtros de Meta (Lendários, Míticos e Paradoxos)**
 

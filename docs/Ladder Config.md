@@ -37,7 +37,7 @@ Every generated file is written with **class defaults** for the rules, and the r
 
 ## **Configuration Template**
 
-Below is a full JSON template for a Ladder, showing every field from the `Ladder.java` class. The values here are an illustrative **strict ranked Singles** example — not a copy of the auto-generated file. For reference, the class defaults (what you get if you omit a field) are: `enforce*Clause: true`, every `allow*: true`, every `max*: 6`, `requiredTeamSize: 6`, `adjustLevel: 50`.
+Below is a full JSON template for a Ladder, showing every field from the `Ladder.java` class. The values here are an illustrative **strict ranked Singles** example — not a copy of the auto-generated file. For reference, the class defaults (what you get if you omit a field) are: `enforce*Clause: true`, `openTeamSheet: false`, every `allow*: true`, every `max*: 6`, `requiredTeamSize: 6`, `adjustLevel: 50`.
 
 ```json
 {
@@ -53,6 +53,8 @@ Below is a full JSON template for a Ladder, showing every field from the `Ladder
 
   "enforceSpeciesClause": true,
   "enforceItemClause": true,
+
+  "openTeamSheet": false,
 
   "banPresets": ["ou"],
   "bannedSpeciesKeys": [],
@@ -104,6 +106,7 @@ Below is a full JSON template for a Ladder, showing every field from the `Ladder
 
 * **`enforceSpeciesClause`** (true/false): Prevents the player from using two or more Pokémon of the same species on the same team.  
 * **`enforceItemClause`** (true/false): Prevents two or more Pokémon from holding the same equipped item.
+* **`openTeamSheet`** (true/false, Default: `false`): What a player can see about the **opponent's** team on the pre-battle screen. `false` (standard formats — singles, ranked, casual…): hovering an opponent's Pokémon shows only its species, level and types; ability, held item, nature and moves stay hidden. `true` (**Open Team Sheet**, VGC-style): the tooltip also reveals the opponent's ability, held item, nature and moves. Your own team is always shown in full. Ladder files created before this field existed behave as `false`.
 
 ### **4. Meta Filters (Legendary, Mythical, and Paradox Pokémon)**
 
