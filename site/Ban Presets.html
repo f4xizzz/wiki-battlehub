@@ -1949,6 +1949,30 @@
 <span class="w">  </span><span class="s2">"cobblemon:meowscarada"</span>
 <span class="p">]</span>
 </code></pre></div>
+<p>How an entry is matched against a Pokémon in a player's party:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Entry</th>
+<th style="text-align: left;">Bans</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ursaluna</code> (species only)</td>
+<td style="text-align: left;"><strong>Every</strong> form of that species — regular Ursaluna <em>and</em> Ursaluna-Bloodmoon</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ursalunabloodmoon</code> (species + form, no separators)</td>
+<td style="text-align: left;">Only that form — the form part is Cobblemon's form name in lowercase (<code>Bloodmoon</code>, <code>Shadow</code>, <code>Alola</code>, <code>Hisui</code>…)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ursaluna aspect=bloodmoon</code></td>
+<td style="text-align: left;">Same as above, in the long form</td>
+</tr>
+</tbody>
+</table>
+<p>So to ban a special form without banning the base species, always use the species + form key.</p>
 <h3 id="step-3-use-the-preset-in-a-ladder"><strong>Step 3: Use the Preset in a Ladder</strong></h3>
 <p>Open your Ladder file (in the <code>ladders/</code> folder) and add the preset ID to <code>"banPresets"</code> — you can list several, and they stack with each other and with the ladder's own <code>bannedSpeciesKeys</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -1960,6 +1984,10 @@
 <h3 id="step-4-reload"><strong>Step 4: Reload</strong></h3>
 <p>To apply and sync the new files, run the reload command from the console or as an in-game administrator:</p>
 <p><code>/bh reload</code></p>
+<div class="admonition note">
+<p class="admonition-title">Updating the built-in lists</p>
+<p>The bundled presets are only written when the file is <strong>missing</strong> — updating the mod never overwrites a preset file you already have, so a correction to a built-in list won't reach an existing <code>ou.json</code> / <code>legendaries.json</code> / <code>monotype.json</code>. To get the fresh version, delete that file and run <code>/bh reload</code> (it is regenerated automatically), or edit the entry by hand.</p>
+</div>
 <hr />
 
 

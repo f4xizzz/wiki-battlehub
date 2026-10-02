@@ -47,6 +47,7 @@ Uma derrota por desistência forçada (W.O) é declarada nos seguintes cenários
 1. O oponente ativo recebe uma vitória automática por W.O. com uma mensagem de congratulações no chat.  
 2. O desertor recebe uma derrota automática no perfil de estatísticas e perde Rating (`R`) normalmente.  
 3. É aplicado um **bloqueio temporário (Ranked Ban)** ao jogador. A duração desse ban é cumulativa e impede a pessoa de entrar de novo na fila competitiva por um tempo determinado.
+4. O **Honor** do jogador cai 15% (veja [Ranks § Honor](Ranks.md#honor)).
 
 **Aviso de Fila Bloqueada:** Ao tentar entrar na fila de matchmaking com o banimento ativo, o jogador recebe o aviso do tempo restante formatado (`ex: "Você está banido da fila competitiva por mais 01h 15m"`).
 
@@ -64,5 +65,11 @@ Para evitar que um jogador abuse do comando para fugir de uma derrota iminente, 
    * Nenhum dos jogadores perde ou ganha Rating (`R`).  
    * Os dois jogadores e as equipes são teleportados de volta em segurança para os locais de origem pelo safeRescue.  
    * A arena instanciada é liberada e limpa imediatamente do servidor.
+
+## **4\. Timeout da Seleção de Lead**
+
+Depois que uma partida é encontrada, os dois jogadores são teleportados pra arena e têm uma janela pré-batalha de **30 segundos** pra escolher o Pokémon lead. Se um jogador (ou os dois) não confirmar o lead quando o tempo acabar, a batalha **começa automaticamente** e o lead que faltou é escolhido por ele — o **primeiro Pokémon da party**. Ninguém consegue deixar uma partida presa na fase pré-batalha simplesmente não escolhendo.
+
+Se mesmo assim algo der errado, o `/bh leave` e o `/fixbattle` mútuo acima continuam disponíveis.
 
 ---

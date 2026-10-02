@@ -38,7 +38,7 @@
 | :--- | :--- | :--- |
 | `/battlehub`<br>_Aliases: `/bh`, `/bhub`, `/cbh`_ | Opens the main Cobblemon BattleHUB interface. | `battlehub.base` |
 | `/bh serverstatus` | Shows general server information and performance data. | `battlehub.serverstatus` |
-| `/bh reload` | Instantly reloads all mod configuration files. | `battlehub.reload` |
+| `/bh reload` | Instantly reloads all mod configuration files — including ladders and ban presets — and re-syncs the active ladders to every online player. | `battlehub.reload` |
 | `/bh clearqueue` | Clears the global matchmaking queue, removing all players from it. | `battlehub.clearqueue` |
 | `/bh activation [LICENSE-KEY]` | Validates and activates the mod license for the server IP. | `battlehub.activation` |
 | `/bh arenas` | Shows the status and technical data of loaded arenas (structures). | `battlehub.arenas` |

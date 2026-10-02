@@ -87,6 +87,16 @@ Adicione os Pokémon como um array JSON simples de IDs de espécie. Os nomes sã
 ]
 ```
 
+Como uma entrada é comparada com os Pokémon do time do jogador:
+
+| Entrada | Bane |
+| :--- | :--- |
+| `ursaluna` (só a espécie) | **Todas** as formas dessa espécie — o Ursaluna normal *e* o Ursaluna-Bloodmoon |
+| `ursalunabloodmoon` (espécie + forma, sem separadores) | Só aquela forma — a parte da forma é o nome da forma no Cobblemon em minúsculas (`Bloodmoon`, `Shadow`, `Alola`, `Hisui`…) |
+| `ursaluna aspect=bloodmoon` | Igual à de cima, na forma longa |
+
+Então, pra banir uma forma especial sem banir a espécie base, use sempre a chave espécie + forma.
+
 ### **Passo 3: Utilizar o Preset em uma Ladder**
 
 Abra o arquivo da sua Ladder (na pasta `ladders/`) e adicione o ID do preset em `"banPresets"` — você pode listar vários, e eles se somam entre si e com o `bannedSpeciesKeys` da própria ladder:
@@ -104,5 +114,8 @@ Abra o arquivo da sua Ladder (na pasta `ladders/`) e adicione o ID do preset em 
 Para aplicar e sincronizar os novos arquivos criados, execute o comando de reload no console ou como administrador in-game:
 
 `/bh reload`
+
+!!! note "Atualizando as listas que já vêm no mod"
+    Os presets que vêm no mod só são escritos quando o arquivo **não existe** — atualizar o mod nunca sobrescreve um preset que você já tem, então uma correção numa lista padrão não chega num `ou.json` / `legendaries.json` / `monotype.json` já existente. Pra pegar a versão nova, apague o arquivo e rode `/bh reload` (ele é regenerado automaticamente), ou edite a entrada na mão.
 
 ---

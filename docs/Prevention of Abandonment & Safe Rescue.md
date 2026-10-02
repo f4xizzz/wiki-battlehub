@@ -47,6 +47,7 @@ A forced surrender loss (W.O) is declared in the following scenarios:
 1. The active opponent receives an automatic W.O. victory with a congratulatory chat message.  
 2. The leaver receives an automatic loss in their stats profile and loses Rating (`R`) as usual.  
 3. The player is applied a **temporary ranked ban**. The duration of this ban is cumulative and prevents the user from re-entering the competitive queue for a set period.
+4. The player's **Honor** drops by 15% (see [Ranks § Honor](Ranks.md#honor)).
 
 **Queue Ban Warning:** When attempting to enter matchmaking with an active ban, the player receives a formatted remaining time warning (e.g. `"You are banned from the competitive queue for another 01h 15m"`).
 
@@ -64,5 +65,11 @@ To prevent a player from abusing the command to escape an imminent loss, the sys
    * Neither player loses or gains Rating (`R`).  
    * Both players and their teams are safely teleported back to their original locations by safeRescue.  
    * The instantiated arena is released and cleared from the server immediately.
+
+## **4. Lead Selection Timeout**
+
+After a match is found, both players are teleported into the arena and get a **30-second** pre-battle window to pick their lead Pokémon. If one player (or both) hasn't confirmed a lead when the timer runs out, the battle **starts automatically** and the missing lead is picked for them — the **first Pokémon in their party**. Nobody can leave a match stuck in the pre-battle phase by simply never choosing.
+
+If something still goes wrong, `/bh leave` and the mutual `/fixbattle` above remain available.
 
 ---

@@ -41,12 +41,29 @@ When a player disconnects or is punished for inactivity mid-ranked-match, `recor
 1. **Automatic loss:** the leaver takes an immediate loss and drops `R` as normal.
 2. **W.O. win for the opponent:** the remaining player is told the opponent left and receives the win.
 3. **Leaver Ban:** the leaver is barred from the ranked queue for a **cumulative** period (each fresh offence stacks more time).
+4. **Honor penalty:** the leaver's [Honor](#honor) drops by **15%** (never below 0%).
 
 Re-queuing during an active ban shows a formatted notice, e.g.:
 
 > *"You are banned from the competitive queue for another 01h 15m due to recent abandons."*
 
 Clear a ban manually with `/bh clearban <player>`.
+
+---
+
+## **Honor**
+
+**Honor** is a sportsmanship score shown as a badge on each player's profile (hover the badge in-game for a quick explanation). Everyone starts at **100%**.
+
+| Event | Honor change |
+| :--- | :--- |
+| Forfeit or AFK / disconnect in a **ranked** match (see above) | **−15%** |
+| Finishing a match normally (win or loss, **ranked or casual**) | **+2%** |
+
+Honor is always kept between **0% and 100%**, so it takes several clean matches to recover from a single abandonment ("punish fast, recover slowly" — the same pace as the Leaver Ban's escalation reset after 20 clean matches).
+
+!!! note
+    Honor is a reputation indicator only — it does not block anyone from the queue by itself. The actual queue restriction is the **Leaver Ban** above. Matches that end as a mutual no-show (nobody contested the battle) change nobody's Honor.
 
 ---
 

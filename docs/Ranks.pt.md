@@ -41,12 +41,29 @@ Quando um jogador desconecta ou é punido por inatividade no meio de uma partida
 1. **Derrota automática:** quem abandonou leva uma derrota imediata e perde `R` normalmente.
 2. **Vitória por W.O. para o oponente:** o jogador que ficou é avisado de que o oponente saiu e recebe a vitória.
 3. **Leaver Ban:** o desistente fica barrado da fila ranqueada por um período **cumulativo** (cada nova infração acumula mais tempo).
+4. **Penalidade de Honor:** o [Honor](#honor) do desistente cai **15%** (nunca abaixo de 0%).
 
 Ao tentar entrar na fila com um ban ativo, aparece um aviso formatado, tipo:
 
 > *"Você está banido da fila competitiva por mais 01h 15m devido a abandonos recentes."*
 
 Remova um ban manualmente com `/bh clearban <jogador>`.
+
+---
+
+## **Honor**
+
+**Honor** é uma pontuação de esportividade mostrada como um badge no perfil de cada jogador (passe o mouse no badge dentro do jogo pra ver uma explicação rápida). Todo mundo começa com **100%**.
+
+| Evento | Variação do Honor |
+| :--- | :--- |
+| Desistir ou ficar AFK / desconectar numa partida **ranqueada** (veja acima) | **−15%** |
+| Terminar uma partida normalmente (vitória ou derrota, **ranqueada ou casual**) | **+2%** |
+
+O Honor fica sempre entre **0% e 100%**, então são necessárias várias partidas limpas pra se recuperar de um único abandono ("pune rápido, recupera devagar" — o mesmo ritmo do reset de escalonamento do Leaver Ban, que acontece depois de 20 partidas limpas).
+
+!!! note
+    O Honor é só um indicador de reputação — ele não bloqueia ninguém da fila sozinho. A restrição de fila de verdade é o **Leaver Ban** acima. Partidas que terminam num mútuo no-show (ninguém contestou a batalha) não mudam o Honor de ninguém.
 
 ---
 

@@ -1949,6 +1949,30 @@
 <span class="w">  </span><span class="s2">"cobblemon:meowscarada"</span>
 <span class="p">]</span>
 </code></pre></div>
+<p>Como uma entrada é comparada com os Pokémon do time do jogador:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Entrada</th>
+<th style="text-align: left;">Bane</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ursaluna</code> (só a espécie)</td>
+<td style="text-align: left;"><strong>Todas</strong> as formas dessa espécie — o Ursaluna normal <em>e</em> o Ursaluna-Bloodmoon</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ursalunabloodmoon</code> (espécie + forma, sem separadores)</td>
+<td style="text-align: left;">Só aquela forma — a parte da forma é o nome da forma no Cobblemon em minúsculas (<code>Bloodmoon</code>, <code>Shadow</code>, <code>Alola</code>, <code>Hisui</code>…)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ursaluna aspect=bloodmoon</code></td>
+<td style="text-align: left;">Igual à de cima, na forma longa</td>
+</tr>
+</tbody>
+</table>
+<p>Então, pra banir uma forma especial sem banir a espécie base, use sempre a chave espécie + forma.</p>
 <h3 id="passo-3-utilizar-o-preset-em-uma-ladder"><strong>Passo 3: Utilizar o Preset em uma Ladder</strong></h3>
 <p>Abra o arquivo da sua Ladder (na pasta <code>ladders/</code>) e adicione o ID do preset em <code>"banPresets"</code> — você pode listar vários, e eles se somam entre si e com o <code>bannedSpeciesKeys</code> da própria ladder:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -1960,6 +1984,10 @@
 <h3 id="passo-4-recarregar"><strong>Passo 4: Recarregar</strong></h3>
 <p>Para aplicar e sincronizar os novos arquivos criados, execute o comando de reload no console ou como administrador in-game:</p>
 <p><code>/bh reload</code></p>
+<div class="admonition note">
+<p class="admonition-title">Atualizando as listas que já vêm no mod</p>
+<p>Os presets que vêm no mod só são escritos quando o arquivo <strong>não existe</strong> — atualizar o mod nunca sobrescreve um preset que você já tem, então uma correção numa lista padrão não chega num <code>ou.json</code> / <code>legendaries.json</code> / <code>monotype.json</code> já existente. Pra pegar a versão nova, apague o arquivo e rode <code>/bh reload</code> (ele é regenerado automaticamente), ou edite a entrada na mão.</p>
+</div>
 <hr />
 
 

@@ -35,6 +35,17 @@ Every generated file is written with **class defaults** for the rules, and the r
 
 ---
 
+## **How Ladders Reach the Players (Queue Screen)**
+
+The server sends the list of **active** ladders (the ones listed in `activeRankedLadders` / `activeCasualLadders`) to every player when they join, and again to everyone online every time you run `/bh reload`. The queue screen is built from that list:
+
+* **Ranked tab:** only the formats (Singles / Doubles / Triples) that have an active ranked ladder are offered, and the **Lv. 50** / **Lv. 100** buttons are only enabled for levels where an active ranked ladder exists for the selected format. To offer ranked at Lv. 100, create a ladder with `"ranked": true`, the right `battleTypeId` and `"adjustLevel": 100`, then add its `id` to `activeRankedLadders` and run `/bh reload`.
+  * If a format has several active ranked ladders, the one matching the selected level is used. If none matches exactly (for example `"adjustLevel": 0`, which has no button), the first one listed for that format is used.
+* **Casual tab:** still offers the fixed formats Singles / Doubles / Triples / Monotype at Lv. 50 and Lv. 100, using the generated IDs from the table above (`<format>_<level>_casual`). Keep those IDs in `activeCasualLadders` — a casual format that isn't active is rejected by the server with an *Invalid format* message.
+* **Removed or deactivated ladders can't be queued:** the server only accepts a queue request for a ladder that is currently **active**, even if its file still exists in the folder.
+
+---
+
 ## **Configuration Template**
 
 Below is a full JSON template for a Ladder, showing every field from the `Ladder.java` class. The values here are an illustrative **strict ranked Singles** example — not a copy of the auto-generated file. For reference, the class defaults (what you get if you omit a field) are: `enforce*Clause: true`, `openTeamSheet: false`, every `allow*: true`, every `max*: 6`, `requiredTeamSize: 6`, `adjustLevel: 50`.
@@ -106,7 +117,7 @@ Below is a full JSON template for a Ladder, showing every field from the `Ladder
 
 * **`enforceSpeciesClause`** (true/false): Prevents the player from using two or more Pokémon of the same species on the same team.  
 * **`enforceItemClause`** (true/false): Prevents two or more Pokémon from holding the same equipped item.
-* **`openTeamSheet`** (true/false, Default: `false`): What a player can see about the **opponent's** team on the pre-battle screen. `false` (standard formats — singles, ranked, casual…): hovering an opponent's Pokémon shows only its species, level and types; ability, held item, nature and moves stay hidden. `true` (**Open Team Sheet**, VGC-style): the tooltip also reveals the opponent's ability, held item, nature and moves. Your own team is always shown in full. Ladder files created before this field existed behave as `false`.
+* **`openTeamSheet`** (true/false, Default: `false`): What a player can see about the **opponent's** team on the pre-battle screen. `false` (standard formats — singles, ranked, casual…): hovering an opponent's Pokémon shows only its species, level and types; ability, held item, nature and moves stay hidden. `true` (**Open Team Sheet**, VGC-style): the tooltip also reveals the opponent's ability, held item, nature and moves. Your own team is always shown in full. Ladder files created before this field existed behave as `false`. This setting only affects the pre-battle screen: the **Battle History** screen always shows just the species and level of the **opponent's** team (never their items, abilities, natures or moves), in every format — so nobody can scout a tournament opponent's exact sets from past matches. Your own team is always shown in full there.
 
 ### **4. Meta Filters (Legendary, Mythical, and Paradox Pokémon)**
 

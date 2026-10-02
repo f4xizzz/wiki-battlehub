@@ -87,6 +87,16 @@ Add the Pokémon as a plain JSON array of species IDs. Names are lowercased auto
 ]
 ```
 
+How an entry is matched against a Pokémon in a player's party:
+
+| Entry | Bans |
+| :--- | :--- |
+| `ursaluna` (species only) | **Every** form of that species — regular Ursaluna *and* Ursaluna-Bloodmoon |
+| `ursalunabloodmoon` (species + form, no separators) | Only that form — the form part is Cobblemon's form name in lowercase (`Bloodmoon`, `Shadow`, `Alola`, `Hisui`…) |
+| `ursaluna aspect=bloodmoon` | Same as above, in the long form |
+
+So to ban a special form without banning the base species, always use the species + form key.
+
 ### **Step 3: Use the Preset in a Ladder**
 
 Open your Ladder file (in the `ladders/` folder) and add the preset ID to `"banPresets"` — you can list several, and they stack with each other and with the ladder's own `bannedSpeciesKeys`:
@@ -104,5 +114,8 @@ Open your Ladder file (in the `ladders/` folder) and add the preset ID to `"banP
 To apply and sync the new files, run the reload command from the console or as an in-game administrator:
 
 `/bh reload`
+
+!!! note "Updating the built-in lists"
+    The bundled presets are only written when the file is **missing** — updating the mod never overwrites a preset file you already have, so a correction to a built-in list won't reach an existing `ou.json` / `legendaries.json` / `monotype.json`. To get the fresh version, delete that file and run `/bh reload` (it is regenerated automatically), or edit the entry by hand.
 
 ---

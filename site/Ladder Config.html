@@ -969,6 +969,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-ladders-reach-the-players-queue-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Ladders Reach the Players (Queue Screen)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-template" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1724,6 +1735,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-ladders-reach-the-players-queue-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Ladders Reach the Players (Queue Screen)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-template" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1898,6 +1920,15 @@
 </table>
 <p>Every generated file is written with <strong>class defaults</strong> for the rules, and the ranked / tournament ones additionally get <code>"banPresets": ["ou"]</code> (monotype tournament gets <code>["monotype"]</code>). So a freshly generated <code>singles_ranked.json</code> still has <code>allowDynamax: true</code>, <code>allowRestrictedLegendary: true</code>, <code>maxSubLegendary: 6</code>, etc. — <strong>if you want a strict ranked meta you must tighten those yourself.</strong></p>
 <hr />
+<h2 id="how-ladders-reach-the-players-queue-screen"><strong>How Ladders Reach the Players (Queue Screen)</strong></h2>
+<p>The server sends the list of <strong>active</strong> ladders (the ones listed in <code>activeRankedLadders</code> / <code>activeCasualLadders</code>) to every player when they join, and again to everyone online every time you run <code>/bh reload</code>. The queue screen is built from that list:</p>
+<ul>
+<li><strong>Ranked tab:</strong> only the formats (Singles / Doubles / Triples) that have an active ranked ladder are offered, and the <strong>Lv. 50</strong> / <strong>Lv. 100</strong> buttons are only enabled for levels where an active ranked ladder exists for the selected format. To offer ranked at Lv. 100, create a ladder with <code>"ranked": true</code>, the right <code>battleTypeId</code> and <code>"adjustLevel": 100</code>, then add its <code>id</code> to <code>activeRankedLadders</code> and run <code>/bh reload</code>.</li>
+<li>If a format has several active ranked ladders, the one matching the selected level is used. If none matches exactly (for example <code>"adjustLevel": 0</code>, which has no button), the first one listed for that format is used.</li>
+<li><strong>Casual tab:</strong> still offers the fixed formats Singles / Doubles / Triples / Monotype at Lv. 50 and Lv. 100, using the generated IDs from the table above (<code>&lt;format&gt;_&lt;level&gt;_casual</code>). Keep those IDs in <code>activeCasualLadders</code> — a casual format that isn't active is rejected by the server with an <em>Invalid format</em> message.</li>
+<li><strong>Removed or deactivated ladders can't be queued:</strong> the server only accepts a queue request for a ladder that is currently <strong>active</strong>, even if its file still exists in the folder.</li>
+</ul>
+<hr />
 <h2 id="configuration-template"><strong>Configuration Template</strong></h2>
 <p>Below is a full JSON template for a Ladder, showing every field from the <code>Ladder.java</code> class. The values here are an illustrative <strong>strict ranked Singles</strong> example — not a copy of the auto-generated file. For reference, the class defaults (what you get if you omit a field) are: <code>enforce*Clause: true</code>, <code>openTeamSheet: false</code>, every <code>allow*: true</code>, every <code>max*: 6</code>, <code>requiredTeamSize: 6</code>, <code>adjustLevel: 50</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -1964,7 +1995,7 @@
 <ul>
 <li><strong><code>enforceSpeciesClause</code></strong> (true/false): Prevents the player from using two or more Pokémon of the same species on the same team.  </li>
 <li><strong><code>enforceItemClause</code></strong> (true/false): Prevents two or more Pokémon from holding the same equipped item.</li>
-<li><strong><code>openTeamSheet</code></strong> (true/false, Default: <code>false</code>): What a player can see about the <strong>opponent's</strong> team on the pre-battle screen. <code>false</code> (standard formats — singles, ranked, casual…): hovering an opponent's Pokémon shows only its species, level and types; ability, held item, nature and moves stay hidden. <code>true</code> (<strong>Open Team Sheet</strong>, VGC-style): the tooltip also reveals the opponent's ability, held item, nature and moves. Your own team is always shown in full. Ladder files created before this field existed behave as <code>false</code>.</li>
+<li><strong><code>openTeamSheet</code></strong> (true/false, Default: <code>false</code>): What a player can see about the <strong>opponent's</strong> team on the pre-battle screen. <code>false</code> (standard formats — singles, ranked, casual…): hovering an opponent's Pokémon shows only its species, level and types; ability, held item, nature and moves stay hidden. <code>true</code> (<strong>Open Team Sheet</strong>, VGC-style): the tooltip also reveals the opponent's ability, held item, nature and moves. Your own team is always shown in full. Ladder files created before this field existed behave as <code>false</code>. This setting only affects the pre-battle screen: the <strong>Battle History</strong> screen always shows just the species and level of the <strong>opponent's</strong> team (never their items, abilities, natures or moves), in every format — so nobody can scout a tournament opponent's exact sets from past matches. Your own team is always shown in full there.</li>
 </ul>
 <h3 id="4-meta-filters-legendary-mythical-and-paradox-pokemon"><strong>4. Meta Filters (Legendary, Mythical, and Paradox Pokémon)</strong></h3>
 <p>BattleHUB reads Cobblemon's own labels for each species, so these filters stay accurate as Cobblemon adds new Pokémon — you never maintain a manual list.</p>

@@ -35,6 +35,17 @@ Todo arquivo gerado sai com os **defaults da classe** para as regras, e as ranqu
 
 ---
 
+## **Como as Ladders Chegam nos Jogadores (Tela de Fila)**
+
+O servidor envia a lista de ladders **ativas** (as listadas em `activeRankedLadders` / `activeCasualLadders`) pra todo jogador quando ele entra, e de novo pra todo mundo online toda vez que você roda `/bh reload`. A tela de fila é montada a partir dessa lista:
+
+- **Aba Ranked:** só aparecem os formatos (Singles / Doubles / Triples) que têm uma ladder ranqueada ativa, e os botões **Lv. 50** / **Lv. 100** só ficam habilitados nos níveis em que existe ladder ranqueada ativa pro formato selecionado. Pra oferecer ranqueada em Lv. 100, crie uma ladder com `"ranked": true`, o `battleTypeId` certo e `"adjustLevel": 100`, depois adicione o `id` dela em `activeRankedLadders` e rode `/bh reload`.
+  - Se um formato tiver várias ladders ranqueadas ativas, é usada a que bate com o nível selecionado. Se nenhuma bater exatamente (por exemplo `"adjustLevel": 0`, que não tem botão), é usada a primeira listada pra aquele formato.
+- **Aba Casual:** continua oferecendo os formatos fixos Singles / Doubles / Triples / Monotype em Lv. 50 e Lv. 100, usando os IDs gerados da tabela acima (`<formato>_<nível>_casual`). Mantenha esses IDs em `activeCasualLadders` — um formato casual que não esteja ativo é recusado pelo servidor com a mensagem *Invalid format*.
+- **Ladders removidas ou desativadas não entram na fila:** o servidor só aceita pedido de fila de uma ladder que esteja **ativa** agora, mesmo que o arquivo dela ainda exista na pasta.
+
+---
+
 ## **Template de Configuração**
 
 Abaixo, um template completo de Ladder mostrando todos os campos da classe `Ladder.java`. Os valores aqui são um exemplo ilustrativo de **Singles ranqueado apertado** — não uma cópia do arquivo auto-gerado. Para referência, os defaults da classe (o que você tem se omitir um campo) são: `enforce*Clause: true`, `openTeamSheet: false`, todo `allow*: true`, todo `max*: 6`, `requiredTeamSize: 6`, `adjustLevel: 50`.
@@ -100,7 +111,7 @@ Abaixo, um template completo de Ladder mostrando todos os campos da classe `Ladd
 
 - **`enforceSpeciesClause`** (true/false): Impede que o jogador use dois ou mais Pokémon da mesma espécie na mesma equipe.
 - **`enforceItemClause`** (true/false): Impede que dois ou mais Pokémon segurem o mesmo item equipado.
-- **`openTeamSheet`** (true/false, Padrão: `false`): O que o jogador pode ver do time **adversário** na tela pré-batalha. `false` (formatos padrão — singles, ranqueada, casual…): ao passar o mouse num Pokémon do adversário aparecem só espécie, nível e tipos; habilidade, item, natureza e golpes ficam escondidos. `true` (**Open Team Sheet**, estilo VGC): o tooltip também revela habilidade, item, natureza e golpes do adversário. O seu próprio time sempre aparece completo. Arquivos de ladder criados antes desse campo existir se comportam como `false`.
+- **`openTeamSheet`** (true/false, Padrão: `false`): O que o jogador pode ver do time **adversário** na tela pré-batalha. `false` (formatos padrão — singles, ranqueada, casual…): ao passar o mouse num Pokémon do adversário aparecem só espécie, nível e tipos; habilidade, item, natureza e golpes ficam escondidos. `true` (**Open Team Sheet**, estilo VGC): o tooltip também revela habilidade, item, natureza e golpes do adversário. O seu próprio time sempre aparece completo. Arquivos de ladder criados antes desse campo existir se comportam como `false`. Esse campo só afeta a tela pré-batalha: a tela de **Histórico de Batalhas** sempre mostra só espécie e nível do time do **adversário** (nunca itens, habilidades, naturezas ou golpes), em qualquer formato — assim ninguém consegue espiar os sets exatos de um adversário de torneio pelas partidas passadas. O seu próprio time sempre aparece completo ali.
 
 ### **4. Filtros de Meta (Lendários, Míticos e Paradoxos)**
 
