@@ -24,7 +24,7 @@ Com o arquivo salvo, sincronize todos os dados executando o seguinte comando in-
 
 ### **Passo 3: Abra as Inscrições**
 
-Altere o campo `"manualRegistrationOpen"` para true no arquivo JSON e dê `/bhubtournament reload`, ou use a interface administrativa in-game para liberar o botão de inscrição para a comunidade.
+Altere o campo `"manualRegistrationOpen"` para true no arquivo JSON e dê `/bhubtournament reload`, ou use a interface administrativa in-game para liberar o botão de inscrição para a comunidade. Sem mexer no arquivo (1.4+): `/bhubtournament <ID_do_Torneio> set registration on` abre as inscrições na hora e grava a mudança no JSON.
 
 ### **Passo 4: Sorteie a Tabela e Inicie o Evento**
 
@@ -82,7 +82,7 @@ Na primeira inicialização, o mod gera automaticamente um perfil de teste de ex
 ### **3\. Mecânicas de Inscrição e Lógica**
 
 * **`tournamentActive`** (true/false):  
-  Ativa ou desativa a exibição do torneio na interface gráfica dos jogadores. Se definido como false, o torneio fica oculto in-game.  
+  Flag de marcação do perfil (editável in-game com `set active on|off`). Ela **não** é usada para esconder o torneio nem bloquear inscrições — o torneio aparece para os jogadores de qualquer forma; use `manualRegistrationOpen` para controlar as inscrições.  
 * **`manualRegistrationOpen`** (true/false):  
   Determina se as inscrições para o torneio estão liberadas para os jogadores normais se registrarem via menu do mod.  
 * **`maxParticipants`** (Padrão: 16):  
@@ -91,6 +91,9 @@ Na primeira inicialização, o mod gera automaticamente um perfil de teste de ex
   A quantidade mínima de jogadores necessária para que o sorteio de chaves (roll) possa ser executado de forma oficial.  
 * **`testModeNoMinLimit`** (true/false):  
   Se ativado, ignora a regra de minParticipants. É ideal para testes de desenvolvimento em servidores locais com bots ou poucos jogadores.
+
+!!! tip "Edite isto dentro do jogo (1.4+)"
+    `/bhubtournament <ID_do_Torneio> set <campo> <valor>` altera `registration`, `testmode`, `active`, `min`, `max`, `name`, `date`, `rewards`... e já grava o JSON para você — veja [Tournament Commands](Tournament Commands.md).
 
 ### **4\. Integração de Formatos**
 

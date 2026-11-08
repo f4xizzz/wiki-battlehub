@@ -12,8 +12,11 @@ O sistema de torneios do **Cobblemon BattleHUB** é integrado ao ecossistema de 
 ### **1. Ativação e Preparação do Arquivo**
 Para liberar um torneio, abra o arquivo JSON correspondente ao seu torneio na pasta do mod e ajuste as seguintes propriedades para `true`:
 
-* **`tournamentActive`**: Define se o torneio está ativo no servidor.
+* **`tournamentActive`**: Flag de marcação do perfil. As inscrições e as partidas são controladas por `manualRegistrationOpen` e pelos comandos abaixo — essa flag não as bloqueia sozinha.
 * **`manualRegistrationOpen`**: Abre as inscrições para que os jogadores possam participar.
+
+!!! tip "Alternativa dentro do jogo (1.4+)"
+    Você não precisa editar o arquivo: `/bht <tournamentId> set registration on` abre as inscrições na hora e `/bht <tournamentId> set testmode on` liga o modo de teste. As duas mudanças são gravadas no JSON — veja [Tournament Commands](Tournament Commands.md).
 
 > 💡 **Dica de Testes:** Se você estiver apenas testando a mecânica de torneios sozinho ou com poucas pessoas, ative a opção `"testModeNoMinLimit": true` para ignorar a exigência do número mínimo de participantes.
 
@@ -37,6 +40,15 @@ Com as inscrições encerradas, execute o comando de sorteio para gerar as chave
 > 📢 **Recomendação:** Certifique-se de estar com o **Webhook do Discord** configurado para receber o painel visual do chaveamento gerado diretamente no seu servidor.
 
 ### **4. Gerenciamento e Convocação de Partidas**
+
+#### **Jeito rápido: próxima partida e auto-run** *(1.4+)*
+Você não precisa digitar o ID do bloco a cada partida:
+
+* `/bht startmatch` convoca a **próxima partida na ordem do chaveamento**.
+* `/bht <id do torneio> autorun on` faz o servidor convocar as partidas **sozinho**, uma depois da outra, seguindo a chave (`/bht <id do torneio> autorun off` para).
+* `/bht phases` lista cada fase e partida com o status, com um **[START]** clicável nas que podem ser convocadas.
+
+Os jogadores convocados passam exatamente pelos mesmos passos da Opção A abaixo (overlay → **Ready** → batalha).
 
 #### **Opção A: Iniciar a Partida Oficialmente para os Jogadores**
 Para convocar os dois competidores de um bloco para a batalha, use o comando:
@@ -62,6 +74,8 @@ Caso ocorra algum imprevisto ou você precise avançar um jogador manualmente, u
 *(Exemplo: `/bht setwinner default_phase_1_1 1`)*
 
 ### 🔍 **Onde encontrar o ID dos Blocos?**
+**Jeito mais fácil (1.4+):** use `/bht phases` — ele lista cada bloco com os jogadores e o status — ou aperte Tab depois de `/bht startmatch ` ou `/bht setwinner `.
+
 Os IDs de cada partida/bloco são gerados e salvos no arquivo `tournaments_state.json`, localizado no diretório:
 
 `config/cobblemon_battlehub/tournaments_state.json`
@@ -123,7 +137,7 @@ Para evitar que jogadores ausentes (AFK) travem o andamento de todo o torneio, o
 * Cada partida convocada ganha uma data limite em milissegundos.  
 * Se o cronômetro estourar e um dos competidores não tiver confirmado prontidão, o sistema executa a eliminação automática:  
   * Se o Player 2 marcou pronto mas o Player 1 não, o Player 2 é declarado vencedor por W.O.  
-  * Se nenhum dos dois marcou pronto, o sistema elimina ambos ou promove o que estiver com a melhor semente/prontidão.  
+  * Em todos os outros casos (só o Player 1 marcou pronto, ou nenhum dos dois marcou), o Player 1 do bloco avança.  
   * O anúncio da desclassificação é enviado no chat e a chave é atualizada imediatamente no banco de dados.
 
 ---

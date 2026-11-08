@@ -1793,6 +1793,10 @@
 <li><strong>Seat Mapping:</strong> The system scans around the arena center for specific blocks to place the spectator (read more below).  </li>
 <li><strong>Teleport and Broadcast:</strong> The spectator is teleported to the seat, oriented toward the fight center, and begins receiving the mod’s combat messages and arena data stream.</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Joining before the battle starts</p>
+<p>You can spectate a match while the players are still picking their lead Pokémon. The spectator waits in the stands and the battle broadcast starts as soon as the fight begins (since 1.4 you are no longer dropped from the stands during this phase).</p>
+</div>
 <hr />
 <h2 id="the-stand-mechanism-seats"><strong>The Stand Mechanism (Seats)</strong></h2>
 <p>To prevent spectators from floating chaotically around the stadium, the mod uses an intelligent <strong>Seat Scanning</strong> algorithm.</p>
@@ -1817,16 +1821,16 @@
 <p>Since Minecraft’s spectator mode allows free movement through walls and ceilings, the mod constantly monitors each spectator’s position every server tick to prevent abuse (such as spying on bases, ghosting, or chunk-loading exploits).</p>
 <p>There is an invisible safety cylinder configured with the following rules relative to the arena center:</p>
 <ul>
-<li><strong>Maximum Horizontal Distance:</strong> 30 blocks. If the player moves more than 30 horizontal blocks from the center, they are intercepted.  </li>
+<li><strong>Maximum Horizontal Distance:</strong> about 46 blocks (the 30-block seat-scan radius × √2 + 4). The limit is wide enough that every stand seat — including the corner ones — is inside it; if the player moves farther than that from the center, they are intercepted.  </li>
 <li><strong>Maximum Height (Y):</strong> 12 blocks above the arena floor level.  </li>
-<li><strong>Minimum Depth (Y):</strong> 2 blocks below the arena floor level.<pre><code>  [Limit: +12 Blocks Height]  
+<li><strong>Minimum Depth (Y):</strong> 4 blocks below the arena floor level.<pre><code>  [Limit: +12 Blocks Height]  
  ┌─────────────────────────────────┐  
- │        ALLOWED BROADCAST        │  30 Blocks  
+ │        ALLOWED BROADCAST        │  ~46 Blocks  
  │         AREA (Spectator)        │ ◄───────►  
  │                                 │  Radius X/Z  
  │            Arena [X]            │  
  └─────────────────────────────────┘  
-  [Limit: -2 Blocks Depth]
+  [Limit: -4 Blocks Depth]
 </code></pre>
 </li>
 </ul>
@@ -1835,7 +1839,8 @@
 <ol>
 <li>Block the movement and automatically find a new valid empty slab seat in the stands.  </li>
 <li>Teleport the player immediately back to the stands and rotate their camera back toward the fight.  </li>
-<li>Display a visual warning on the player’s action bar: <code>spectator.status.out_of_bounds</code>.</li>
+<li>Display a visual warning on the player’s action bar: <code>spectator.status.out_of_bounds</code> (at most once every 2 seconds, so it no longer floods the screen).  </li>
+<li>The player is always sent back to the <strong>arena's own dimension</strong>, even if they jumped to a player in another world using the spectator menu.</li>
 </ol>
 <hr />
 <h2 id="exiting-spectator-mode"><strong>Exiting Spectator Mode</strong></h2>

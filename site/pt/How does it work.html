@@ -1483,6 +1483,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#jeito-rapido-proxima-partida-e-auto-run-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jeito rápido: próxima partida e auto-run (1.4+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#opcao-a-iniciar-a-partida-oficialmente-para-os-jogadores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1814,6 +1825,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#jeito-rapido-proxima-partida-e-auto-run-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jeito rápido: próxima partida e auto-run (1.4+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#opcao-a-iniciar-a-partida-oficialmente-para-os-jogadores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1976,9 +1998,13 @@
 <h3 id="1-ativacao-e-preparacao-do-arquivo"><strong>1. Ativação e Preparação do Arquivo</strong></h3>
 <p>Para liberar um torneio, abra o arquivo JSON correspondente ao seu torneio na pasta do mod e ajuste as seguintes propriedades para <code>true</code>:</p>
 <ul>
-<li><strong><code>tournamentActive</code></strong>: Define se o torneio está ativo no servidor.</li>
+<li><strong><code>tournamentActive</code></strong>: Flag de marcação do perfil. As inscrições e as partidas são controladas por <code>manualRegistrationOpen</code> e pelos comandos abaixo — essa flag não as bloqueia sozinha.</li>
 <li><strong><code>manualRegistrationOpen</code></strong>: Abre as inscrições para que os jogadores possam participar.</li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Alternativa dentro do jogo (1.4+)</p>
+<p>Você não precisa editar o arquivo: <code>/bht &lt;tournamentId&gt; set registration on</code> abre as inscrições na hora e <code>/bht &lt;tournamentId&gt; set testmode on</code> liga o modo de teste. As duas mudanças são gravadas no JSON — veja <a href="Tournament%20Commands.html">Tournament Commands</a>.</p>
+</div>
 <blockquote>
 <p>💡 <strong>Dica de Testes:</strong> Se você estiver apenas testando a mecânica de torneios sozinho ou com poucas pessoas, ative a opção <code>"testModeNoMinLimit": true</code> para ignorar a exigência do número mínimo de participantes.</p>
 </blockquote>
@@ -1999,6 +2025,14 @@
 <p>📢 <strong>Recomendação:</strong> Certifique-se de estar com o <strong>Webhook do Discord</strong> configurado para receber o painel visual do chaveamento gerado diretamente no seu servidor.</p>
 </blockquote>
 <h3 id="4-gerenciamento-e-convocacao-de-partidas"><strong>4. Gerenciamento e Convocação de Partidas</strong></h3>
+<h4 id="jeito-rapido-proxima-partida-e-auto-run-14"><strong>Jeito rápido: próxima partida e auto-run</strong> <em>(1.4+)</em></h4>
+<p>Você não precisa digitar o ID do bloco a cada partida:</p>
+<ul>
+<li><code>/bht startmatch</code> convoca a <strong>próxima partida na ordem do chaveamento</strong>.</li>
+<li><code>/bht &lt;id do torneio&gt; autorun on</code> faz o servidor convocar as partidas <strong>sozinho</strong>, uma depois da outra, seguindo a chave (<code>/bht &lt;id do torneio&gt; autorun off</code> para).</li>
+<li><code>/bht phases</code> lista cada fase e partida com o status, com um <strong>[START]</strong> clicável nas que podem ser convocadas.</li>
+</ul>
+<p>Os jogadores convocados passam exatamente pelos mesmos passos da Opção A abaixo (overlay → <strong>Ready</strong> → batalha).</p>
 <h4 id="opcao-a-iniciar-a-partida-oficialmente-para-os-jogadores"><strong>Opção A: Iniciar a Partida Oficialmente para os Jogadores</strong></h4>
 <p>Para convocar os dois competidores de um bloco para a batalha, use o comando:</p>
 <p><code>/bht prep &lt;blockid&gt; &lt;timelimit&gt;</code></p>
@@ -2019,6 +2053,7 @@
 <p><code>/bht setwinner &lt;blockid&gt; &lt;winner&gt;</code>
 <em>(Exemplo: <code>/bht setwinner default_phase_1_1 1</code>)</em></p>
 <h3 id="onde-encontrar-o-id-dos-blocos">🔍 <strong>Onde encontrar o ID dos Blocos?</strong></h3>
+<p><strong>Jeito mais fácil (1.4+):</strong> use <code>/bht phases</code> — ele lista cada bloco com os jogadores e o status — ou aperte Tab depois de <code>/bht startmatch</code> ou <code>/bht setwinner</code>.</p>
 <p>Os IDs de cada partida/bloco são gerados e salvos no arquivo <code>tournaments_state.json</code>, localizado no diretório:</p>
 <p><code>config/cobblemon_battlehub/tournaments_state.json</code></p>
 <p><strong>Padronização comum dos IDs dos blocos:</strong></p>
@@ -2066,7 +2101,7 @@
 <li>Cada partida convocada ganha uma data limite em milissegundos.  </li>
 <li>Se o cronômetro estourar e um dos competidores não tiver confirmado prontidão, o sistema executa a eliminação automática:  </li>
 <li>Se o Player 2 marcou pronto mas o Player 1 não, o Player 2 é declarado vencedor por W.O.  </li>
-<li>Se nenhum dos dois marcou pronto, o sistema elimina ambos ou promove o que estiver com a melhor semente/prontidão.  </li>
+<li>Em todos os outros casos (só o Player 1 marcou pronto, ou nenhum dos dois marcou), o Player 1 do bloco avança.  </li>
 <li>O anúncio da desclassificação é enviado no chat e a chave é atualizada imediatamente no banco de dados.</li>
 </ul>
 <hr />

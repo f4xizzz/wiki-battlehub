@@ -19,6 +19,9 @@ Ao entrar no modo espectador (seja por um menu ou comando do mod), o fluxo lógi
 3. **Mapeamento de Bancos:** O sistema varre as proximidades do centro da arena à procura de blocos específicos para acomodar o espectador (leia mais abaixo).  
 4. **Teleporte e Transmissão:** O espectador é teleportado para o assento, virado de frente para o centro do combate, e passa a receber o fluxo de mensagens de combate e dados da arena do mod.
 
+!!! note "Entrando antes da batalha começar"
+    Você pode assistir a uma partida enquanto os jogadores ainda estão escolhendo o Pokémon líder. O espectador espera na arquibancada e a transmissão da batalha começa assim que a luta inicia (a partir da 1.4 você não é mais tirado da arquibancada nessa fase).
+
 ---
 
 ## **O Mecanismo das Arquibancadas (Seats)**
@@ -55,19 +58,19 @@ Como o modo espectador do Minecraft garante movimentação livre (através de pa
 
 Existe um **Cilindro Invisível** de segurança configurado com as seguintes regras em relação ao centro da arena:
 
-* **Distância Horizontal Máxima:** 30 blocos. Se o jogador se afastar mais de 30 blocos horizontais do centro, ele é interceptado.  
+* **Distância Horizontal Máxima:** cerca de 46 blocos (o raio de varredura de 30 blocos × √2 + 4). O limite é largo o bastante para que todo assento da arquibancada — inclusive os dos cantos — fique dentro dele; se o jogador se afastar mais que isso do centro, ele é interceptado.  
 * **Altura Máxima (Y):** 12 blocos acima do nível do chão da arena.  
-* **Profundidade Mínima (Y):** 2 blocos abaixo do nível do chão da arena.
+* **Profundidade Mínima (Y):** 4 blocos abaixo do nível do chão da arena.
 
           [Limite: +12 Blocos de Altura]  
          ┌─────────────────────────────────┐  
-         │         ÁREA PERMITIDA          │  30 Blocs  
+         │         ÁREA PERMITIDA          │  ~46 Blocs  
          │         DE TRANSMISSÃO          │ ◄───────►  
          │          (Espectador)           │  Raio X/Z  
          │                                 │  
          │            Arena [X]            │  
          └─────────────────────────────────┘  
-        [Limite: -2 Blocos de Profundidade]
+        [Limite: -4 Blocos de Profundidade]
 
 ### **O que acontece se o espectador ultrapassar os limites?**
 
@@ -75,7 +78,8 @@ Caso o jogador atravesse as barreiras invisíveis do cilindro, o servidor irá:
 
 1. Bloquear o avanço e encontrar automaticamente um novo assento de laje válido e vazio na arquibancada.  
 2. Teleportar o jogador imediatamente de volta para a arquibancada e rotacionar a sua câmera de volta para a luta.  
-3. Exibir um aviso visual na barra de ações `(Action Bar)` do jogador: `spectator.status.out_of_bounds`.
+3. Exibir um aviso visual na barra de ações `(Action Bar)` do jogador: `spectator.status.out_of_bounds` (no máximo uma vez a cada 2 segundos, então não inunda mais a tela).  
+4. O jogador sempre volta para a **dimensão da própria arena**, mesmo que tenha pulado para um jogador de outro mundo pelo menu de espectador.
 
 ---
 

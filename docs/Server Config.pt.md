@@ -34,7 +34,8 @@ Abaixo está o modelo com a estrutura oficial gerada pela classe ServerConfig pa
          "afkStrikeLimit": 3,  
          "afkExtensionSeconds": 15,  
          "maxAfkAutopilotRounds": 3,  
-         "autopilotActionSeconds": 5, 
+         "autopilotActionSeconds": 5,
+         "allowEntityInteractionInQueue": false, 
          "dailyLimitRankedEnabled": true,
          "dailyLimitRanked": 10,
          "dailyLimitCasualEnabled": false,
@@ -183,5 +184,11 @@ Array onde você cadastra metas específicas de jogo:
 * **`dailyLimitRanked`**: Quantidade máxima de partidas Ranked permitidas por jogador diariamente.
 * **`dailyLimitCasualEnabled`** (true/false): Habilita ou desabilita o limite de partidas casuais por dia.
 * **`dailyLimitCasual`**: Quantidade máxima de partidas Casuais permitidas por jogador diariamente.
+
+---
+
+### **6. Interação Enquanto na Fila** *(desde a 1.4)*
+
+* **`allowEntityInteractionInQueue`** (true/false, Padrão: `false`): Enquanto o jogador está numa fila, o mod bloqueia clicar com o botão direito em **entidades** (outros jogadores, NPCs...), **blocos** (PCs, máquinas de cura, baús...) e a maioria dos comandos. Com `true`, quem está na fila pode interagir com **entidades** — necessário para servidores que abrem o menu do BattleHUB por um NPC. Blocos e comandos continuam bloqueados. Quem está se preparando para uma partida de torneio mantém os três bloqueios independentemente desta opção. Aplique com `/bh reload`.
 
   ---

@@ -1900,7 +1900,7 @@
 <p>Com o arquivo salvo, sincronize todos os dados executando o seguinte comando in-game ou no console:</p>
 <p><code>/bhubtournament reload</code></p>
 <h3 id="passo-3-abra-as-inscricoes"><strong>Passo 3: Abra as Inscrições</strong></h3>
-<p>Altere o campo <code>"manualRegistrationOpen"</code> para true no arquivo JSON e dê <code>/bhubtournament reload</code>, ou use a interface administrativa in-game para liberar o botão de inscrição para a comunidade.</p>
+<p>Altere o campo <code>"manualRegistrationOpen"</code> para true no arquivo JSON e dê <code>/bhubtournament reload</code>, ou use a interface administrativa in-game para liberar o botão de inscrição para a comunidade. Sem mexer no arquivo (1.4+): <code>/bhubtournament &lt;ID_do_Torneio&gt; set registration on</code> abre as inscrições na hora e grava a mudança no JSON.</p>
 <h3 id="passo-4-sorteie-a-tabela-e-inicie-o-evento"><strong>Passo 4: Sorteie a Tabela e Inicie o Evento</strong></h3>
 <p>Assim que o limite de participantes for preenchido (ou no horário agendado com os jogadores online), execute o comando para travar as inscrições e gerar a árvore de eSports:</p>
 <p><code>/bhubtournament &lt;ID_do_Torneio&gt; roll</code></p>
@@ -1945,7 +1945,7 @@
 <h3 id="3-mecanicas-de-inscricao-e-logica"><strong>3. Mecânicas de Inscrição e Lógica</strong></h3>
 <ul>
 <li><strong><code>tournamentActive</code></strong> (true/false):<br />
-  Ativa ou desativa a exibição do torneio na interface gráfica dos jogadores. Se definido como false, o torneio fica oculto in-game.  </li>
+  Flag de marcação do perfil (editável in-game com <code>set active on|off</code>). Ela <strong>não</strong> é usada para esconder o torneio nem bloquear inscrições — o torneio aparece para os jogadores de qualquer forma; use <code>manualRegistrationOpen</code> para controlar as inscrições.  </li>
 <li><strong><code>manualRegistrationOpen</code></strong> (true/false):<br />
   Determina se as inscrições para o torneio estão liberadas para os jogadores normais se registrarem via menu do mod.  </li>
 <li><strong><code>maxParticipants</code></strong> (Padrão: 16):<br />
@@ -1955,6 +1955,10 @@
 <li><strong><code>testModeNoMinLimit</code></strong> (true/false):<br />
   Se ativado, ignora a regra de minParticipants. É ideal para testes de desenvolvimento em servidores locais com bots ou poucos jogadores.</li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Edite isto dentro do jogo (1.4+)</p>
+<p><code>/bhubtournament &lt;ID_do_Torneio&gt; set &lt;campo&gt; &lt;valor&gt;</code> altera <code>registration</code>, <code>testmode</code>, <code>active</code>, <code>min</code>, <code>max</code>, <code>name</code>, <code>date</code>, <code>rewards</code>... e já grava o JSON para você — veja <a href="Tournament%20Commands.html">Tournament Commands</a>.</p>
+</div>
 <h3 id="4-integracao-de-formatos"><strong>4. Integração de Formatos</strong></h3>
 <ul>
 <li><strong><code>ladderName</code></strong>: O nome estético e descritivo do formato que os jogadores lerão (ex: <em>"OverUsed (OU)"</em>, <em>"VGC 2026"</em>).  </li>

@@ -13,10 +13,10 @@ The mod will not load without these:
 
     | Your Cobblemon version | Which download |
     | :--- | :--- |
-    | `1.8.0` or `1.8.1` | The regular release |
+    | `1.8.0` through `1.8.4` | The regular release (BattleHUB 1.4 and newer) |
     | `1.7.3` | The build labelled **1.7.3** |
 
-    Installing the wrong one for your Cobblemon version makes the server refuse to start (Fabric blocks it — it won't half-load or crash silently). There's no single jar that covers both: Cobblemon 1.8.0 changed some internal APIs the mod uses, so the **1.7.3** build exists specifically to keep working on servers that haven't updated Cobblemon yet. `1.8.0` and `1.8.1` share the same public API, so the regular release covers both.
+    Installing the wrong one for your Cobblemon version makes the server refuse to start (Fabric blocks it — it won't half-load or crash silently). There's no single jar that covers both: Cobblemon 1.8.0 changed some internal APIs the mod uses, so the **1.7.3** build exists specifically to keep working on servers that haven't updated Cobblemon yet. Cobblemon `1.8.0` through `1.8.4` expose the same API to BattleHUB (nothing it uses was removed or changed), so the regular release covers all of them.
 * [**Architectury API**](https://modrinth.com/mod/architectury-api) `>= 13.0` (Fabric or NeoForge) — usually already installed by Cobblemon
 * **Fabric:** Fabric Loader `>= 0.16` + Fabric API + Fabric Language Kotlin
 * **NeoForge:** NeoForge `21.1.133+` + Kotlin for Forge `5.7.0+`

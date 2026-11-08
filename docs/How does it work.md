@@ -12,8 +12,11 @@ The **Cobblemon BattleHUB** tournament system is integrated into the server's ba
 ### **1. Activate and Prepare the File**
 To enable a tournament, open the tournament JSON file in the mod folder and set the following properties to `true`:
 
-* **`tournamentActive`**: Determines whether the tournament is active on the server.
+* **`tournamentActive`**: Marker flag of the profile. Registration and matches are controlled by `manualRegistrationOpen` and the commands below — this flag doesn't block them by itself.
 * **`manualRegistrationOpen`**: Opens registration so players can join.
+
+!!! tip "In-game alternative (1.4+)"
+    You don't have to edit the file: `/bht <tournamentId> set registration on` opens registration immediately and `/bht <tournamentId> set testmode on` enables test mode. Both are saved to the JSON — see [Tournament Commands](Tournament Commands.md).
 
 > 💡 **Testing tip:** If you are only testing the tournament system alone or with a small group, enable `"testModeNoMinLimit": true` to ignore the minimum participant requirement.
 
@@ -38,6 +41,15 @@ Once registration is closed, run the draw command to generate the bracket. `<tou
 
 ### **4. Match Management and Callouts**
 
+#### **Quick way: next match and auto-run** *(1.4+)*
+You don't have to type a block ID for every match:
+
+* `/bht startmatch` calls the **next match in bracket order**.
+* `/bht <tournament id> autorun on` makes the server call the matches **by itself**, one after the other, following the bracket (`/bht <tournament id> autorun off` stops it).
+* `/bht phases` lists every phase and match with its status, with a clickable **[START]** on the ones that can be called.
+
+The called players go through exactly the same steps described in Option A below (overlay → **Ready** → battle).
+
 #### **Option A: Start the Match Officially for Players**
 To summon the two competitors in a block to battle, use:
 
@@ -61,6 +73,8 @@ If something unexpected happens or you need to advance a player manually, use:
 *(Example: `/bht setwinner default_phase_1_1 1`)*
 
 ### 🔍 **Where to find block IDs?**
+**Easiest way (1.4+):** run `/bht phases` — it lists every block with its players and status — or press Tab after `/bht startmatch ` or `/bht setwinner `.
+
 The IDs for each match/block are generated and saved in `tournaments_state.json`, located at:
 
 `config/cobblemon_battlehub/tournaments_state.json`
@@ -122,7 +136,7 @@ To prevent absent players (AFK) from stalling the entire tournament, the mod str
 * Each summoned match receives a deadline in milliseconds.
 * If the timer expires and one competitor has not confirmed readiness, the system performs an automatic elimination:
   * If Player 2 is ready but Player 1 is not, Player 2 is declared the winner by W.O.
-  * If neither player is ready, the system eliminates both or advances the one with the better seed/readiness.
+  * In every other case (only Player 1 is ready, or neither player is ready), Player 1 of the block advances.
   * The disqualification announcement is sent in chat and the bracket is updated immediately in the database.
 
 ---

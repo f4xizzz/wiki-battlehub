@@ -19,6 +19,9 @@ When entering spectator mode (either through a menu or mod command), the server 
 3. **Seat Mapping:** The system scans around the arena center for specific blocks to place the spectator (read more below).  
 4. **Teleport and Broadcast:** The spectator is teleported to the seat, oriented toward the fight center, and begins receiving the mod’s combat messages and arena data stream.
 
+!!! note "Joining before the battle starts"
+    You can spectate a match while the players are still picking their lead Pokémon. The spectator waits in the stands and the battle broadcast starts as soon as the fight begins (since 1.4 you are no longer dropped from the stands during this phase).
+
 ---
 
 ## **The Stand Mechanism (Seats)**
@@ -54,18 +57,18 @@ Since Minecraft’s spectator mode allows free movement through walls and ceilin
 
 There is an invisible safety cylinder configured with the following rules relative to the arena center:
 
-* **Maximum Horizontal Distance:** 30 blocks. If the player moves more than 30 horizontal blocks from the center, they are intercepted.  
+* **Maximum Horizontal Distance:** about 46 blocks (the 30-block seat-scan radius × √2 + 4). The limit is wide enough that every stand seat — including the corner ones — is inside it; if the player moves farther than that from the center, they are intercepted.  
 * **Maximum Height (Y):** 12 blocks above the arena floor level.  
-* **Minimum Depth (Y):** 2 blocks below the arena floor level.
+* **Minimum Depth (Y):** 4 blocks below the arena floor level.
 
           [Limit: +12 Blocks Height]  
          ┌─────────────────────────────────┐  
-         │        ALLOWED BROADCAST        │  30 Blocks  
+         │        ALLOWED BROADCAST        │  ~46 Blocks  
          │         AREA (Spectator)        │ ◄───────►  
          │                                 │  Radius X/Z  
          │            Arena [X]            │  
          └─────────────────────────────────┘  
-          [Limit: -2 Blocks Depth]
+          [Limit: -4 Blocks Depth]
 
 ### **What Happens if the Spectator Exceeds the Limits?**
 
@@ -73,7 +76,8 @@ If the player crosses the invisible cylinder boundaries, the server will:
 
 1. Block the movement and automatically find a new valid empty slab seat in the stands.  
 2. Teleport the player immediately back to the stands and rotate their camera back toward the fight.  
-3. Display a visual warning on the player’s action bar: `spectator.status.out_of_bounds`.
+3. Display a visual warning on the player’s action bar: `spectator.status.out_of_bounds` (at most once every 2 seconds, so it no longer floods the screen).  
+4. The player is always sent back to the **arena's own dimension**, even if they jumped to a player in another world using the spectator menu.
 
 ---
 

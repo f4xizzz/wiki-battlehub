@@ -118,4 +118,6 @@ Para aplicar e sincronizar os novos arquivos criados, execute o comando de reloa
 !!! note "Atualizando as listas que já vêm no mod"
     Os presets que vêm no mod só são escritos quando o arquivo **não existe** — atualizar o mod nunca sobrescreve um preset que você já tem, então uma correção numa lista padrão não chega num `ou.json` / `legendaries.json` / `monotype.json` já existente. Pra pegar a versão nova, apague o arquivo e rode `/bh reload` (ele é regenerado automaticamente), ou edite a entrada na mão.
 
+    **Exceção (1.4):** as listas padrão antigas traziam uma entrada solta `ursaluna` — ela bania todas as formas do Ursaluna e fazia o Ursaluna normal parecer um lendário. O mod agora remove essa entrada dos seus `legendaries.json` e `monotype.json` já existentes, automaticamente, ao carregá-los (e registra uma linha no log quando faz isso), e as listas padrão novas não a contêm. O Ursaluna-Bloodmoon continua banido onde os presets estilo Smogon o listam como `ursalunabloodmoon` (ex.: `ou.json`).
+
 ---

@@ -1987,6 +1987,7 @@
 <div class="admonition note">
 <p class="admonition-title">Updating the built-in lists</p>
 <p>The bundled presets are only written when the file is <strong>missing</strong> — updating the mod never overwrites a preset file you already have, so a correction to a built-in list won't reach an existing <code>ou.json</code> / <code>legendaries.json</code> / <code>monotype.json</code>. To get the fresh version, delete that file and run <code>/bh reload</code> (it is regenerated automatically), or edit the entry by hand.</p>
+<p><strong>Exception (1.4):</strong> older built-in lists contained a stray bare <code>ursaluna</code> entry — it banned every form of Ursaluna and made the regular Ursaluna look like a legendary. The mod now removes that entry from your existing <code>legendaries.json</code> and <code>monotype.json</code> automatically when it loads them (and logs a line when it does), and the new built-in lists don't contain it. Ursaluna-Bloodmoon is still banned where the Smogon-style presets list it as <code>ursalunabloodmoon</code> (e.g. <code>ou.json</code>).</p>
 </div>
 <hr />
 

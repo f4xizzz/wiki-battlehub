@@ -24,7 +24,7 @@ With the file saved, sync all data by running the following command in-game or i
 
 ### **Step 3: Open Registration**
 
-Change the `"manualRegistrationOpen"` field to true in the JSON file and run `/bhubtournament reload`, or use the in-game admin interface to unlock the registration button for the community.
+Change the `"manualRegistrationOpen"` field to true in the JSON file and run `/bhubtournament reload`, or use the in-game admin interface to unlock the registration button for the community. Without touching the file at all (1.4+): `/bhubtournament <Tournament_ID> set registration on` opens registration immediately and saves the change to the JSON.
 
 ### **Step 4: Draw the Bracket and Start the Event**
 
@@ -83,7 +83,7 @@ On first startup, the mod automatically generates a sample test profile called `
 
 
 * **`tournamentActive`** (true/false):  
-  Enables or disables the tournament display in the players’ graphical interface. If set to false, the tournament remains hidden in-game.  
+  Marker flag of the profile (editable in-game with `set active on|off`). It is **not** used to hide the tournament or block registration — the tournament is shown to players regardless; use `manualRegistrationOpen` to control registration.  
 * **`manualRegistrationOpen`** (true/false):  
   Determines whether tournament registration is open for normal players to sign up via the mod menu.  
 * **`maxParticipants`** (Default: 16):  
@@ -92,6 +92,9 @@ On first startup, the mod automatically generates a sample test profile called `
   The minimum number of players required for the bracket draw (`roll`) to be executed officially.  
 * **`testModeNoMinLimit`** (true/false):  
   If enabled, ignores the `minParticipants` rule. It is ideal for development testing on local servers with bots or few players.
+
+!!! tip "Edit these in-game (1.4+)"
+    `/bhubtournament <Tournament_ID> set <field> <value>` changes `registration`, `testmode`, `active`, `min`, `max`, `name`, `date`, `rewards`... and saves the JSON for you — see [Tournament Commands](Tournament Commands.md).
 
 ### **4. Format Integration**
 

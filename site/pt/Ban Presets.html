@@ -1987,6 +1987,7 @@
 <div class="admonition note">
 <p class="admonition-title">Atualizando as listas que já vêm no mod</p>
 <p>Os presets que vêm no mod só são escritos quando o arquivo <strong>não existe</strong> — atualizar o mod nunca sobrescreve um preset que você já tem, então uma correção numa lista padrão não chega num <code>ou.json</code> / <code>legendaries.json</code> / <code>monotype.json</code> já existente. Pra pegar a versão nova, apague o arquivo e rode <code>/bh reload</code> (ele é regenerado automaticamente), ou edite a entrada na mão.</p>
+<p><strong>Exceção (1.4):</strong> as listas padrão antigas traziam uma entrada solta <code>ursaluna</code> — ela bania todas as formas do Ursaluna e fazia o Ursaluna normal parecer um lendário. O mod agora remove essa entrada dos seus <code>legendaries.json</code> e <code>monotype.json</code> já existentes, automaticamente, ao carregá-los (e registra uma linha no log quando faz isso), e as listas padrão novas não a contêm. O Ursaluna-Bloodmoon continua banido onde os presets estilo Smogon o listam como <code>ursalunabloodmoon</code> (ex.: <code>ou.json</code>).</p>
 </div>
 <hr />
 
