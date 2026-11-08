@@ -819,6 +819,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6-interaction-while-in-queue-since-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Interaction While in Queue (since 1.4)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1835,6 +1846,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6-interaction-while-in-queue-since-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Interaction While in Queue (since 1.4)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1886,6 +1908,7 @@
 <span class="w">  </span><span class="nt">"afkExtensionSeconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"maxAfkAutopilotRounds"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"autopilotActionSeconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowEntityInteractionInQueue"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"dailyLimitRankedEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"dailyLimitRanked"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"dailyLimitCasualEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
@@ -2029,6 +2052,11 @@
 <li><strong><code>dailyLimitRanked</code></strong>: Maximum number of Ranked matches a player can play per day.</li>
 <li><strong><code>dailyLimitCasualEnabled</code></strong> (true/false): Enables or disables the daily cap for casual matches per day.</li>
 <li><strong><code>dailyLimitCasual</code></strong>: Maximum number of Casual matches a player can play per day.</li>
+</ul>
+<hr />
+<h3 id="6-interaction-while-in-queue-since-14"><strong>6. Interaction While in Queue</strong> <em>(since 1.4)</em></h3>
+<ul>
+<li><strong><code>allowEntityInteractionInQueue</code></strong> (true/false, Default: <code>false</code>): While a player is in a queue, the mod blocks right-clicking <strong>entities</strong> (other players, NPCs...), <strong>blocks</strong> (PCs, healing machines, chests...) and most commands. Setting this to <code>true</code> lets queued players interact with <strong>entities</strong> — needed by servers that open the BattleHUB menu from an NPC. Blocks and commands stay blocked. Players who are preparing a tournament match keep all three locks regardless of this option. Apply it with <code>/bh reload</code>.</li>
 </ul>
 <hr />
 

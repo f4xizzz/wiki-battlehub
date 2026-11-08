@@ -1175,6 +1175,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4-timeout-da-selecao-de-lead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Timeout da Seleção de Lead
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1752,6 +1763,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4-timeout-da-selecao-de-lead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Timeout da Seleção de Lead
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1805,6 +1827,7 @@
 <li>O oponente ativo recebe uma vitória automática por W.O. com uma mensagem de congratulações no chat.  </li>
 <li>O desertor recebe uma derrota automática no perfil de estatísticas e perde Rating (<code>R</code>) normalmente.  </li>
 <li>É aplicado um <strong>bloqueio temporário (Ranked Ban)</strong> ao jogador. A duração desse ban é cumulativa e impede a pessoa de entrar de novo na fila competitiva por um tempo determinado.</li>
+<li>O <strong>Honor</strong> do jogador cai 15% (veja <a href="Ranks.html#honor">Ranks § Honor</a>).</li>
 </ol>
 <p><strong>Aviso de Fila Bloqueada:</strong> Ao tentar entrar na fila de matchmaking com o banimento ativo, o jogador recebe o aviso do tempo restante formatado (<code>ex: "Você está banido da fila competitiva por mais 01h 15m"</code>).</p>
 <h2 id="3-cancelamento-seguro"><strong>3. Cancelamento Seguro</strong></h2>
@@ -1819,6 +1842,9 @@
 <li>Os dois jogadores e as equipes são teleportados de volta em segurança para os locais de origem pelo safeRescue.  </li>
 <li>A arena instanciada é liberada e limpa imediatamente do servidor.</li>
 </ol>
+<h2 id="4-timeout-da-selecao-de-lead"><strong>4. Timeout da Seleção de Lead</strong></h2>
+<p>Depois que uma partida é encontrada, os dois jogadores são teleportados pra arena e têm uma janela pré-batalha de <strong>30 segundos</strong> pra escolher o Pokémon lead. Se um jogador (ou os dois) não confirmar o lead quando o tempo acabar, a batalha <strong>começa automaticamente</strong> e o lead que faltou é escolhido por ele — o <strong>primeiro Pokémon da party</strong>. Ninguém consegue deixar uma partida presa na fase pré-batalha simplesmente não escolhendo.</p>
+<p>Se mesmo assim algo der errado, o <code>/bh leave</code> e o <code>/fixbattle</code> mútuo acima continuam disponíveis.</p>
 <hr />
 
 

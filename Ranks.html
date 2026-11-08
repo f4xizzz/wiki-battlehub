@@ -1092,6 +1092,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#honor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Honor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#profile-data" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1736,6 +1747,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#honor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Honor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#profile-data" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1836,12 +1858,39 @@
 <li><strong>Automatic loss:</strong> the leaver takes an immediate loss and drops <code>R</code> as normal.</li>
 <li><strong>W.O. win for the opponent:</strong> the remaining player is told the opponent left and receives the win.</li>
 <li><strong>Leaver Ban:</strong> the leaver is barred from the ranked queue for a <strong>cumulative</strong> period (each fresh offence stacks more time).</li>
+<li><strong>Honor penalty:</strong> the leaver's <a href="#honor">Honor</a> drops by <strong>15%</strong> (never below 0%).</li>
 </ol>
 <p>Re-queuing during an active ban shows a formatted notice, e.g.:</p>
 <blockquote>
 <p><em>"You are banned from the competitive queue for another 01h 15m due to recent abandons."</em></p>
 </blockquote>
 <p>Clear a ban manually with <code>/bh clearban &lt;player&gt;</code>.</p>
+<hr />
+<h2 id="honor"><strong>Honor</strong></h2>
+<p><strong>Honor</strong> is a sportsmanship score shown as a badge on each player's profile (hover the badge in-game for a quick explanation). Everyone starts at <strong>100%</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Event</th>
+<th style="text-align: left;">Honor change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Forfeit or AFK / disconnect in a <strong>ranked</strong> match (see above)</td>
+<td style="text-align: left;"><strong>−15%</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Finishing a match normally (win or loss, <strong>ranked or casual</strong>)</td>
+<td style="text-align: left;"><strong>+2%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Honor is always kept between <strong>0% and 100%</strong>, so it takes several clean matches to recover from a single abandonment ("punish fast, recover slowly" — the same pace as the Leaver Ban's escalation reset after 20 clean matches).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Honor is a reputation indicator only — it does not block anyone from the queue by itself. The actual queue restriction is the <strong>Leaver Ban</strong> above. Matches that end as a mutual no-show (nobody contested the battle) change nobody's Honor.</p>
+</div>
 <hr />
 <h2 id="profile-data"><strong>Profile Data</strong></h2>
 <p>Stored in the <code>MySQL</code> / <code>SQLite</code> table (see <a href="Storage.html">Storage</a>):</p>

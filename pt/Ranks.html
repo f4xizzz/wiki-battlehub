@@ -1092,6 +1092,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#honor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Honor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dados-de-perfil" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1736,6 +1747,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#honor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Honor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dados-de-perfil" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1836,12 +1858,39 @@
 <li><strong>Derrota automática:</strong> quem abandonou leva uma derrota imediata e perde <code>R</code> normalmente.</li>
 <li><strong>Vitória por W.O. para o oponente:</strong> o jogador que ficou é avisado de que o oponente saiu e recebe a vitória.</li>
 <li><strong>Leaver Ban:</strong> o desistente fica barrado da fila ranqueada por um período <strong>cumulativo</strong> (cada nova infração acumula mais tempo).</li>
+<li><strong>Penalidade de Honor:</strong> o <a href="#honor">Honor</a> do desistente cai <strong>15%</strong> (nunca abaixo de 0%).</li>
 </ol>
 <p>Ao tentar entrar na fila com um ban ativo, aparece um aviso formatado, tipo:</p>
 <blockquote>
 <p><em>"Você está banido da fila competitiva por mais 01h 15m devido a abandonos recentes."</em></p>
 </blockquote>
 <p>Remova um ban manualmente com <code>/bh clearban &lt;jogador&gt;</code>.</p>
+<hr />
+<h2 id="honor"><strong>Honor</strong></h2>
+<p><strong>Honor</strong> é uma pontuação de esportividade mostrada como um badge no perfil de cada jogador (passe o mouse no badge dentro do jogo pra ver uma explicação rápida). Todo mundo começa com <strong>100%</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Evento</th>
+<th style="text-align: left;">Variação do Honor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Desistir ou ficar AFK / desconectar numa partida <strong>ranqueada</strong> (veja acima)</td>
+<td style="text-align: left;"><strong>−15%</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Terminar uma partida normalmente (vitória ou derrota, <strong>ranqueada ou casual</strong>)</td>
+<td style="text-align: left;"><strong>+2%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>O Honor fica sempre entre <strong>0% e 100%</strong>, então são necessárias várias partidas limpas pra se recuperar de um único abandono ("pune rápido, recupera devagar" — o mesmo ritmo do reset de escalonamento do Leaver Ban, que acontece depois de 20 partidas limpas).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>O Honor é só um indicador de reputação — ele não bloqueia ninguém da fila sozinho. A restrição de fila de verdade é o <strong>Leaver Ban</strong> acima. Partidas que terminam num mútuo no-show (ninguém contestou a batalha) não mudam o Honor de ninguém.</p>
+</div>
 <hr />
 <h2 id="dados-de-perfil"><strong>Dados de Perfil</strong></h2>
 <p>Guardados na tabela <code>MySQL</code> / <code>SQLite</code> (veja <a href="Storage.html">Storage</a>):</p>

@@ -1793,6 +1793,10 @@
 <li><strong>Mapeamento de Bancos:</strong> O sistema varre as proximidades do centro da arena à procura de blocos específicos para acomodar o espectador (leia mais abaixo).  </li>
 <li><strong>Teleporte e Transmissão:</strong> O espectador é teleportado para o assento, virado de frente para o centro do combate, e passa a receber o fluxo de mensagens de combate e dados da arena do mod.</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Entrando antes da batalha começar</p>
+<p>Você pode assistir a uma partida enquanto os jogadores ainda estão escolhendo o Pokémon líder. O espectador espera na arquibancada e a transmissão da batalha começa assim que a luta inicia (a partir da 1.4 você não é mais tirado da arquibancada nessa fase).</p>
+</div>
 <hr />
 <h2 id="o-mecanismo-das-arquibancadas-seats"><strong>O Mecanismo das Arquibancadas (Seats)</strong></h2>
 <p>Para evitar que os espectadores fiquem flutuando de forma desorganizada pelo estádio, o mod possui um algoritmo inteligente de <strong>Varredura de Assentos</strong>.</p>
@@ -1817,17 +1821,17 @@
 <p>Como o modo espectador do Minecraft garante movimentação livre (através de paredes e teto), o mod monitora constantemente a posição de cada espectador a cada tick do servidor para evitar abusos (como espionar bases, "Ghosting" ou travamento de chunks).</p>
 <p>Existe um <strong>Cilindro Invisível</strong> de segurança configurado com as seguintes regras em relação ao centro da arena:</p>
 <ul>
-<li><strong>Distância Horizontal Máxima:</strong> 30 blocos. Se o jogador se afastar mais de 30 blocos horizontais do centro, ele é interceptado.  </li>
+<li><strong>Distância Horizontal Máxima:</strong> cerca de 46 blocos (o raio de varredura de 30 blocos × √2 + 4). O limite é largo o bastante para que todo assento da arquibancada — inclusive os dos cantos — fique dentro dele; se o jogador se afastar mais que isso do centro, ele é interceptado.  </li>
 <li><strong>Altura Máxima (Y):</strong> 12 blocos acima do nível do chão da arena.  </li>
-<li><strong>Profundidade Mínima (Y):</strong> 2 blocos abaixo do nível do chão da arena.<pre><code>  [Limite: +12 Blocos de Altura]  
+<li><strong>Profundidade Mínima (Y):</strong> 4 blocos abaixo do nível do chão da arena.<pre><code>  [Limite: +12 Blocos de Altura]  
  ┌─────────────────────────────────┐  
- │         ÁREA PERMITIDA          │  30 Blocs  
+ │         ÁREA PERMITIDA          │  ~46 Blocs  
  │         DE TRANSMISSÃO          │ ◄───────►  
  │          (Espectador)           │  Raio X/Z  
  │                                 │  
  │            Arena [X]            │  
  └─────────────────────────────────┘  
-[Limite: -2 Blocos de Profundidade]
+[Limite: -4 Blocos de Profundidade]
 </code></pre>
 </li>
 </ul>
@@ -1836,7 +1840,8 @@
 <ol>
 <li>Bloquear o avanço e encontrar automaticamente um novo assento de laje válido e vazio na arquibancada.  </li>
 <li>Teleportar o jogador imediatamente de volta para a arquibancada e rotacionar a sua câmera de volta para a luta.  </li>
-<li>Exibir um aviso visual na barra de ações <code>(Action Bar)</code> do jogador: <code>spectator.status.out_of_bounds</code>.</li>
+<li>Exibir um aviso visual na barra de ações <code>(Action Bar)</code> do jogador: <code>spectator.status.out_of_bounds</code> (no máximo uma vez a cada 2 segundos, então não inunda mais a tela).  </li>
+<li>O jogador sempre volta para a <strong>dimensão da própria arena</strong>, mesmo que tenha pulado para um jogador de outro mundo pelo menu de espectador.</li>
 </ol>
 <hr />
 <h2 id="saindo-do-modo-espectador"><strong>Saindo do Modo Espectador</strong></h2>

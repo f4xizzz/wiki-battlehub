@@ -969,6 +969,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#como-as-ladders-chegam-nos-jogadores-tela-de-fila" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como as Ladders Chegam nos Jogadores (Tela de Fila)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#template-de-configuracao" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1724,6 +1735,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#como-as-ladders-chegam-nos-jogadores-tela-de-fila" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como as Ladders Chegam nos Jogadores (Tela de Fila)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#template-de-configuracao" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1898,6 +1920,15 @@
 </table>
 <p>Todo arquivo gerado sai com os <strong>defaults da classe</strong> para as regras, e as ranqueadas / de torneio ainda recebem <code>"banPresets": ["ou"]</code> (o torneio monotype recebe <code>["monotype"]</code>). Ou seja, um <code>singles_ranked.json</code> recém-gerado ainda tem <code>allowDynamax: true</code>, <code>allowRestrictedLegendary: true</code>, <code>maxSubLegendary: 6</code>, etc. — <strong>se você quer um meta ranqueado apertado, precisa apertar isso você mesmo.</strong></p>
 <hr />
+<h2 id="como-as-ladders-chegam-nos-jogadores-tela-de-fila"><strong>Como as Ladders Chegam nos Jogadores (Tela de Fila)</strong></h2>
+<p>O servidor envia a lista de ladders <strong>ativas</strong> (as listadas em <code>activeRankedLadders</code> / <code>activeCasualLadders</code>) pra todo jogador quando ele entra, e de novo pra todo mundo online toda vez que você roda <code>/bh reload</code>. A tela de fila é montada a partir dessa lista:</p>
+<ul>
+<li><strong>Aba Ranked:</strong> só aparecem os formatos (Singles / Doubles / Triples) que têm uma ladder ranqueada ativa, e os botões <strong>Lv. 50</strong> / <strong>Lv. 100</strong> só ficam habilitados nos níveis em que existe ladder ranqueada ativa pro formato selecionado. Pra oferecer ranqueada em Lv. 100, crie uma ladder com <code>"ranked": true</code>, o <code>battleTypeId</code> certo e <code>"adjustLevel": 100</code>, depois adicione o <code>id</code> dela em <code>activeRankedLadders</code> e rode <code>/bh reload</code>.</li>
+<li>Se um formato tiver várias ladders ranqueadas ativas, é usada a que bate com o nível selecionado. Se nenhuma bater exatamente (por exemplo <code>"adjustLevel": 0</code>, que não tem botão), é usada a primeira listada pra aquele formato.</li>
+<li><strong>Aba Casual:</strong> continua oferecendo os formatos fixos Singles / Doubles / Triples / Monotype em Lv. 50 e Lv. 100, usando os IDs gerados da tabela acima (<code>&lt;formato&gt;_&lt;nível&gt;_casual</code>). Mantenha esses IDs em <code>activeCasualLadders</code> — um formato casual que não esteja ativo é recusado pelo servidor com a mensagem <em>Invalid format</em>.</li>
+<li><strong>Ladders removidas ou desativadas não entram na fila:</strong> o servidor só aceita pedido de fila de uma ladder que esteja <strong>ativa</strong> agora, mesmo que o arquivo dela ainda exista na pasta.</li>
+</ul>
+<hr />
 <h2 id="template-de-configuracao"><strong>Template de Configuração</strong></h2>
 <p>Abaixo, um template completo de Ladder mostrando todos os campos da classe <code>Ladder.java</code>. Os valores aqui são um exemplo ilustrativo de <strong>Singles ranqueado apertado</strong> — não uma cópia do arquivo auto-gerado. Para referência, os defaults da classe (o que você tem se omitir um campo) são: <code>enforce*Clause: true</code>, <code>openTeamSheet: false</code>, todo <code>allow*: true</code>, todo <code>max*: 6</code>, <code>requiredTeamSize: 6</code>, <code>adjustLevel: 50</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -1957,7 +1988,7 @@
 <ul>
 <li><strong><code>enforceSpeciesClause</code></strong> (true/false): Impede que o jogador use dois ou mais Pokémon da mesma espécie na mesma equipe.</li>
 <li><strong><code>enforceItemClause</code></strong> (true/false): Impede que dois ou mais Pokémon segurem o mesmo item equipado.</li>
-<li><strong><code>openTeamSheet</code></strong> (true/false, Padrão: <code>false</code>): O que o jogador pode ver do time <strong>adversário</strong> na tela pré-batalha. <code>false</code> (formatos padrão — singles, ranqueada, casual…): ao passar o mouse num Pokémon do adversário aparecem só espécie, nível e tipos; habilidade, item, natureza e golpes ficam escondidos. <code>true</code> (<strong>Open Team Sheet</strong>, estilo VGC): o tooltip também revela habilidade, item, natureza e golpes do adversário. O seu próprio time sempre aparece completo. Arquivos de ladder criados antes desse campo existir se comportam como <code>false</code>.</li>
+<li><strong><code>openTeamSheet</code></strong> (true/false, Padrão: <code>false</code>): O que o jogador pode ver do time <strong>adversário</strong> na tela pré-batalha. <code>false</code> (formatos padrão — singles, ranqueada, casual…): ao passar o mouse num Pokémon do adversário aparecem só espécie, nível e tipos; habilidade, item, natureza e golpes ficam escondidos. <code>true</code> (<strong>Open Team Sheet</strong>, estilo VGC): o tooltip também revela habilidade, item, natureza e golpes do adversário. O seu próprio time sempre aparece completo. Arquivos de ladder criados antes desse campo existir se comportam como <code>false</code>. Esse campo só afeta a tela pré-batalha: a tela de <strong>Histórico de Batalhas</strong> sempre mostra só espécie e nível do time do <strong>adversário</strong> (nunca itens, habilidades, naturezas ou golpes), em qualquer formato — assim ninguém consegue espiar os sets exatos de um adversário de torneio pelas partidas passadas. O seu próprio time sempre aparece completo ali.</li>
 </ul>
 <h3 id="4-filtros-de-meta-lendarios-miticos-e-paradoxos"><strong>4. Filtros de Meta (Lendários, Míticos e Paradoxos)</strong></h3>
 <p>O BattleHUB lê as próprias <em>labels</em> do Cobblemon para cada espécie, então esses filtros continuam corretos conforme o Cobblemon adiciona novos Pokémon — você nunca mantém uma lista manual.</p>
